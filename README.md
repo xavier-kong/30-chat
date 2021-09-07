@@ -9,3 +9,5 @@ Current options include:
 Therefore. I decided to create 30chat. This project utilizes the strengths of the above solutions as well offering a potential fix to their issues. 30chat will do so with the following features:
 * create temporary group chats that are deleted after 30 minutes 
 * a user can create a group chat that can only be accessed by people who have the link and password phrase
+
+There will be a table to keep track of users and groupchats, then a temporary group chat table that will keep track of all messages in the group chat. A "time_created" column in the users and groupchats table will be used to keep track of when the user/group chat should be deleted. 
