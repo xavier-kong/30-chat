@@ -19,6 +19,7 @@ The user table will track:
 
 The group chat table will track:
 * group chat name
+* group passphrase for joining
 * group chat creation date (for deletion after appropriate interval)
 
 The messages table will track:
