@@ -13,8 +13,7 @@ Therefore. I decided to create 30chat. This project utilizes the strengths of th
 There will be 3 tables, one for tracking user information, one for tracking group chats and one for tracking all messages. 
 
 The user table will track: 
-* user name 
-* user username 
+* user nickname / username
 * user password hashes 
 * user creation date (for deletion after appropriate interval)
 
