@@ -11,3 +11,11 @@ Therefore. I decided to create 30chat. This project utilizes the strengths of th
 * a user can create a group chat that can only be accessed by people who have the link and password phrase
 
 There will be a table to keep track of users and groupchats, then a temporary group chat table that will keep track of all messages in the group chat. A "time_created" column in the users and groupchats table will be used to keep track of when the user/group chat should be deleted. 
+
+I plan to use:
+* React to build the frontend user interface
+* Express for the server with socket.io for real time support
+* PostgreSQL for data persistence
+* Heroku for deployment
+* Github actions for deployment pipeline
+* Jest/Cypress for testing 
