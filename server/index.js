@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
+const jwt = require('jsonwebtoken')
 const pool = require('./db')
 
 app.use(express.json());
@@ -22,4 +23,28 @@ pool.connect((err, client, done) => {
       console.log(`Connected to postgres at time ${res.rows[0].now}`)
     }
   })
+})
+
+//route for api/users/login
+//rount for api/users/create
+
+app.post('/api/users/create', async(req, res) => {
+  const body = req.body
+  const query = {
+    text: 'SELECT 1 AS exists FROM users WHERE username = $1',
+    values: [body.username]
+  }
+  try {
+    const q = await pool.query(query)
+    if (q.rows[0]) {
+      res.json('exists')
+      //logic return to client to request user change username for account creation
+    }
+    else {
+      res.json('free')
+      //logic to create new user
+    }
+  } catch (err) {
+    console.log(err)
+  }
 })
