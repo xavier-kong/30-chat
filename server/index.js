@@ -36,13 +36,20 @@ app.post('/api/users/create', async(req, res) => {
     values: [body.username]
   }
   try {
-    const q = await pool.query(query)
+    // const q = await pool.query(query)
+    const q = await pool.query('SELECT 1 AS exists FROM users WHERE username = $1', [body.username])
     if (q.rows[0]) {
-      res.json('exists')
-      //logic return to client to request user change username for account creation
+      res.status(405).json('user already exists')
+      //logic return to client to request user change username for account creation or login
     }
     else {
+      const body = req.body
+
+      const saltRounds = 10
+      const passwordHash = await bcrypt.hash(body.password, saltRounds)
+      
       res.json('free')
+
       //logic to create new user
     }
   } catch (err) {
