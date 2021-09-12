@@ -1,18 +1,18 @@
 const express = require('express')
 const cors = require('cors')
-const app = express();
-const jwt = require('jsonwebtoken')
+const app = express()
+//const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 const pool = require('./db')
 
-app.use(express.json());
-app.use(cors());
+app.use(express.json())
+app.use(cors())
 
 const PORT = process.env.PORT || 3001
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+  console.log(`Server running on port ${PORT}`)
+})
 
 pool.connect((err, client, done) => {
   if (err) throw err
@@ -31,12 +31,7 @@ pool.connect((err, client, done) => {
 
 app.post('/api/users/create', async(req, res) => {
   const body = req.body
-  const query = {
-    text: 'SELECT 1 AS exists FROM users WHERE username = $1',
-    values: [body.username]
-  }
   try {
-    // const q = await pool.query(query)
     const q = await pool.query('SELECT 1 AS exists FROM users WHERE username = $1', [body.username])
     if (q.rows[0]) {
       res.status(405).json('user already exists')
@@ -47,12 +42,18 @@ app.post('/api/users/create', async(req, res) => {
 
       const saltRounds = 10
       const passwordHash = await bcrypt.hash(body.password, saltRounds)
-      
-      res.json('free')
+      const date = new Date().toISOString().slice(0, 19).replace('T', ' ')
 
-      //logic to create new user
+      try {
+        await pool.query('INSERT INTO users (username, passwordhash, creation_date) VALUES ($1, $2, $3)', [body.username, passwordHash, date])
+        res.status(201).json('new user created')
+      } catch (err) {
+        console.log(err)
+        res.status(500).json(err)
+      }
     }
   } catch (err) {
     console.log(err)
+    res.status(500).json(err)
   }
 })
