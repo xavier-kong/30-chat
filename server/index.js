@@ -1,9 +1,18 @@
 const express = require('express')
 const cors = require('cors')
 const app = express()
-//const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
-const pool = require('./db')
+//const pool = require('./db')
+const connectionString = process.env.DB_URI
+const Pool = require('pg').Pool
+
+const pool = new Pool({
+  connectionString,
+  ssl: {
+    rejectUnauthorized: false
+  }
+})
 
 app.use(express.json())
 app.use(cors())
@@ -27,7 +36,42 @@ pool.connect((err, client, done) => {
 })
 
 //route for api/users/login
-//rount for api/users/create
+
+app.post('/api/users/login', async(req, res) => {
+  const body = req.body
+
+  try {
+    const user = await pool.query('SELECT * FROM users WHERE username = $1', [body.username])
+    if (user) {
+      console.log(user)
+      const passwordCorrect = await bcrypt.compare(body.password, user.rows[0].passwordhash)
+      if (!passwordCorrect) {
+        res.status(401).json({
+          error: 'invalid username or password'
+        })
+      } else if (passwordCorrect) {
+        const userForToken = {
+          username: user.username,
+          id: user.user_uid
+        }
+
+        const token = jwt.sign(
+          userForToken,
+          process.env.SECRET,
+          { expiresIn: 60 * 30 } //expires in 30 minutes by default, user will have choice to be remembered for 24 hours
+        )
+
+        res.status(200).send({token, username: user.rows[0].username})
+      }
+    } else {
+      res.status(404).json('user not found')
+    }
+  } catch(err) {
+    console.log(err)
+    res.status(401).json(err)
+  }
+
+})
 
 app.post('/api/users/create', async(req, res) => {
   const body = req.body
@@ -35,7 +79,6 @@ app.post('/api/users/create', async(req, res) => {
     const q = await pool.query('SELECT 1 AS exists FROM users WHERE username = $1', [body.username])
     if (q.rows[0]) {
       res.status(405).json('user already exists')
-      //logic return to client to request user change username for account creation or login
     }
     else {
       const body = req.body
