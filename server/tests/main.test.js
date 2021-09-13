@@ -23,7 +23,7 @@ describe('login functionality', () => {
       .expect(404)
       .expect('"user not found"')
   })
-  
+
   test('invalid credentials does not allow login', async () => {
     const wrongLogin = {
       username: 'test1',
@@ -57,13 +57,40 @@ describe('login functionality', () => {
   })
 })
 
+describe('new user creation functionality', () => {
+  test('cannot create new user if username already taken', async () => {
+    const existingUser = {
+      username: 'test1',
+      password: 'password1'
+    }
+
+    await api
+      .post('/api/users/create')
+      .send(existingUser)
+      .expect(405)
+      .expect('"user already exists"')
+  })
+
+  test('new user can be created', async () => {
+    const newUser = {
+      username: 'test4',
+      password: 'password4'
+    }
+
+    await api
+      .post('/api/users/create')
+      .send(newUser)
+      .expect(201)
+      .expect('"new user created"')
+
+    const table = await pool.query('SELECT * FROM users', [])
+    expect(table.rows).toHaveLength(4)
+    expect(table.rows[3].username).toEqual("test4")
+  })
+})
+
 afterAll(done => {
   pool.end()
   done()
 })
-
-// SELECT * FROM users WHERE username = $1
-// SELECT 1 AS exists FROM users WHERE username = $1
-// INSERT INTO users (username, passwordhash, creation_date) VALUES ($1, $2, $3
-
 
