@@ -16,7 +16,6 @@ describe('login functionality', () => {
       username: 'test1',
       password: 'wrong_password'
     }
-
     await api
       .post('/api/users/login')
       .send(wrongLogin)
@@ -26,7 +25,6 @@ describe('login functionality', () => {
 })
 
 afterAll(done => {
-  // Closing the DB connection allows Jest to exit successfully.
   pool.end()
   done()
 })
