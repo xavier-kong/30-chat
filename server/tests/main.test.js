@@ -22,6 +22,26 @@ describe('login functionality', () => {
       .expect(401)
       .expect('{"error":"invalid username or password"}')
   })
+
+  test('valid credentials allows for login', async () => {
+    const correctLogin = {
+      username: 'test1',
+      password: 'password1'
+    }
+    
+    const res = await api
+      .post('/api/users/login')
+      .send(correctLogin)
+      .expect(200)
+
+    const contents = res.body
+    expect(contents).toEqual(
+      expect.objectContaining({
+        "token": expect.any(String),
+        "username": "test1",
+      })
+    )
+  })
 })
 
 afterAll(done => {
