@@ -47,14 +47,11 @@ app.post('/api/users/login', async(req, res) => {
 
         res.status(200).send({token, username: user.rows[0].username})
       }
-    } else {
-      res.status(404).json('user not found')
-    }
+    } 
   } catch(err) {
     console.log(err)
-    res.status(401).json(err)
+    res.status(404).json('user not found')
   }
-
 })
 
 app.post('/api/users/create', async(req, res) => {

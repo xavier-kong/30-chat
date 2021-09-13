@@ -11,6 +11,19 @@ beforeEach(async () => {
 })
 
 describe('login functionality', () => {
+  test('unknown user returns not found', async () => {
+    const unknownUser = {
+      username: 'unknown',
+      password: 'unknown'
+    }
+
+    await api
+      .post('/api/users/login')
+      .send(unknownUser)
+      .expect(404)
+      .expect('"user not found"')
+  })
+  
   test('invalid credentials does not allow login', async () => {
     const wrongLogin = {
       username: 'test1',
