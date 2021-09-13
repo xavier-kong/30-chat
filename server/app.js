@@ -42,7 +42,7 @@ app.post('/api/users/login', async(req, res) => {
         const token = jwt.sign(
           userForToken,
           process.env.SECRET,
-          { expiresIn: 60 * 30 } //expires in 30 minutes by default, user will have choice to be remembered for 24 hours
+          { expiresIn: body.extendExpiry ? 86400 : 1800 } //expires in 30 minutes by default, user will have choice to be remembered for 24 hours
         )
 
         res.status(200).send({token, username: user.rows[0].username})
