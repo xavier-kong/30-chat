@@ -8,8 +8,6 @@ const pgclient = new Client({
     database: 'postgres'
 });
 
-console.log('I made it here')
-
 pgclient.connect();
 
 const table = `CREATE TABLE users (
