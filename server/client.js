@@ -15,11 +15,11 @@ const uid = 'CREATE EXTENSION uuid-ossp'
 
 const table = 'CREATE TABLE student(id SERIAL PRIMARY KEY, firstName VARCHAR(40) NOT NULL, lastName VARCHAR(40) NOT NULL, age INT, address VARCHAR(80), email VARCHAR(40))'
 
-pgclient.query(uid, (err, res) => {
-    if (err) {
-        console.log('error', err)
-    }
-});
+// pgclient.query(uid, (err, res) => {
+//     if (err) {
+//         console.log('error', err)
+//     }
+// });
 
 pgclient.query(table, (err, res) => {
     if (err) {
