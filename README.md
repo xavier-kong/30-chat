@@ -1,5 +1,7 @@
 # 30chat
 
+[![Server tests](https://github.com/xavier-kong/30-chat/actions/workflows/test.yml/badge.svg)](https://github.com/xavier-kong/30-chat/actions/workflows/test.yml)
+
 30chat is a project aimed at solving a problem I encountered in my daily life. I love doing activities with my friends, however planning them can be quite difficult. 
 Current options include:
 * direct message, call everyone involved, one by one. This is one of the most inefficient methods as information travels slowly and assymetrically. Especially when multiple ideas need to be exchanged, this option does poorly. However the benefits of this method is that the user can very specifically indicate which people they would like to include.
