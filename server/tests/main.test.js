@@ -3,8 +3,6 @@ const app = require('../app')
 const api = supertest(app)
 const pool = require('../db')
 
-console.log(pool)
-
 beforeEach(async () => {
   await pool.query('DELETE FROM users', [])
   await pool.query('INSERT INTO users (username, passwordhash, creation_date) VALUES ($1, $2, $3)', ['test1', '$2b$10$WCRFCDDeLmLsVniBCMpxqu5PsaWroe/gF.I.q7E6hF1SvDsZO5gx.', new Date().toISOString().slice(0, 19).replace('T', ' ')])
