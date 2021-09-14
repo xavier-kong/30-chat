@@ -5,7 +5,7 @@ const pgclient = new Pool({
     port: process.env.POSTGRES_PORT,
     user: 'postgres',
     password: process.env.PASSWORD,
-    database: 'postgres_test'
+    database: 'postgres'
 });
 
 console.log('I made it here')
