@@ -19,3 +19,7 @@ const table = `CREATE TABLE users (
     UNIQUE(username),
     UNIQUE(passwordhash)
   )`
+
+pgclient.query(table, (err, res) => {
+    if (err) throw err
+});
