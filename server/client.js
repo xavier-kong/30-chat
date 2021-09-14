@@ -20,7 +20,7 @@ pgclient.query(uid, (err, res) => {
     if (err) throw err
 });
 
-pgclient.query(table, values, (err, res) => {
+pgclient.query(table, (err, res) => {
     if (err) throw err
 });
 
