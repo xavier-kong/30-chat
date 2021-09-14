@@ -10,7 +10,7 @@ const pgclient = new Client({
 
 pgclient.connect();
 
-const uid = 'CREATE EXTENSION IF NOT EXISTS "uuid-ossp"'
+const uid = 'CREATE EXTENSION IF NOT EXISTS "uuid-ossp";'
 const table = 'CREATE TABLE users (    user_uid UUID DEFAULT uuid_generate_v4 () NOT NULL PRIMARY KEY, username VARCHAR(100) NOT NULL, passwordhash VARCHAR(200) NOT NULL, creation_date TIMESTAMP NOT NULL,    UNIQUE(user_uid), UNIQUE(username), UNIQUE(passwordhash))'
 
 pgclient.query(uid, (err, res) => {
