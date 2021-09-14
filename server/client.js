@@ -15,13 +15,13 @@ const table = 'CREATE TABLE users (    user_uid UUID DEFAULT uuid_generate_v4 ()
 
 pgclient.query(uid, (err, res) => {
     if (err) {
-        console.log(err)
+        console.log('error', err)
     }
 });
 
 pgclient.query(table, (err, res) => {
     if (err) {
-        console.log(err)
+        console.log('error', err)
     }
 });
 
