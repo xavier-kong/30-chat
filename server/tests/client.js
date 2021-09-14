@@ -1,10 +1,10 @@
-const Pool = require('pg').Pool;
+const { Client } = require('pg');
 
-const pgclient = new Pool({
+const pgclient = new Client({
     host: process.env.POSTGRES_HOST,
     port: process.env.POSTGRES_PORT,
     user: 'postgres',
-    password: process.env.PASSWORD,
+    password: 'postgres',
     database: 'postgres'
 });
 
