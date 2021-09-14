@@ -24,4 +24,5 @@ pgclient.query(table, (err, res) => {
 pgclient.query('SELECT * FROM user', (err, res) => {
     if (err) throw err
     console.log(err, res.rows) // Print the data in user table
+    pgclient.end()
 });
