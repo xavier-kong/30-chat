@@ -1,4 +1,4 @@
-const { Pool } = require('pg');
+const Pool = require('pg').Pool;
 
 const pgclient = new Pool({
     host: process.env.POSTGRES_HOST,
