@@ -1,6 +1,6 @@
 # 30chat
 
-[![Server tests](https://github.com/xavier-kong/30-chat/actions/workflows/test.yml/badge.svg)](https://github.com/xavier-kong/30-chat/actions/workflows/test.yml)
+[![Tests](https://github.com/xavier-kong/30-chat/actions/workflows/test.yml/badge.svg)](https://github.com/xavier-kong/30-chat/actions/workflows/test.yml)
 
 30chat is a project aimed at solving a problem I encountered in my daily life. I love doing activities with my friends, however planning them can be quite difficult. 
 Current options include:
