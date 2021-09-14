@@ -5,7 +5,7 @@ const pool = process.env.NODE_ENV === 'test'
   ? new Pool({
     user: 'postgres',
     password: process.env.PASSWORD,
-    host: 'localhost',
+    host: process.env.HOST,
     port: 5432,
     database: 'postgres_test'
   })
