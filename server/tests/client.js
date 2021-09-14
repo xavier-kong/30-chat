@@ -8,6 +8,8 @@ const pgclient = new Pool({
     database: 'postgres_test'
 });
 
+console.log('I made it here')
+
 pgclient.connect();
 
 const table = `CREATE TABLE users (
