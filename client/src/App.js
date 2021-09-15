@@ -3,13 +3,15 @@ import React from 'react';
 const Login = () => {
 
   return (
-    <div>Hi</div>
+    <h1>Login</h1>
+    
   )
 }
 
 const App = () => {
   return (
     <h1>30 Chat</h1>
+    <Login />
   )
 }
 
