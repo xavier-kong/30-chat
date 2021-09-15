@@ -55,12 +55,13 @@ describe('login functionality', () => {
       expect.objectContaining({
         "token": expect.any(String),
         "username": "test1",
+        "expiry": expect.any(String)
       })
     )
   })
 
 describe('token validation', () => {
-  test('invalid token raises error', async() =>{
+  test('invalid token raises error', async() => {
     const res = await api
       .post('/api/users/auth')
       .send({token: 'invalidtoken123'})
@@ -86,7 +87,7 @@ describe('token validation', () => {
 
     const token = res.body.token
     
-      await api
+    await api
       .post('/api/users/auth')
       .send({token: `${token}`})
       .expect(200)

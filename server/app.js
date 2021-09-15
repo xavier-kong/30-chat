@@ -73,7 +73,14 @@ app.post('/api/users/login', async(req, res) => {
           { expiresIn: 86400 }
         )
 
-        res.status(200).send({token, username: user.rows[0].username})
+        var date = new Date();
+        date.setDate(date.getDate() + 1);
+
+        res.status(200).send({
+          token, 
+          username: user.rows[0].username, 
+          expiry: date
+        })
       }
     } 
   } catch(err) {

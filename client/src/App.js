@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import useField from './hooks/useField'
 import useCheckbox from './hooks/useCheckbox';
+import axios from 'axios'
 
-const UserInfoForm = () => {
+const Login = () => {
   const username = useField('text')
   const password = useField('password')
   const remember = useCheckbox('checkbox')
@@ -31,10 +32,12 @@ const UserInfoForm = () => {
 
 const App = () => {
   //useEffect to check if token in local storage as well as valid ? main : login
+  //useState to store user data
+  
   return (
     <>
     <h1>30 Chat</h1>
-    <UserInfoForm />
+    <Login />
     </>
   )
 }
