@@ -20,8 +20,6 @@ pool.connect((err, client, done) => {
   })
 })
 
-// auth route for verifying token
-
 app.post('/api/users/auth', async(req, res) => {
   const body = req.body
 
@@ -36,8 +34,6 @@ app.post('/api/users/auth', async(req, res) => {
       error: 'invalid signature'
     })
   }
-  
-   
 })
 
 app.post('/api/users/login', async(req, res) => {

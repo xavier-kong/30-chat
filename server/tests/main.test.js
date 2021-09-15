@@ -59,13 +59,40 @@ describe('login functionality', () => {
     )
   })
 
-// describe('token validation', () => {
-//   test('invalid token raises error', async() =>{
+describe('token validation', () => {
+  test('invalid token raises error', async() =>{
+    const res = await api
+      .post('/api/users/auth')
+      .send({token: 'invalidtoken123'})
+      .expect(500)
+    
+    const contents = res.body
+    expect(contents).toEqual(
+      expect.objectContaining({
+        error: 'invalid signature'
+      })
+    )
+  })
 
-//   })
+  test('valid token is verified', async() => {
+    const login = {
+      username: 'test1',
+      password: 'password1'
+    }
+    
+    const res = await api
+      .post('/api/users/login')
+      .send(login)
 
-//   test
-// })
+    const token = res.body.token
+    
+      await api
+      .post('/api/users/auth')
+      .send({token: `${token}`})
+      .expect(200)
+      .expect('"valid"')
+  })
+})
 
 afterAll(done => {
   pool.end()
