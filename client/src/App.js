@@ -1,31 +1,32 @@
 import React from 'react';
 import useField from './hooks/useField'
-import useCheckbox from './hooks/userCheckbox';
+import useCheckbox from './hooks/useCheckbox';
 
-const Login = () => {
+const UserInfoForm = () => {
   const username = useField('text')
   const password = useField('password')
   const remember = useCheckbox('checkbox')
-
+  
   const userLogin = (e) => {
-    //maybe this component can be reused for create account too?
-    //heading, button and anchor content can be changed based on state? (i.e. login or create)
+    //useEffect to check if token in local storage ? main : login 
     e.preventDefault()
-    console.log(username.value, password.value, remember.value)
+    console.log(username.value, password.value, remember.checked)
     username.onSubmit()
     password.onSubmit()
+    remember.onSubmit()
   }
+
 
   return (
     <>
-    <h1>Login</h1>
+    <h1>Enter</h1>
+    <p>If you have an existing account you will be logged in</p>
+    <p>If you don't have an existing account one will be created for you and you will be logged in automatically</p>
     <form onSubmit={userLogin}>
       Username: <input {...username} /><br />
       Password: <input {...password} /><br />
       <input {...remember} />Remember me for 24 hours<br />
-      <button type="submit">Login</button>
-      <a href='create.com'>Create account</a>
-      
+      <button type="submit">Enter</button>
     </form>
     </>
   )
@@ -35,7 +36,7 @@ const App = () => {
   return (
     <>
     <h1>30 Chat</h1>
-    <Login />
+    <UserInfoForm />
     </>
   )
 }
