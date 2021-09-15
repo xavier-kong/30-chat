@@ -7,15 +7,12 @@ const UserInfoForm = () => {
   const password = useField('password')
   const remember = useCheckbox('checkbox')
   
-  const userLogin = (e) => {
-    //useEffect to check if token in local storage ? main : login 
+  const userLogin = (e) => { 
     e.preventDefault()
-    console.log(username.value, password.value, remember.checked)
     username.onSubmit()
     password.onSubmit()
     remember.onSubmit()
   }
-
 
   return (
     <>
@@ -33,6 +30,7 @@ const UserInfoForm = () => {
 }
 
 const App = () => {
+  //useEffect to check if token in local storage as well as valid ? main : login
   return (
     <>
     <h1>30 Chat</h1>
