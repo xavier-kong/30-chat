@@ -8,16 +8,18 @@ const Login = () => {
   const userLogin = (e) => {
     e.preventDefault()
     console.log(username.value, password.value)
-    console.log('hello')
+    username.onSubmit()
+    password.onSubmit()
   }
 
   return (
     <>
     <h1>Login</h1>
     <form onSubmit={userLogin}>
-      <input {...username} /><br />
-      <input {...password} /><br />
+      Username: <input {...username} /><br />
+      Password: <input {...password} /><br />
       <button type="submit">Login</button>
+      <a href='create.com'>Create account</a>
     </form>
     </>
   )

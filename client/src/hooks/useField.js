@@ -7,7 +7,7 @@ const useField = (type) => {
     setValue(event.target.value);
   };
 
-  const clearfield = () => {
+  const onSubmit = (event) => {
     setValue('');
   };
 
@@ -15,7 +15,7 @@ const useField = (type) => {
     type,
     value,
     onChange,
-    clearfield,
+    onSubmit,
   };
 };
 
