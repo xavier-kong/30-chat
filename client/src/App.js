@@ -1,15 +1,17 @@
 import React from 'react';
 import useField from './hooks/useField'
+import useCheckbox from './hooks/userCheckbox';
 
 const Login = () => {
   const username = useField('text')
   const password = useField('password')
+  const remember = useCheckbox('checkbox')
 
   const userLogin = (e) => {
     //maybe this component can be reused for create account too?
     //heading, button and anchor content can be changed based on state? (i.e. login or create)
     e.preventDefault()
-    console.log(username.value, password.value)
+    console.log(username.value, password.value, remember.value)
     username.onSubmit()
     password.onSubmit()
   }
@@ -20,7 +22,7 @@ const Login = () => {
     <form onSubmit={userLogin}>
       Username: <input {...username} /><br />
       Password: <input {...password} /><br />
-      <input type="checkbox" name="remember" value="yes" />Remember me for 24 hours<br />
+      <input {...remember} />Remember me for 24 hours<br />
       <button type="submit">Login</button>
       <a href='create.com'>Create account</a>
       
