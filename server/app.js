@@ -20,6 +20,26 @@ pool.connect((err, client, done) => {
   })
 })
 
+// auth route for verifying token
+
+app.post('/api/users/auth', async(req, res) => {
+  const body = req.body
+
+  try {
+    var cert = await jwt.verify(body.token, process.env.SECRET)
+    if (cert) {
+      res.status(200).json('valid')
+    }
+  } catch (err) {
+    console.log(err)
+    res.status(500).json({
+      error: 'invalid signature'
+    })
+  }
+  
+   
+})
+
 app.post('/api/users/login', async(req, res) => {
   const body = req.body
 

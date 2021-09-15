@@ -59,6 +59,14 @@ describe('login functionality', () => {
     )
   })
 
+// describe('token validation', () => {
+//   test('invalid token raises error', async() =>{
+
+//   })
+
+//   test
+// })
+
 afterAll(done => {
   pool.end()
   done()
