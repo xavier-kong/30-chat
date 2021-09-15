@@ -23,6 +23,20 @@ pool.connect((err, client, done) => {
 app.post('/api/users/login', async(req, res) => {
   const body = req.body
 
+  const q = await pool.query('SELECT 1 AS exists FROM users WHERE username = $1', [body.username])
+  if (!q.rows[0]) {
+    const saltRounds = 10
+    const passwordHash = await bcrypt.hash(body.password, saltRounds)
+    const date = new Date().toISOString().slice(0, 19).replace('T', ' ')
+
+    try {
+      await pool.query('INSERT INTO users (username, passwordhash, creation_date) VALUES ($1, $2, $3)', [body.username, passwordHash, date])
+    } catch (err) {
+      console.log(err)
+      res.status(500).json(err)
+    }
+  } 
+
   try {
     const user = await pool.query('SELECT * FROM users WHERE username = $1', [body.username])
     if (user) {
@@ -49,34 +63,6 @@ app.post('/api/users/login', async(req, res) => {
   } catch(err) {
     console.log(err)
     res.status(404).json('user not found')
-  }
-})
-
-app.post('/api/users/create', async(req, res) => {
-  const body = req.body
-  try {
-    const q = await pool.query('SELECT 1 AS exists FROM users WHERE username = $1', [body.username])
-    if (q.rows[0]) {
-      res.status(405).json('user already exists')
-    }
-    else {
-      const body = req.body
-
-      const saltRounds = 10
-      const passwordHash = await bcrypt.hash(body.password, saltRounds)
-      const date = new Date().toISOString().slice(0, 19).replace('T', ' ')
-
-      try {
-        await pool.query('INSERT INTO users (username, passwordhash, creation_date) VALUES ($1, $2, $3)', [body.username, passwordHash, date])
-        res.status(201).json('new user created')
-      } catch (err) {
-        console.log(err)
-        res.status(500).json(err)
-      }
-    }
-  } catch (err) {
-    console.log(err)
-    res.status(500).json(err)
   }
 })
 

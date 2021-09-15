@@ -11,7 +11,7 @@ beforeEach(async () => {
 })
 
 describe('login functionality', () => {
-  test('unknown user returns not found', async () => {
+  test('unknown user creates new user', async () => {
     const unknownUser = {
       username: 'unknown',
       password: 'unknown'
@@ -20,8 +20,11 @@ describe('login functionality', () => {
     await api
       .post('/api/users/login')
       .send(unknownUser)
-      .expect(404)
-      .expect('"user not found"')
+
+    const table = await pool.query('SELECT * FROM users', [])
+    expect(table.rows).toHaveLength(4)
+    expect(table.rows[3].username).toEqual("unknown")
+  })
   })
 
   test('invalid credentials does not allow login', async () => {
@@ -55,39 +58,6 @@ describe('login functionality', () => {
       })
     )
   })
-})
-
-describe('new user creation functionality', () => {
-  test('cannot create new user if username already taken', async () => {
-    const existingUser = {
-      username: 'test1',
-      password: 'password1'
-    }
-
-    await api
-      .post('/api/users/create')
-      .send(existingUser)
-      .expect(405)
-      .expect('"user already exists"')
-  })
-
-  test('new user can be created', async () => {
-    const newUser = {
-      username: 'test4',
-      password: 'password4'
-    }
-
-    await api
-      .post('/api/users/create')
-      .send(newUser)
-      .expect(201)
-      .expect('"new user created"')
-
-    const table = await pool.query('SELECT * FROM users', [])
-    expect(table.rows).toHaveLength(4)
-    expect(table.rows[3].username).toEqual("test4")
-  })
-})
 
 afterAll(done => {
   pool.end()
