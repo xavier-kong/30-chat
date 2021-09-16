@@ -3,7 +3,7 @@ on: push
 
 jobs:
   # Label of the container job
-  server-tests:
+  tests:
     # Containers must run in Linux based operating systems
     runs-on: ubuntu-latest
     # Docker Hub image that `container-job` executes in
@@ -54,3 +54,5 @@ jobs:
           # The default PostgreSQL port
           POSTGRES_PORT: 5432
           SECRET: test
+      - name: run frontend tests
+        run: cd ./client && npm run test

@@ -23,8 +23,10 @@ describe('Login page', () => {
   test('clicking enter sends data and calls onLogin', () => {
     const mockonLogin = jest.fn()
 
+    const mockLogin = jest.fn()
+
     const component = render(
-      <Login onLogin={mockonLogin} />
+      <Login onLogin={mockonLogin} userLogin={mockLogin}/>
     )
 
     const formUsername = component.getByLabelText('Username:')
@@ -40,6 +42,8 @@ describe('Login page', () => {
     })
 
     fireEvent.click(button)
+
+    //include logic when api call refactored to services
   })
 })
 

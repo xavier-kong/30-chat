@@ -6,7 +6,7 @@ const Login = ({ onLogin }) => {
   const username = useField('text')
   const password = useField('password')
   
-  const userLogin = async (e) => { 
+  const userLogin = async (e) => { //refactor services then add to tests
     e.preventDefault()
     try {
       if (username.value.length > 1 && password.value.length > 1) {
