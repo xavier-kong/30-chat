@@ -9,7 +9,8 @@ const Login = ({ onLogin }) => {
   const userLogin = async (e) => { 
     e.preventDefault()
     try {
-      const res = await axios.post('http://localhost:3001/api/users/login', {
+      if (username.value.length > 1 && password.value.length > 1) {
+        const res = await axios.post('http://localhost:3001/api/users/login', {
         username: username.value,
         password: password.value
       })
@@ -17,8 +18,10 @@ const Login = ({ onLogin }) => {
       window.localStorage.setItem(
         'loggedInUser', JSON.stringify(res.data)
       )
-
       onLogin()
+      } else {
+        console.log('input not allowed') //change later 
+      }
     } catch (err) {
       console.log(err)
     }
@@ -32,8 +35,8 @@ const Login = ({ onLogin }) => {
     <p>If you have an existing account you will be logged in</p>
     <p>If you don't have an existing account one will be created for you and you will be logged in automatically</p>
     <form onSubmit={userLogin}>
-      Username: <input {...username} /><br />
-      Password: <input {...password} /><br />
+      <label>Username: <input {...username} /></label><br />
+      <label>Password: <input {...password} /></label><br />
       <button type="submit">Enter</button>
     </form>
     </>

@@ -27,6 +27,7 @@ const App = () => {
     setUser(JSON.parse(localStorage.getItem('loggedInUser')))
     console.log(user)
   }
+  
   return (
     <>
     <h1>30 Chat</h1>
