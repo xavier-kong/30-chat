@@ -1,21 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import useField from './hooks/useField'
-import useCheckbox from './hooks/useCheckbox';
 import axios from 'axios'
 
 const Login = () => {
   const username = useField('text')
   const password = useField('password')
-  const remember = useCheckbox('checkbox')
   
   const userLogin = async (e) => { 
     e.preventDefault()
     try {
-      const res = await axios.post('localhost:3001/api/users/login', {
-
+      const res = await axios.post('http://localhost:3001/api/users/login', {
+        username: username.value,
+        password: password.value
       })
-    } catch {
 
+      window.localStorage.setItem(
+        'loggedInUser', JSON.stringify(res.data)
+      )
+    } catch (err) {
+      console.log(err)
     }
     username.onSubmit()
     password.onSubmit()
@@ -42,12 +45,13 @@ const App = () => {
 
   useEffect(() => {
     try {
-      const userJSON = localStorage.getItem('loggedInUser')
+      const userJSON = JSON.parse(localStorage.getItem('loggedInUser'))
+      const body = { token: userJSON.token }
       axios
-        .post('localhost:3001/api/users/auth', userJSON.token)
+        .post('http://localhost:3001/api/users/auth', body)
         .then((res) => {
           if (res.data === 'valid') {
-            setUser(JSON.parse(userJSON))
+            setUser(userJSON)
           } else {
             setUser(null)
           }
@@ -56,13 +60,11 @@ const App = () => {
       setUser(null)
     }
   }, [])
-
-  
   
   return (
     <>
     <h1>30 Chat</h1>
-    <Login />
+    {user ? <p>Logged In</p> : <Login />}
     </>
   )
 }
