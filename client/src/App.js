@@ -8,12 +8,17 @@ const Login = () => {
   const password = useField('password')
   const remember = useCheckbox('checkbox')
   
-  const userLogin = (e) => { 
+  const userLogin = async (e) => { 
     e.preventDefault()
-    
+    try {
+      const res = await axios.post('localhost:3001/api/users/login', {
+
+      })
+    } catch {
+
+    }
     username.onSubmit()
     password.onSubmit()
-    remember.onSubmit()
   }
 
   return (
@@ -24,7 +29,6 @@ const Login = () => {
     <form onSubmit={userLogin}>
       Username: <input {...username} /><br />
       Password: <input {...password} /><br />
-      <input {...remember} />Remember me for 24 hours<br />
       <button type="submit">Enter</button>
     </form>
     </>
@@ -40,7 +44,7 @@ const App = () => {
     try {
       const userJSON = localStorage.getItem('loggedInUser')
       axios
-        .post('/api/users/auth', userJSON.token)
+        .post('localhost:3001/api/users/auth', userJSON.token)
         .then((res) => {
           if (res.data === 'valid') {
             setUser(JSON.parse(userJSON))
