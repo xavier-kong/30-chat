@@ -23,10 +23,14 @@ const App = () => {
     }
   }, [])
   
+  const onLogin = () => {
+    setUser(JSON.parse(localStorage.getItem('loggedInUser')))
+    console.log(user)
+  }
   return (
     <>
     <h1>30 Chat</h1>
-    {user ? <p>Logged In</p> : <Login />}
+    {user ? <p>Logged In</p> : <Login onLogin={onLogin} />}
     </>
   )
 }
