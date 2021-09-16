@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import useField from './hooks/useField'
 import useCheckbox from './hooks/useCheckbox';
 import axios from 'axios'
@@ -10,6 +10,7 @@ const Login = () => {
   
   const userLogin = (e) => { 
     e.preventDefault()
+    
     username.onSubmit()
     password.onSubmit()
     remember.onSubmit()
@@ -33,6 +34,26 @@ const Login = () => {
 const App = () => {
   //useEffect to check if token in local storage as well as valid ? main : login
   //useState to store user data
+  const [ user, setUser ] = useState('')
+
+  useEffect(() => {
+    try {
+      const userJSON = localStorage.getItem('loggedInUser')
+      axios
+        .post('/api/users/auth', userJSON.token)
+        .then((res) => {
+          if (res.data === 'valid') {
+            setUser(JSON.parse(userJSON))
+          } else {
+            setUser(null)
+          }
+        })
+    } catch {
+      setUser(null)
+    }
+  }, [])
+
+  
   
   return (
     <>
