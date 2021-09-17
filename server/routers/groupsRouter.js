@@ -3,6 +3,8 @@ const pool = require('../db')
 
 const groupsRouter = require('express').Router()
 
+// on join, enter name + pass, 
+
 groupsRouter.post('/join', async(req, res) => {
   const body = req.body
 

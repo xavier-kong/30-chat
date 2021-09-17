@@ -25,3 +25,9 @@ CREATE TABLE chat (
   group_uid UUID REFERENCES groups(group_uid),
   user_uid UUID REFERENCES users(user_uid)
 );
+
+CREATE TABLE user_groups (
+  group_uid UUID REFERENCES groups(group_uid),
+  user_uid UUID REFERENCES users(user_uid),
+  login_time TIMESTAMP NOT NULL
+);
