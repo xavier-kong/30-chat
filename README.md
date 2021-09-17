@@ -12,7 +12,7 @@ Therefore. I decided to create 30chat. This project utilizes the strengths of th
 * create temporary group chats that are deleted after 30 minutes 
 * a user can create a group chat that can only be accessed by people who have the link and password phrase
 
-There will be 3 tables, one for tracking user information, one for tracking group chats and one for tracking all messages. 
+There will be 4 tables, one for tracking user information, one for tracking group chats, one for tracking all messages and one for tracking which users are in which groups.
 
 The user table will track: 
 * user nickname / username
@@ -29,6 +29,11 @@ The messages table will track:
 * message sender (relation to user table)
 * message group chat (relation to group chat table)
 * message sent time
+
+The group/user info table will track:
+* username 
+* group
+* login time
 
 I plan to use:
 * React to build the frontend user interface
