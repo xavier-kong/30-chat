@@ -55,7 +55,7 @@ groupsRouter.post('/join', async(req, res) => {
         var date = new Date();
         date.setDate(date.getDate() + 1);
 
-        res.status(200).send({
+        res.status(200).send({ //maybe sent link to group then browswer can redirect
           token, 
           username: user[0].username, 
           expiry: date
