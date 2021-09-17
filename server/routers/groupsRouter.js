@@ -3,7 +3,13 @@ const pool = require('../db')
 
 const groupsRouter = require('express').Router()
 
-// on join, enter name + pass, 
+// on join, enter name + pass, not exist ? create group : add to user_groups 
+
+// which functions in chat router
+
+// add a get route to get all groups where user is in
+
+// add function for creation date check to delete group
 
 groupsRouter.post('/join', async(req, res) => {
   const body = req.body
@@ -32,9 +38,9 @@ groupsRouter.post('/join', async(req, res) => {
       const passwordCorrect = await bcrypt.compare(body.password, group[0].passphrase)
       if (!passwordCorrect) {
         res.status(401).json({
-          error: 'invalid username or password'
+          error: 'invalid passphrase'
         })
-      } else if (passwordCorrect) {
+      } else if (passwordCorrect) { //change to add to user_groups
         const userForToken = {
           username: user.username,
           id: user.user_uid
