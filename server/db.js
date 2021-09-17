@@ -1,20 +1,36 @@
-const Pool = require('pg').Pool
 require('dotenv').config()
 
+const { POSTGRES_HOST, POSTGRES_PORT, PASSWORD } = process.env;
 const pool = process.env.NODE_ENV === 'test' 
-  ? new Pool({
-    user: 'postgres',
-    password: 'postgres',
-    host: process.env.POSTGRES_HOST,
-    port: process.env.POSTGRES_PORT,
-    database: 'postgres_test'
+  ? require('knex')({
+  client: 'pg',
+  connection: {
+    host : POSTGRES_HOST,
+    user : 'postgres',
+    password : 'postgres',
+    database : 'postgres_test',
+    port: POSTGRES_PORT
+  }
   })
-  : new Pool({
-    user: 'postgres',
-    password: process.env.PASSWORD,
-    host: 'localhost',
-    port: 5432,
-    database: 'postgres'
+  : require('knex')({
+    client: 'pg',
+    connection: {
+      host : 'localhost',
+      user : 'postgres',
+      password : PASSWORD,
+      database : 'postgres',
+      port: 5432
+    },
   })
 
+pool.select('NOW').as('now')
+
+pool.raw("SELECT NOW() as now").then((res) => {
+    console.log(`Connected to PostgreSQL at time ${res.rows[0].now}`);
+})
+.catch((e) => {
+    console.log("PostgreSQL not connected");
+    console.error(e);
+});
+  
 module.exports = pool

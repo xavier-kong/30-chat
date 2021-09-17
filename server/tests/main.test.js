@@ -3,11 +3,30 @@ const app = require('../app')
 const api = supertest(app)
 const pool = require('../db')
 
-beforeEach(async () => {
-  await pool.query('DELETE FROM users', [])
-  await pool.query('INSERT INTO users (username, passwordhash, creation_date) VALUES ($1, $2, $3)', ['test1', '$2b$10$WCRFCDDeLmLsVniBCMpxqu5PsaWroe/gF.I.q7E6hF1SvDsZO5gx.', new Date().toISOString().slice(0, 19).replace('T', ' ')])
-  await pool.query('INSERT INTO users (username, passwordhash, creation_date) VALUES ($1, $2, $3)', ['test2', '$2b$10$Mm/ZaJl9MYaaH31mrlhamO5B/2KwpFgt2fVoVMrJX57q7uIqliPyG', new Date().toISOString().slice(0, 19).replace('T', ' ')])
-  await pool.query('INSERT INTO users (username, passwordhash, creation_date) VALUES ($1, $2, $3)', ['test3', '$2b$10$G2BZ0LVDeF2N1py9i2vEIetEpPH.tIy6s5bvh91kkZvJsRjLVusiq', new Date().toISOString().slice(0, 19).replace('T', ' ')])
+const mockData = [
+  {
+    username: 'test1',
+    passwordhash: '$2b$10$WCRFCDDeLmLsVniBCMpxqu5PsaWroe/gF.I.q7E6hF1SvDsZO5gx.',
+    creation_date: new Date().toISOString().slice(0, 19).replace('T', ' ')
+  },
+  {
+    username: 'test2',
+    passwordhash: '$2b$10$Mm/ZaJl9MYaaH31mrlhamO5B/2KwpFgt2fVoVMrJX57q7uIqliPyG',
+    creation_date: new Date().toISOString().slice(0, 19).replace('T', ' ')
+  },
+  {
+    username: 'test3',
+    passwordhash: '$2b$10$G2BZ0LVDeF2N1py9i2vEIetEpPH.tIy6s5bvh91kkZvJsRjLVusiq',
+    creation_date: new Date().toISOString().slice(0, 19).replace('T', ' ')
+  }
+]
+
+beforeEach(async() => {
+  await pool('users').del()
+  mockData.forEach(async(item) => {
+    await pool('users').insert(item)
+  }
+  )
 })
 
 describe('login functionality', () => {
@@ -21,9 +40,9 @@ describe('login functionality', () => {
       .post('/api/users/login')
       .send(unknownUser)
 
-    const table = await pool.query('SELECT * FROM users', [])
-    expect(table.rows).toHaveLength(4)
-    expect(table.rows[3].username).toEqual("unknown")
+    const table = await pool.select().from('users')
+    expect(table).toHaveLength(4)
+    expect(table[3].username).toEqual("unknown")
   })
   })
 
@@ -96,7 +115,7 @@ describe('token validation', () => {
 })
 
 afterAll(done => {
-  pool.end()
+  pool.destroy()
   done()
 })
 

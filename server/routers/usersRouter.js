@@ -23,14 +23,18 @@ usersRouter.post('/auth', async(req, res) => {
 usersRouter.post('/login', async(req, res) => {
   const body = req.body
 
-  const q = await pool.query('SELECT 1 AS exists FROM users WHERE username = $1', [body.username])
-  if (!q.rows[0]) {
+  const q = await pool.select('username').from('users').where('username', body.username).as('exists')
+  if (q.length === 0) {
     const saltRounds = 10
     const passwordHash = await bcrypt.hash(body.password, saltRounds)
     const date = new Date().toISOString().slice(0, 19).replace('T', ' ')
 
     try {
-      await pool.query('INSERT INTO users (username, passwordhash, creation_date) VALUES ($1, $2, $3)', [body.username, passwordHash, date])
+      await pool('users').insert({
+        username: body.username,
+        passwordhash: passwordHash,
+        creation_date: date
+      })
     } catch (err) {
       console.log(err)
       res.status(500).json(err)
@@ -38,9 +42,9 @@ usersRouter.post('/login', async(req, res) => {
   } 
 
   try {
-    const user = await pool.query('SELECT * FROM users WHERE username = $1', [body.username])
+    const user = await pool.select().from('users').where('username', body.username)
     if (user) {
-      const passwordCorrect = await bcrypt.compare(body.password, user.rows[0].passwordhash)
+      const passwordCorrect = await bcrypt.compare(body.password, user[0].passwordhash)
       if (!passwordCorrect) {
         res.status(401).json({
           error: 'invalid username or password'
@@ -62,7 +66,7 @@ usersRouter.post('/login', async(req, res) => {
 
         res.status(200).send({
           token, 
-          username: user.rows[0].username, 
+          username: user[0].username, 
           expiry: date
         })
       }
