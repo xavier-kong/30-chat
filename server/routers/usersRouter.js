@@ -1,9 +1,25 @@
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
-const loginRouter = require('express').Router()
+const usersRouter = require('express').Router()
 
-loginRouter.post('/api/users/login', async(req, res) => {
+usersRouter.post('/auth', async(req, res) => {
+  const body = req.body
+  
+  try {
+    var cert = await jwt.verify(body.token, process.env.SECRET)
+    if (cert) {
+      res.status(200).json('valid')
+    }
+  } catch (err) {
+    console.log(err)
+    res.status(500).json({
+      error: 'invalid signature'
+    })
+  }
+})
+
+usersRouter.post('/login', async(req, res) => {
   const body = req.body
 
   const q = await pool.query('SELECT 1 AS exists FROM users WHERE username = $1', [body.username])
@@ -56,4 +72,4 @@ loginRouter.post('/api/users/login', async(req, res) => {
   }
 })
 
-module.exports = loginRouter
+module.exports = usersRouter
