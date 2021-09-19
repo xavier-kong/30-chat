@@ -13,9 +13,13 @@ groupsRouter.post('/join', async(req, res) => {
 
   const body = req.body
 
+  if (!body.token) {
+    res.status(401).json('Please login to continue')
+  }
+
   const q = await pool.select('group_name').from('groups').where('group_name', body.group_name)
 
-  if (q.length === 0) { //require token validation to add
+  if (q.length === 0) {
     const saltRounds = 10
     const passwordHash = await bcrypt.hash(body.passphrase, saltRounds)
     const date = new Date().toISOString().slice(0, 19).replace('T', ' ')
@@ -60,7 +64,12 @@ groupsRouter.post('/join', async(req, res) => {
 })
 
 groupsRouter.post('/list', async(req, res) => {
+  
   const body = req.body
+
+  if (!body.token) {
+    res.status(401).json('Please login to continue')
+  }
 
   const u_uid = await pool('users').select('user_uid').where('username', body.username)
 
