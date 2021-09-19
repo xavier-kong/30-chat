@@ -1,12 +1,16 @@
 const express = require('express')
 const cors = require('cors')
-const app = express()
+const morgan = require('morgan')
 const middleware = require('./utils/middleware')
 const usersRouter = require('./routers/usersRouter')
 const groupsRouter = require('./routers/groupsRouter')
 
+const app = express()
+
 app.use(express.json())
 app.use(cors())
+
+app.use(morgan('tiny'))
 
 app.use(middleware.tokenExtractor)
 
