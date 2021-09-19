@@ -61,8 +61,15 @@ groupsRouter.post('/join', async(req, res) => {
   }
 })
 
+groupsRouter.post('/list', async(req, res) => {
+  const body = req.body
 
+  const u_uid = await pool('users').select('user_uid').where('username', body.username)
 
+  const groups = await pool('user_groups').select().where('user_uid', u_uid[0].user_uid)
+
+  console.log(groups)
+})
 
 module.exports = groupsRouter
 
