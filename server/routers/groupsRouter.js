@@ -11,11 +11,11 @@ const groupsRouter = require('express').Router()
 
 groupsRouter.post('/join', async(req, res) => {
 
-  const body = req.body
-
-  if (!body.token) {
+  if (!req.token) {
     res.status(401).json('Please login to continue')
   }
+
+  const body = req.body
 
   const q = await pool.select('group_name').from('groups').where('group_name', body.group_name)
 
@@ -65,11 +65,11 @@ groupsRouter.post('/join', async(req, res) => {
 
 groupsRouter.post('/list', async(req, res) => {
   
-  const body = req.body
-
-  if (!body.token) {
+  if (!req.token) {
     res.status(401).json('Please login to continue')
   }
+  
+  const body = req.body
 
   const u_uid = await pool('users').select('user_uid').where('username', body.username)
 
