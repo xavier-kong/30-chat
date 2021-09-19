@@ -3,18 +3,20 @@ const pool = require('../db')
 
 const groupsRouter = require('express').Router()
 
-// on join, enter name + pass, not exist ? create group : add to user_groups 
-
 // which functions in chat router
 
 // add a get route to get all groups where user is in
 
 // add function for creation date check to delete group
 
+// add login for token check + validation for routes else deny
+
 groupsRouter.post('/join', async(req, res) => {
+
   const body = req.body
 
-  const q = await pool.select('group_name').from('groups').where('group_name', body.group_name).as('exists')
+  const q = await pool.select('group_name').from('groups').where('group_name', body.group_name)
+
   if (q.length === 0) {
     const saltRounds = 10
     const passwordHash = await bcrypt.hash(body.passphrase, saltRounds)
@@ -35,31 +37,22 @@ groupsRouter.post('/join', async(req, res) => {
   try {
     const group = await pool.select().from('groups').where('group_name', body.group_name)
     if (group) {
-      const passwordCorrect = await bcrypt.compare(body.password, group[0].passphrase)
-      if (!passwordCorrect) {
+      const passphraseCorrect = await bcrypt.compare(body.passphrase, group[0].passphrase)
+      if (!passphraseCorrect) {
         res.status(401).json({
           error: 'invalid passphrase'
         })
-      } else if (passwordCorrect) { //change to add to user_groups
-        const userForToken = {
-          username: user.username,
-          id: user.user_uid
-        }
-
-        const token = jwt.sign(
-          userForToken,
-          process.env.SECRET,
-          { expiresIn: 86400 }
-        )
-
-        var date = new Date();
-        date.setDate(date.getDate() + 1);
-
-        res.status(200).send({ //maybe sent link to group then browswer can redirect
-          token, 
-          username: user[0].username, 
-          expiry: date
+      } else if (passphraseCorrect) {
+        const g_uid = group[0].group_uid
+        const u_uid = await pool.select('user_uid').from('users').where('username', body.username)
+        const l_time = new Date().toISOString().slice(0, 19).replace('T', ' ')
+        await pool('user_groups').insert({
+          group_uid: g_uid,
+          user_uid: u_uid[0].user_uid,
+          login_time: l_time
         })
+
+        res.status(200).send(group[0].group_name)
       }
     } 
   } catch(err) {
