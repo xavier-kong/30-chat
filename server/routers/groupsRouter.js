@@ -36,6 +36,7 @@ groupsRouter.post('/join', async(req, res) => {
       await pool('groups')
         .where('group_name', body.group_name)
         .del()
+      res.status(404).json('group expired')
   }
 
   try {
