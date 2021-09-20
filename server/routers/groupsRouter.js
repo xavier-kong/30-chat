@@ -7,8 +7,6 @@ const groupsRouter = require('express').Router()
 
 // add function for creation date check to delete group
 
-// add login for token check + validation for routes else deny
-
 groupsRouter.post('/join', async(req, res) => {
 
   if (!req.token) {
@@ -17,9 +15,9 @@ groupsRouter.post('/join', async(req, res) => {
 
   const body = req.body
 
-  const q = await pool.select('group_name').from('groups').where('group_name', body.group_name)
+  const group = await pool.select().from('groups').where('group_name', body.group_name)
 
-  if (q.length === 0) {
+  if (group.length === 0) {
     const saltRounds = 10
     const passwordHash = await bcrypt.hash(body.passphrase, saltRounds)
     const date = new Date().toISOString().slice(0, 19).replace('T', ' ')
@@ -37,9 +35,7 @@ groupsRouter.post('/join', async(req, res) => {
   } 
 
   try {
-    const group = await pool.select().from('groups').where('group_name', body.group_name)
-    if (group) {
-      const passphraseCorrect = await bcrypt.compare(body.passphrase, group[0].passphrase)
+    const passphraseCorrect = await bcrypt.compare(body.passphrase, group[0].passphrase)
       if (!passphraseCorrect) {
         res.status(401).json({
           error: 'invalid passphrase'
@@ -53,10 +49,8 @@ groupsRouter.post('/join', async(req, res) => {
           user_uid: u_uid[0].user_uid,
           login_time: l_time
         })
-
         res.status(200).send(group[0].group_name)
       }
-    } 
   } catch(err) {
     console.log(err)
     res.status(404).json('user not found')
