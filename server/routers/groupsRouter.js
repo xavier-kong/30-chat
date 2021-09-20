@@ -32,8 +32,10 @@ groupsRouter.post('/join', async(req, res) => {
       console.log(err)
       res.status(500).json(err)
     }
-  } else if (group[0].expiry_date.getDate() < new Date()) {
-    console.log('exp')
+  } else if (group[0].expiry_date < new Date()) {
+      await pool('groups')
+        .where('group_name', body.group_name)
+        .del()
   }
 
   try {
@@ -43,6 +45,7 @@ groupsRouter.post('/join', async(req, res) => {
           error: 'invalid passphrase'
         })
       } else if (passphraseCorrect) {
+        //logic check if user already entered
         const g_uid = group[0].group_uid
         const u_uid = await pool.select('user_uid').from('users').where('username', body.username)
         const l_time = new Date().toISOString().slice(0, 19).replace('T', ' ')
