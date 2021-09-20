@@ -12,7 +12,7 @@ CREATE TABLE groups (
 	group_uid UUID DEFAULT uuid_generate_v4 () NOT NULL PRIMARY KEY,
 	group_name VARCHAR(100) NOT NULL,
 	passphrase VARCHAR(200) NOT NULL,
-  creation_date TIMESTAMP NOT NULL,
+  expiry_date TIMESTAMP NOT NULL,
   UNIQUE(group_uid),
   UNIQUE(group_name),
   UNIQUE(passphrase)

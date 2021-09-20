@@ -3,9 +3,9 @@ const pool = require('../db')
 
 const groupsRouter = require('express').Router()
 
-// which functions in chat router
-
 // add function for creation date check to delete group
+
+// do not add to user_groups if already in
 
 groupsRouter.post('/join', async(req, res) => {
 
@@ -26,13 +26,15 @@ groupsRouter.post('/join', async(req, res) => {
       await pool('groups').insert({
         group_name: body.group_name,
         passphrase: passwordHash,
-        creation_date: date
+        expiry_date: date
       })
     } catch (err) {
       console.log(err)
       res.status(500).json(err)
     }
-  } 
+  } else if (group[0].expiry_date.getDate() < new Date()) {
+    console.log('exp')
+  }
 
   try {
     const passphraseCorrect = await bcrypt.compare(body.passphrase, group[0].passphrase)
