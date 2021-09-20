@@ -5,8 +5,6 @@ const groupsRouter = require('express').Router()
 
 // add function for creation date check to delete group
 
-// do not add to user_groups if already in
-
 groupsRouter.post('/join', async(req, res) => {
 
   if (!req.token) {
@@ -39,27 +37,32 @@ groupsRouter.post('/join', async(req, res) => {
       res.status(404).json('group expired')
   }
 
-  try {
-    const passphraseCorrect = await bcrypt.compare(body.passphrase, group[0].passphrase)
-      if (!passphraseCorrect) {
-        res.status(401).json({
-          error: 'invalid passphrase'
-        })
-      } else if (passphraseCorrect) {
-        //logic check if user already entered
-        const g_uid = group[0].group_uid
-        const u_uid = await pool.select('user_uid').from('users').where('username', body.username)
-        const l_time = new Date().toISOString().slice(0, 19).replace('T', ' ')
-        await pool('user_groups').insert({
-          group_uid: g_uid,
-          user_uid: u_uid[0].user_uid,
-          login_time: l_time
-        })
-        res.status(200).send(group[0].group_name)
-      }
-  } catch(err) {
-    console.log(err)
-    res.status(404).json('user not found')
+  const u_uid = await pool.select('user_uid').from('users').where('username', body.username) 
+  const usercheck = await pool.select().from('user_groups').where('user_uid', u_uid[0].user_uid)
+
+  if (usercheck.length === 0) {
+    try {
+      const passphraseCorrect = await bcrypt.compare(body.passphrase, group[0].passphrase)
+        if (!passphraseCorrect) {
+          res.status(401).json({
+            error: 'invalid passphrase'
+          })
+        } else if (passphraseCorrect) {
+          const g_uid = group[0].group_uid
+          const l_time = new Date().toISOString().slice(0, 19).replace('T', ' ')
+          await pool('user_groups').insert({
+            group_uid: g_uid,
+            user_uid: u_uid[0].user_uid,
+            login_time: l_time
+          })
+          res.status(200).send(group[0].group_name)
+        }
+    } catch(err) {
+      console.log(err)
+      res.status(404).json('user not found')
+    }
+  } else if (usercheck.length === 1) {
+    res.status(200).send(group[0].group_name)
   }
 })
 
