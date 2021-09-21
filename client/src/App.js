@@ -22,6 +22,7 @@ const App = () => {
     } catch {
       setUser(null)
     }
+
   }, [])
   
   const onLogin = () => {
@@ -34,14 +35,14 @@ const App = () => {
       <>
         <h1>30 Chat</h1>
         <Switch>
+          <Route path="/groups">
+            <p>Logged In {user.username}  </p>
+          </Route>
+          <Route path="/home">
+            {user ? <p>Logged In {user.username}  </p> : <Redirect to="/login" />}
+          </Route>
           <Route path="/login">
             <Login onLogin={onLogin} />
-          </Route>
-          <Route path="/groups">
-            
-          </Route>
-          <Route path="/">
-            {user ? <p>Logged In {user.username}  </p> : <Redirect to="/login" />}
           </Route>
         </Switch>
       </>
