@@ -3,8 +3,6 @@ const pool = require('../db')
 
 const groupsRouter = require('express').Router()
 
-// add function for creation date check to delete group
-
 groupsRouter.post('/join', async(req, res) => {
 
   if (!req.token) {
