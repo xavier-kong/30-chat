@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom"
 import Login from './components/Login'
 import axios from 'axios'
 
@@ -29,10 +30,22 @@ const App = () => {
   }
   
   return (
-    <>
-    <h1>30 Chat</h1>
-    {user ? <p>Logged In</p> : <Login onLogin={onLogin} />}
-    </>
+    <Router>
+      <>
+        <h1>30 Chat</h1>
+        <Switch>
+          <Route path="/login">
+            <Login onLogin={onLogin} />
+          </Route>
+          <Route path="/groups">
+            
+          </Route>
+          <Route path="/">
+            {user ? <p>Logged In {user.username}  </p> : <Redirect to="/login" />}
+          </Route>
+        </Switch>
+      </>
+    </Router>
   )
 }
 
