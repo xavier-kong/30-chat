@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom"
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom"
 import Login from './components/Login'
 import axios from 'axios'
 
@@ -27,7 +27,6 @@ const App = () => {
   
   const onLogin = () => {
     setUser(JSON.parse(localStorage.getItem('loggedInUser')))
-    console.log(user)
   }
   
   return (
@@ -36,13 +35,14 @@ const App = () => {
         <h1>30 Chat</h1>
         <Switch>
           <Route path="/groups">
-            <p>Logged In {user.username}  </p>
-          </Route>
-          <Route path="/home">
-            {user ? <p>Logged In {user.username}  </p> : <Redirect to="/login" />}
+          {user === null ? <Redirect to="/login" /> : <p>Logged In {user.username}  </p>}
           </Route>
           <Route path="/login">
-            <Login onLogin={onLogin} />
+            {user === null ? <Login onLogin={onLogin} /> : <Redirect to="/groups" />}
+            
+          </Route>
+          <Route path="/">
+            {user === null ? <Redirect to="/login" /> : <Redirect to="/groups" />}
           </Route>
         </Switch>
       </>
