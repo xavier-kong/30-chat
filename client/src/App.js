@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom"
 import Login from './components/Login'
+import Groups from 'components/Groups'
 import axios from 'axios'
 
 const App = () => {
@@ -35,7 +36,7 @@ const App = () => {
         <h1>30 Chat</h1>
         <Switch>
           <Route path="/groups">
-          {user === null ? <Redirect to="/login" /> : <p>Logged In {user.username}  </p>}
+          {user === null ? <Redirect to="/login" /> : <Groups username={user.username} />}
           </Route>
           <Route path="/login">
             {user === null ? <Login onLogin={onLogin} /> : <Redirect to="/groups" />}
