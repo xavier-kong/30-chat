@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom"
 import Login from './components/Login'
-import Groups from 'components/Groups'
+import Groups from './components/Groups'
 import axios from 'axios'
 
 const App = () => {
