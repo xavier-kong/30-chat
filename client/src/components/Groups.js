@@ -9,7 +9,7 @@ const Groups = () => {
     // const groupEnter = async (e) => { //refactor services then add to tests
     //   e.preventDefault()
     //   try {
-    //     if (username.value.length > 1 && password.value.length > 1) {
+    //     if (groupname.value.length > 1 && passphrase.value.length > 1) {
     //       const res = await axios.post('http://localhost:3001/api/users/login', {
     //       username: username.value,
     //       password: password.value
