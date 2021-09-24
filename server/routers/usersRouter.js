@@ -14,7 +14,7 @@ usersRouter.post('/auth', async(req, res) => {
     }
   } catch (err) {
     console.log(err)
-    res.status(500).json({
+    res.status(200).json({
       error: 'invalid signature'
     })
   }

@@ -5,7 +5,7 @@ import axios from 'axios'
 const Groups = () => {
     const groupname = useField('text')
     const passphrase = useField('password')
-    const [ groupList, setGroupList ] = useState=([])
+    const [ groupList, setGroupList ] = useState([])
 
     //use effect to get group list
     //group list store in state

@@ -5,7 +5,7 @@ import Groups from './components/Groups'
 import axios from 'axios'
 
 const App = () => {
-  const [ user, setUser ] = useState('')
+  const [ user, setUser ] = useState(null)
 
   useEffect(() => {
     try {
@@ -15,15 +15,17 @@ const App = () => {
         .post('http://localhost:3001/api/users/auth', body)
         .then((res) => {
           if (res.data === 'valid') {
+            console.log('here')
             setUser(userJSON)
           } else {
+            console.log('no im here')
             setUser(null)
           }
         })
     } catch {
+      console.log('ello')
       setUser(null)
     }
-
   }, [])
   
   const onLogin = () => {
