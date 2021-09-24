@@ -14,11 +14,7 @@ const Login = ({ onLogin }) => {
         username: username.value,
         password: password.value
       })
-
-      window.localStorage.setItem(
-        'loggedInUser', JSON.stringify(res.data)
-      )
-      onLogin()
+      onLogin(JSON.stringify(res.data))
       } else {
         console.log('input not allowed') //change later 
       }

@@ -15,20 +15,20 @@ const App = () => {
         .post('http://localhost:3001/api/users/auth', body)
         .then((res) => {
           if (res.data === 'valid') {
-            console.log('here')
             setUser(userJSON)
           } else {
-            console.log('no im here')
             setUser(null)
           }
         })
     } catch {
-      console.log('ello')
       setUser(null)
     }
   }, [])
   
-  const onLogin = () => {
+  const onLogin = (data) => {
+    window.localStorage.setItem(
+      'loggedInUser', data
+    )
     setUser(JSON.parse(localStorage.getItem('loggedInUser')))
   }
   
