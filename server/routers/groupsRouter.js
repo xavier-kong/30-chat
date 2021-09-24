@@ -12,6 +12,7 @@ groupsRouter.post('/join', async(req, res) => {
   const body = req.body
 
   const group = await pool.select().from('groups').where('group_name', body.group_name)
+  const user = await pool.select().from('users').where('username', body.username)
 
   if (group.length === 0) {
     const saltRounds = 10
@@ -29,6 +30,14 @@ groupsRouter.post('/join', async(req, res) => {
       res.status(500).json(err)
     }
   } else if (group[0].expiry_date < new Date()) {
+    
+      await pool('user_groups')
+        .where({
+          'group_uid': group[0].group_uid,
+          'user_uid': user[0].user_uid
+        })
+        .del()
+
       await pool('groups')
         .where('group_name', body.group_name)
         .del()

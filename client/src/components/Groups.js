@@ -1,23 +1,35 @@
 import React, { useState, useEffect } from 'react'
 import useField from '../hooks/useField'
 import axios from 'axios'
+import configGen from '../services/configGen'
 
-const Groups = () => {
+const Groups = ({ username }) => {
     const groupname = useField('text')
     const passphrase = useField('password')
     const [ groupList, setGroupList ] = useState([])
+    const config = configGen()
 
     //use effect to get group list
     //group list store in state
     
+    useEffect(() => {
+      axios.post('http://localhost:3001/api/groups/list', {
+        username: username
+      }, config)
+        .then((res) => {
+          console.log(res.data)
+        })
+    }, [username, config])
+
     const groupEnter = async (e) => { //refactor services then add to tests
       e.preventDefault()
       try {
         if (groupname.value.length > 1 && passphrase.value.length > 1) {
           const res = await axios.post('http://localhost:3001/api/groups/join', {
           group_name: groupname.value,
-          passphrase: passphrase.value
-        })
+          passphrase: passphrase.value,
+          username
+        }, config)
   
         //group list state update with res data
 
