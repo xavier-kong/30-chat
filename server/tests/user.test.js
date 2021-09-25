@@ -84,7 +84,7 @@ describe('token validation', () => {
     const res = await api
       .post('/api/users/auth')
       .send({token: 'invalidtoken123'})
-      .expect(500)
+      .expect(200)
     
     const contents = res.body
     expect(contents).toEqual(
