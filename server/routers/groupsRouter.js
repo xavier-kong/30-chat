@@ -69,6 +69,14 @@ groupsRouter.post('/join', async(req, res) => {
         passphrase: passwordHash,
         expiry_date: expdate
       })
+      const group = await pool.select().from('groups').where('group_name', body.group_name)
+      const u_uid = await pool.select('user_uid').from('users').where('username', body.username) 
+      const l_time = new Date().toISOString().slice(0, 19).replace('T', ' ')
+      await pool('user_groups').insert({
+        group_uid: group[0].group_uid,
+        user_uid: u_uid[0].user_uid,
+        login_time: l_time
+      })
       res.status(200).send(body.group_name)
     } catch (err) {
       console.log(err)
