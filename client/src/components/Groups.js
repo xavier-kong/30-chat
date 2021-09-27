@@ -12,8 +12,6 @@ const Groups = ({ username }) => {
     //use effect to get group list
     //group list store in state
 
-    
-    
 
     const getList = async () => {
       try {
