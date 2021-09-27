@@ -12,25 +12,15 @@ const Groups = ({ username }) => {
     //use effect to get group list
     //group list store in state
 
-
-    const getList = async () => {
-      try {
-        const res = await axios.post('http://localhost:3001/api/groups/list', {
-        username: username
-      }, config)
-        //console.log(res.data)
-        return res
-      } catch (err) {
-        console.log(err)
-      }
-    }
-
     useEffect(() => {
-      const temp = getList()
-      setGroupList(temp)
-    }, [])
-
-      
+      const config = configGen()
+      axios.post('http://localhost:3001/api/groups/list', {
+        username: username
+      }, config).then((res) => {
+        setGroupList(res.data)
+      })
+    }, [username])
+  
     const groupEnter = async (e) => { //refactor services then add to tests
       e.preventDefault()
       try {
@@ -54,17 +44,13 @@ const Groups = ({ username }) => {
       // add redirect component
     }
 
-    
+    //function to display array of names as links
   
     return (
       <>
       <h1>Join Group</h1>
       <h2>List of groups placeholder</h2>
-      {groupList.forEach(name => {
-        return (
-          <p>{name}</p>
-        )
-      })}
+      
       <p>If the group exists you will be allowed in</p>
       <p>If the group does not exist, one will be created and you will be allowed in</p>
       <form onSubmit={groupEnter}>
