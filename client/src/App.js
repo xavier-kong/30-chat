@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom"
 import Login from './components/Login'
 import Groups from './components/Groups'
+import Chat from './components/Chat'
 import axios from 'axios'
 
 const App = () => {
@@ -31,13 +32,17 @@ const App = () => {
     )
     setUser(JSON.parse(localStorage.getItem('loggedInUser')))
   }
+
+  
   
   return (
     <Router>
       <>
         <h1>30 Chat</h1>
         <Switch>
-          {/* param route path for chat */}
+          <Route path="/chat/:name">
+            <Chat />
+          </Route>
           <Route path="/groups">
           {user === null ? <Redirect to="/login" /> : <Groups username={user.username} />}
           </Route>

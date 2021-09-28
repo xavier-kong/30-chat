@@ -30,6 +30,8 @@ const Groups = ({ username }) => {
           passphrase: passphrase.value,
           username  
         }, config)
+          const newList = groupList.concat(res.data)
+          setGroupList(newList)
   
         //group list state update with res data
 
@@ -49,7 +51,13 @@ const Groups = ({ username }) => {
     return (
       <>
       <h1>Join Group</h1>
-      <h2>List of groups placeholder</h2>
+      <h2>List of groups </h2>
+      {groupList
+        .map(group => (
+          <>
+          <a href={`http://localhost:3000/chat/${group}`} >{group}</a> <br />
+          </>
+        ))}
       
       <p>If the group exists you will be allowed in</p>
       <p>If the group does not exist, one will be created and you will be allowed in</p>
