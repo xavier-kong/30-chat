@@ -9,9 +9,6 @@ const Groups = ({ username }) => {
     const [ groupList, setGroupList ] = useState([])
     const config = configGen()
 
-    //use effect to get group list
-    //group list store in state
-
     useEffect(() => {
       const config = configGen()
       axios.post('http://localhost:3001/api/groups/list', {
@@ -32,9 +29,6 @@ const Groups = ({ username }) => {
         }, config)
           const newList = groupList.concat(res.data)
           setGroupList(newList)
-  
-        //group list state update with res data
-
         } else {
           console.log('input not allowed') //change later 
         }
@@ -43,10 +37,7 @@ const Groups = ({ username }) => {
       }
       groupname.onSubmit()
       passphrase.onSubmit()
-      // add redirect component
     }
-
-    //function to display array of names as links
   
     return (
       <>
@@ -58,7 +49,6 @@ const Groups = ({ username }) => {
           <a href={`http://localhost:3000/chat/${group}`} >{group}</a> <br />
           </>
         ))}
-      
       <p>If the group exists you will be allowed in</p>
       <p>If the group does not exist, one will be created and you will be allowed in</p>
       <form onSubmit={groupEnter}>
