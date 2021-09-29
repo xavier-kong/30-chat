@@ -4,6 +4,7 @@ const morgan = require('morgan')
 const middleware = require('./utils/middleware')
 const usersRouter = require('./routers/usersRouter')
 const groupsRouter = require('./routers/groupsRouter')
+const chatRouter = require('./routers/chatRouter')
 
 const app = express()
 
@@ -16,6 +17,7 @@ app.use(middleware.tokenExtractor)
 
 app.use('/api/users', usersRouter)
 app.use('/api/groups', groupsRouter)
+app.user('/api/chat', chatRouter)
 
 app.use(middleware.unknownEndpoint)
 
