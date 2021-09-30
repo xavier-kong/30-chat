@@ -12,11 +12,38 @@ const io = new Server(server, {
 
 const PORT = process.env.PORT || 3001
 
+//code for socket.io implementation inspired by github.com/ephnjor2021 
+
 io.on('connection', (socket) => {
   console.log('A user connected with socket id of ', socket.id)
 
-  socket.on('disconnect', () => {
+  socket.on('joinRoom', ({ user_name, room_name }) => {
+    socket.join(room_name)
+    console.log(`User ${user_name} join Room ${room_name}`)
+
+    socket.emit('message', {
+      message: `Welcome ${user_name}!`
+    })
+
+    socket.broadcast.to(room_name).emit("message", {
+      message: `${user_name} has joined the chat`
+    })
+  })
+
+  socket.on('chat', ({ message, user_name, room_name }) => {
+    //add function here to save chat info to database
+    io.to(room_name).emit('message', {
+      message,
+      user_name
+    })
+  })
+
+  socket.on('disconnect', ({ username, room_name }) => {
     console.log('A user disconnected')
+
+    io.to(room_name).emit('message', {
+      message: `${username} has left the chat :(`
+    })
   })
 })
 
