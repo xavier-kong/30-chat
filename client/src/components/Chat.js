@@ -1,5 +1,13 @@
 import React from 'react'
 import { useParams } from 'react-router'
+const io = require("socket.io-client")
+
+const socket = io('localhost:3001');
+
+socket.on('connect', () => {
+    console.log(socket.id)
+})
+
 
 const Chat = () => {
     const { name } = useParams()
