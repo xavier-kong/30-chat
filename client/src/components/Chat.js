@@ -8,12 +8,16 @@ socket.on('connect', () => {
     console.log(socket.id)
 })
 
+//function for sending
+//on effect get all messages
+
 
 const Chat = () => {
     const { name } = useParams()
     return (
         <div>
             <h1>Chat room for {name}</h1>
+            
         </div>
     )
 }
