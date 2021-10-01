@@ -10,7 +10,6 @@ socket.on('connect', () => {
     console.log(socket.id)
 })
 
-//function for sending
 //on effect get all messages
 
 
