@@ -1,6 +1,8 @@
 import React from 'react'
+import useField from '../hooks/useField'
 import { useParams } from 'react-router'
 const io = require("socket.io-client")
+
 
 const socket = io('localhost:3001');
 
@@ -14,10 +16,20 @@ socket.on('connect', () => {
 
 const Chat = () => {
     const { name } = useParams()
+    const text = useField('text')
+
+    const sendMessage = (e) => {
+        e.preventDefault()
+        //logic for sending message
+    }
     return (
         <div>
             <h1>Chat room for {name}</h1>
-            
+            <p>Place holder for messages</p>
+            <form onSubmit={sendMessage}>
+            <label>Group name: <input {...text} /></label><br />
+            <button type="submit">Send</button>
+            </form>
         </div>
     )
 }
