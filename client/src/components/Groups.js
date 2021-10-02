@@ -42,7 +42,7 @@ const Groups = ({ username }) => {
     return (
       <>
       <h1>Join Group</h1>
-      <h2>List of groups </h2>
+      <h2>List of groups for </h2>
       {groupList
         .map(group => (
           <>

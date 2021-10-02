@@ -10,7 +10,9 @@ const Chat = ({ socket, username }) => {
         console.log(socket.id)
     })
 
-    socket.emit('joinRoom', { username, groupname })
+    if (username !== null && groupname !== null) {
+        socket.emit('joinRoom', {username, groupname})
+    }
 
     const sendMessage = (e) => {
         e.preventDefault()
