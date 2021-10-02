@@ -4,9 +4,12 @@ import Login from './components/Login'
 import Groups from './components/Groups'
 import Chat from './components/Chat'
 import axios from 'axios'
+const io = require("socket.io-client")
 
 const App = () => {
   const [ user, setUser ] = useState(null)
+
+  const socket = io('localhost:3001');
 
   useEffect(() => {
     try {
@@ -40,8 +43,8 @@ const App = () => {
       <>
         <h1>30 Chat</h1>
         <Switch>
-          <Route path="/chat/:name">
-            <Chat />
+          <Route path="/chat/:groupname">
+          {user === null ? <Redirect to="/login" /> : <Chat socket={socket} username={user.username} />}
           </Route>
           <Route path="/groups">
           {user === null ? <Redirect to="/login" /> : <Groups username={user.username} />}

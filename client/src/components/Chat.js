@@ -1,21 +1,16 @@
 import React from 'react'
 import useField from '../hooks/useField'
 import { useParams } from 'react-router'
-const io = require("socket.io-client")
 
-
-const socket = io('localhost:3001');
-
-socket.on('connect', () => {
-    console.log(socket.id)
-})
-
-//on effect get all messages
-
-
-const Chat = () => {
-    const { name } = useParams()
+const Chat = ({ socket, username }) => {
+    const { groupname } = useParams()
     const text = useField('text')
+
+    socket.on('connect', () => {
+        console.log(socket.id)
+    })
+
+    socket.emit('joinRoom', { username, groupname })
 
     const sendMessage = (e) => {
         e.preventDefault()
@@ -23,11 +18,10 @@ const Chat = () => {
     }
     return (
         <div>
-            <h1>Chat room for {name}</h1>
+            <h1>Chat room for {groupname} "show remaining time countdown here"</h1>
             <p>Place holder for messages</p>
             <form onSubmit={sendMessage}>
-            <label>Group name: <input {...text} /></label><br />
-            <button type="submit">Send</button>
+            <label><input {...text} /></label><button type="submit">Send</button><br />
             </form>
         </div>
     )

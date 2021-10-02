@@ -38,7 +38,7 @@ const Groups = ({ username }) => {
       groupname.onSubmit()
       passphrase.onSubmit()
     }
-  
+    
     return (
       <>
       <h1>Join Group</h1>
