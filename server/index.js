@@ -17,8 +17,9 @@ const PORT = process.env.PORT || 3001
 io.on('connection', (socket) => {
   console.log('A user connected with socket id of ', socket.id)
 
-  socket.on('joinRoom', ({user_name, room_name}) => {
+  socket.on('joinRoom', ({ user_name, room_name }) => {
     socket.join(room_name)
+    console.log(user_name, 'userlol')
     console.log(`User ${user_name} joined Room ${room_name}`)
 
     socket.emit('message', {

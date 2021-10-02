@@ -11,7 +11,10 @@ const Chat = ({ socket, username }) => {
     })
 
     if (username !== null && groupname !== null) {
-        socket.emit('joinRoom', {username, groupname})
+        const user_name = username
+        const room_name = groupname
+        socket.emit('joinRoom', { user_name, room_name })
+        console.log(username, groupname)
     }
 
     const sendMessage = (e) => {
