@@ -42,7 +42,7 @@ const App = () => {
         <h1>30 Chat</h1>
         <Switch>
           <Route path="/chat/:groupname">
-            {user ? <Chat socket={socket} username={user.username} /> : <p>'loading'</p>}
+            {user ? <Chat socket={socket} user_name={user.username} /> : <p>'loading'</p>}
           </Route>
           <Route path="/groups">
           {user === null ? <Redirect to="/login" /> : <Groups username={user.username} />}

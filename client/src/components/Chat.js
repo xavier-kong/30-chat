@@ -2,20 +2,15 @@ import React from 'react'
 import useField from '../hooks/useField'
 import { useParams } from 'react-router'
 
-const Chat = ({ socket, username }) => {
-    const { groupname } = useParams()
+const Chat = ({ socket, user_name }) => {
+    const { room_name } = useParams()
     const text = useField('text')
 
     socket.on('connect', () => {
         console.log(socket.id)
     })
 
-    if (username !== null && groupname !== null) {
-        const user_name = username
-        const room_name = groupname
-        socket.emit('joinRoom', { user_name, room_name })
-        console.log(username, groupname)
-    }
+    socket.emit('joinRoom', { user_name, room_name })
 
     const sendMessage = (e) => {
         e.preventDefault()
@@ -23,7 +18,7 @@ const Chat = ({ socket, username }) => {
     }
     return (
         <div>
-            <h1>Chat room for {groupname} "show remaining time countdown here"</h1>
+            <h1>Chat room for {room_name} "show remaining time countdown here"</h1>
             <p>Place holder for messages</p>
             <form onSubmit={sendMessage}>
             <label><input {...text} /></label><button type="submit">Send</button><br />
