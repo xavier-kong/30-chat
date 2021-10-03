@@ -19,8 +19,7 @@ io.on('connection', (socket) => {
 
   socket.on('joinRoom', ({ user_name, room_name }) => {
     socket.join(room_name)
-    console.log(user_name, 'userlol')
-    console.log(`User ${user_name} joined Room ${room_name}`)
+    console.log(`User ${user_name} joined Room ${room_name} at ${new Date()}`)
 
     socket.emit('message', {
       message: `Welcome ${user_name}!`
