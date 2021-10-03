@@ -5,28 +5,23 @@ import { useParams } from 'react-router'
 const Chat = ({ socket, user_name }) => {
     const { room_name } = useParams()
     const text = useField('text')
-    const [ messages, setMessages ] = useState([])
 
-    // useEffect(() => {
-    //     socket.on('message', (data) => {
-    //         const newmsg = messages.concat({
-    //             username: data.user_name,
-    //             message: data.message
-    //         })
-    //         setMessages(newmsg)
-    //     })
-    // })
+    socket.on('message', (data) => {
+        console.log(data)
+    })    
 
-    socket.on('connect', () => {
-        console.log(socket.id)
-    })
-
-    socket.emit('joinRoom', { user_name, room_name })
+    socket.emit('joinRoom', { user_name, room_name }) //need to move this somewhere else or else will be called on every re render
 
     const sendMessage = (e) => {
         e.preventDefault()
-        //logic for sending message
+        socket.emit('chat', {
+            message: text.value,
+            user_name,
+            room_name
+        })
+        text.onSubmit()
     }
+    
     return (
         <div>
             <h1>Chat room for {room_name} "show remaining time countdown here"</h1>
@@ -34,7 +29,7 @@ const Chat = ({ socket, user_name }) => {
             <form onSubmit={sendMessage}>
             <label><input {...text} onKeyPress={e => {
                 if (e.key === 'Enter') {
-                    sendMessage()
+                    sendMessage(e)
                 }
             }}/></label><button type="submit">Send</button><br />
             </form>

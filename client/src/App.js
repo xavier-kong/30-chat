@@ -11,6 +11,10 @@ const App = () => {
 
   const socket = io('localhost:3001');
 
+  socket.on('connect', () => {
+    console.log(socket.id)
+  })
+
   useEffect(() => {
     try {
       const userJSON = JSON.parse(localStorage.getItem('loggedInUser'))
@@ -35,7 +39,7 @@ const App = () => {
     )
     setUser(JSON.parse(localStorage.getItem('loggedInUser')))
   }
-  
+
   return (
     <Router>
       <>
