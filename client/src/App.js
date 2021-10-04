@@ -55,7 +55,7 @@ const App = () => {
             {user ? <Chat socket={socket} user_name={user.username} /> : <p>'loading'</p>}
           </Route>
           <Route path="/groups">
-          {user === null ? <Redirect to="/login" /> : <Groups username={user.username} />}
+          {user === null ? <Redirect to="/login" /> : <Groups username={user.username} socket={socket}/>}
           </Route>
           <Route path="/login">
             {user === null ? <Login onLogin={onLogin} /> : <Redirect to="/groups" />}

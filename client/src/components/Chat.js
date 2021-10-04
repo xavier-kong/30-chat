@@ -10,7 +10,7 @@ const Chat = ({ socket, user_name }) => {
         console.log(data)
     })    
 
-    socket.emit('joinRoom', { user_name, room_name }) //need to move this somewhere else or else will be called on every re render
+     //need to move this somewhere else or else will be called on every re render
 
     const sendMessage = (e) => {
         e.preventDefault()
