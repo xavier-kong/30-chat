@@ -40,10 +40,16 @@ const App = () => {
     setUser(JSON.parse(localStorage.getItem('loggedInUser')))
   }
 
+  const Logout = () => {
+    window.localStorage.removeItem('loggedInUser')
+    setUser(null)
+  }
+
   return (
     <Router>
       <>
         <h1>30 Chat</h1>
+         {user ? <p>Currently logged in as {user.username}<button onClick={Logout}>Logout</button></p> : null}
         <Switch>
           <Route path="/chat/:room_name">
             {user ? <Chat socket={socket} user_name={user.username} /> : <p>'loading'</p>}
