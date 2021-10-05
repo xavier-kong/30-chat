@@ -56,7 +56,7 @@ const Groups = ({ username, socket }) => {
       {groupList
         .map(group => (
           <>
-          <a href={'http://localhost:3000/groups'} >{group}</a><br />
+          <p href={'http://localhost:3000/groups'} >{group}<button>Enter</button></p>
           </>
         ))}
       <p>If the group exists you will be allowed in</p>
