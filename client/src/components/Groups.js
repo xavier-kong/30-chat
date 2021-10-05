@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import useField from '../hooks/useField'
 import axios from 'axios'
 import configGen from '../services/configGen'
-import { Redirect } from 'react-router-dom'
 
 const Groups = ({ username, socket }) => {
     const groupname = useField('text')
@@ -44,10 +43,7 @@ const Groups = ({ username, socket }) => {
     const connectRoom = (user_name, room_name) => {
       socket.emit('joinRoom', { user_name, room_name })
       window.location.href = `http://localhost:3000/chat/${room_name}`
-      // return <Redirect to= />
     }
-
-    //on click / or enter group should conect room and redirect
 
     return (
       <>
