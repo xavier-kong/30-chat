@@ -43,8 +43,8 @@ const Groups = ({ username, socket }) => {
     
     const connectRoom = (user_name, room_name) => {
       socket.emit('joinRoom', { user_name, room_name })
-      
-      return <Redirect to={`http://localhost:3000/chat/${room_name}`} />
+      window.location.href = `http://localhost:3000/chat/${room_name}`
+      // return <Redirect to= />
     }
 
     //on click / or enter group should conect room and redirect
