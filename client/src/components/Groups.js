@@ -56,7 +56,15 @@ const Groups = ({ username, socket }) => {
       {groupList
         .map(group => (
           <>
-          <p href={'http://localhost:3000/groups'} >{group}<button>Enter</button></p>
+          <p>
+            {group}
+            <button onClick={e => {
+              e.preventDefault()
+              connectRoom(username, group)
+              }}>
+              Enter
+            </button>
+          </p>
           </>
         ))}
       <p>If the group exists you will be allowed in</p>
