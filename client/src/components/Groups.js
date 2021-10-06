@@ -52,15 +52,12 @@ const Groups = ({ username, socket }) => {
       {groupList
         .map(group => (
           <>
-          <p>
-            {group}
             <button onClick={e => {
               e.preventDefault()
               connectRoom(username, group)
               }}>
-              Enter
+              Enter chat room for {group}
             </button>
-          </p>
           </>
         ))}
       <p>If the group exists you will be allowed in</p>
