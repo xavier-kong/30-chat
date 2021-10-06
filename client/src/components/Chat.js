@@ -10,8 +10,6 @@ const Chat = ({ socket, user_name }) => {
         console.log(data)
     })    
 
-     //need to move this somewhere else or else will be called on every re render
-
     const sendMessage = (e) => {
         e.preventDefault()
         socket.emit('chat', {
