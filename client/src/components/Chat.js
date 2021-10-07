@@ -5,9 +5,14 @@ import { useParams } from 'react-router'
 const Chat = ({ socket, user_name }) => {
     const { room_name } = useParams()
     const text = useField('text')
+    const [ messages, setMessages ] = useState([])
+
+    //use effect to load messages into messages
 
     socket.on('message', (data) => {
         console.log(data)
+        // const newMessages = messages.concat(data)
+        // setMessages(newMessages)
     })    
 
     const sendMessage = (e) => {
@@ -30,7 +35,12 @@ const Chat = ({ socket, user_name }) => {
         <div>
             <h1>Chat room for {room_name} "show remaining time countdown here"</h1>
             <button onClick={backToGroups}>Click to go back to groups</button> 
-            <p>Place holder for messages</p>
+            {messages
+                .map(message => (
+                    <p>
+                        {message.message}
+                    </p>
+                ))}
             <form onSubmit={sendMessage}>
             <label><input {...text} onKeyPress={e => {
                 if (e.key === 'Enter') {
