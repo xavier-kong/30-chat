@@ -19,10 +19,17 @@ const Chat = ({ socket, user_name }) => {
         })
         text.onSubmit()
     }
+
+    const backToGroups = (e) => {
+        e.preventDefault()
+        window.location.href = `http://localhost:3000/groups`
+    }
+    
     
     return (
         <div>
             <h1>Chat room for {room_name} "show remaining time countdown here"</h1>
+            <button onClick={backToGroups}>Click to go back to groups</button> 
             <p>Place holder for messages</p>
             <form onSubmit={sendMessage}>
             <label><input {...text} onKeyPress={e => {
