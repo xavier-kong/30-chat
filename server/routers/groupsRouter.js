@@ -3,6 +3,19 @@ const pool = require('../db')
 
 const groupsRouter = require('express').Router()
 
+const deleteGroup = async(group, user) => {
+  await pool('user_groups')
+      .where({
+        'group_uid': group,
+        'user_uid': user
+      })
+      .del()
+
+  await pool('groups')
+    .where('group_uid', group)
+    .del()
+}
+
 groupsRouter.post('/join', async(req, res) => {
 
   if (!req.token) {
@@ -97,8 +110,8 @@ groupsRouter.post('/list', async(req, res) => {
 
   const groups = await pool('user_groups')
     .join('groups', 'user_groups.group_uid', '=', 'groups.group_uid')
-    .select('group_name', 'expiry_date')
-    .where('user_uid', u_uid[0].user_uid)
+    .select('group_name', 'expiry_date', 'groups.group_uid')
+    .where('user_groups.user_uid', u_uid[0].user_uid)
 
   const list = groups
     .filter(group => group.expiry_date >= new Date())
@@ -106,6 +119,14 @@ groupsRouter.post('/list', async(req, res) => {
  
   res.status(200).json(list)
 
+  const deleteList = groups
+    .filter(group => group.expiry_date < new Date())
+    .map(group => group.group_uid)
+
+  deleteList
+    .forEach(group => {
+      deleteGroup(group, u_uid[0].user_uid)
+    })
 })
 
 module.exports = groupsRouter
