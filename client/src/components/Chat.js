@@ -11,9 +11,7 @@ const Chat = ({ socket, user_name }) => {
 
     useEffect(() => {
         socket.emit('joinRoom', { user_name, room_name })
-    },[])
-
-    //socket.emit('joinRoom', { user_name, room_name })
+    }, [])
 
     socket.on('message', (data) => {
         console.log(data)

@@ -97,12 +97,15 @@ groupsRouter.post('/list', async(req, res) => {
 
   const groups = await pool('user_groups')
     .join('groups', 'user_groups.group_uid', '=', 'groups.group_uid')
-    .select('group_name')
+    .select('group_name', 'expiry_date')
     .where('user_uid', u_uid[0].user_uid)
 
-  const list = groups.map(group => group.group_name)
-
+  const list = groups
+    .filter(group => group.expiry_date >= new Date())
+    .map(group => group.group_name)
+ 
   res.status(200).json(list)
+
 })
 
 module.exports = groupsRouter

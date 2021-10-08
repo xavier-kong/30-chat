@@ -27,8 +27,6 @@ const Groups = ({ username, socket }) => {
           passphrase: passphrase.value,
           username  
         }, config)
-          const newList = groupList.concat(res.data)
-          setGroupList(newList)
           redirectRoom(res.data)
         } else {
           console.log('input not allowed') //change later 
