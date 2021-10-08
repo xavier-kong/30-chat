@@ -29,7 +29,7 @@ const Groups = ({ username, socket }) => {
         }, config)
           const newList = groupList.concat(res.data)
           setGroupList(newList)
-          connectRoom(username, res.data)
+          redirectRoom(res.data)
         } else {
           console.log('input not allowed') //change later 
         }
@@ -40,8 +40,7 @@ const Groups = ({ username, socket }) => {
       passphrase.onSubmit()
     }
     
-    const connectRoom = (user_name, room_name) => {
-      socket.emit('joinRoom', { user_name, room_name })
+    const redirectRoom = (room_name) => {
       window.location.href = `http://localhost:3000/chat/${room_name}`
     }
 
@@ -54,7 +53,7 @@ const Groups = ({ username, socket }) => {
           <div>
             <button onClick={e => {
               e.preventDefault()
-              connectRoom(username, group)
+              redirectRoom(group)
               }}>
               Enter chat room for "{group}"
             </button>

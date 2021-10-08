@@ -9,10 +9,16 @@ const Chat = ({ socket, user_name }) => {
 
     //use effect to load messages into messages
 
+    useEffect(() => {
+        socket.emit('joinRoom', { user_name, room_name })
+    },[])
+
+    //socket.emit('joinRoom', { user_name, room_name })
+
     socket.on('message', (data) => {
         console.log(data)
-        // const newMessages = messages.concat(data)
-        // setMessages(newMessages)
+        const newMessages = messages.concat(data)
+        setMessages(newMessages)
     })    
 
     const sendMessage = (e) => {
@@ -38,7 +44,7 @@ const Chat = ({ socket, user_name }) => {
             {messages
                 .map(message => (
                     <p>
-                        {message.message}
+                        {message.username}: {message.message}
                     </p>
                 ))}
             <form onSubmit={sendMessage}>

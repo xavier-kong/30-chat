@@ -22,7 +22,8 @@ io.on('connection', (socket) => {
     console.log(`User ${user_name} joined Room ${room_name} at ${new Date()}`)
 
     socket.emit('message', {
-      message: `Welcome ${user_name}!`
+      message: `Welcome ${user_name}!`,
+      username: 'Hal'
     })
 
     socket.broadcast.to(room_name).emit("message", {
@@ -35,7 +36,7 @@ io.on('connection', (socket) => {
     console.log('message sent!', message)
     io.to(room_name).emit('message', {
       message,
-      user_name
+      username: user_name
     })
   })
 
