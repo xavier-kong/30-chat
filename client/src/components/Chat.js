@@ -37,6 +37,10 @@ const Chat = ({ socket, user_name }) => {
 
     const backToGroups = (e) => {
         e.preventDefault()
+        socket.emit('disconnect_room', {
+            user_name,
+            room_name
+        })
         window.location.href = `http://localhost:3000/groups`
     }
 

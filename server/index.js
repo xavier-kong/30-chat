@@ -39,7 +39,7 @@ io.on('connection', (socket) => {
     })
   })
 
-  socket.on('disconnect', ({ username, room_name }) => {
+  socket.on('disconnect_room', ({ username, room_name }) => {
     console.log('A user disconnected')
 
     io.to(room_name).emit('message', {
