@@ -32,8 +32,7 @@ io.on('connection', (socket) => {
   })
 
   socket.on('chat', ({ message, user_name, room_name }) => {
-    //add function here to save chat info to database
-    console.log('message sent!', message)
+    console.log(`User: "${user_name} sent Message: ${message} in Room: ${room_name} at ${new Date()}`)
     io.to(room_name).emit('message', {
       message,
       username: user_name
