@@ -17,7 +17,6 @@ app.use(middleware.tokenExtractor)
 
 app.use('/api/users', usersRouter)
 app.use('/api/groups', groupsRouter)
-app.use('/api/chat', chatRouter)
 
 app.use(middleware.unknownEndpoint)
 
