@@ -4,7 +4,6 @@ const morgan = require('morgan')
 const middleware = require('./utils/middleware')
 const usersRouter = require('./routers/usersRouter')
 const groupsRouter = require('./routers/groupsRouter')
-const chatRouter = require('./routers/chatRouter')
 
 const app = express()
 

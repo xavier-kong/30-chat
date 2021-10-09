@@ -2,19 +2,24 @@ import React, { useState, useEffect } from 'react'
 import useField from '../hooks/useField'
 import { useParams } from 'react-router'
 
+const chatStyle = {
+    'overflow-y': 'scroll',
+    'border':'1px solid black',
+    'width':'500px',
+    'height':'300px',
+    'position':'relative'
+}
+
 const Chat = ({ socket, user_name }) => {
     const { room_name } = useParams()
     const text = useField('text')
     const [ messages, setMessages ] = useState([])
-
-    //use effect to load messages into messages
 
     useEffect(() => {
         socket.emit('joinRoom', { user_name, room_name })
     }, [])
 
     socket.on('message', (data) => {
-        console.log(data)
         const newMessages = messages.concat(data)
         setMessages(newMessages)
     })    
@@ -34,17 +39,18 @@ const Chat = ({ socket, user_name }) => {
         window.location.href = `http://localhost:3000/groups`
     }
     
-    
     return (
         <div>
             <h1>Chat room for {room_name} "show remaining time countdown here"</h1>
             <button onClick={backToGroups}>Click to go back to groups</button> 
+            <div style={chatStyle}>
             {messages
                 .map(message => (
                     <p>
                         {message.username}: {message.message}
                     </p>
                 ))}
+            </div>
             <form onSubmit={sendMessage}>
             <label><input {...text} onKeyPress={e => {
                 if (e.key === 'Enter') {

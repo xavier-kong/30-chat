@@ -18,7 +18,7 @@ const Groups = ({ username, socket }) => {
       })
     }, [username])
   
-    const groupEnter = async (e) => { //refactor services then add to tests
+    const groupEnter = async (e) => {
       e.preventDefault()
       try {
         if (groupname.value.length > 1 && passphrase.value.length > 1) {
