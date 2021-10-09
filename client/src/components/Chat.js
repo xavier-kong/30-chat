@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import useField from '../hooks/useField'
 import { useParams } from 'react-router'
 
 const chatStyle = {
-    'overflow-y': 'scroll',
+    'overflowY': 'scroll',
     'border':'1px solid black',
-    'width':'500px',
+    'width':'300px',
     'height':'300px',
     'position':'relative'
 }
@@ -21,6 +21,7 @@ const Chat = ({ socket, user_name }) => {
 
     socket.on('message', (data) => {
         const newMessages = messages.concat(data)
+        scrollToBottom()
         setMessages(newMessages)
     })    
 
@@ -38,10 +39,17 @@ const Chat = ({ socket, user_name }) => {
         e.preventDefault()
         window.location.href = `http://localhost:3000/groups`
     }
+
+    const messagesEndRef = useRef(null)
+
+    const scrollToBottom = () => {
+    messagesEndRef.current.scrollIntoView({ behavior: "auto" })
+  }
     
     return (
         <div>
-            <h1>Chat room for {room_name} "show remaining time countdown here"</h1>
+            <h3>Chat room for {room_name}</h3>
+            <p>"show remaining time countdown here"</p>
             <button onClick={backToGroups}>Click to go back to groups</button> 
             <div style={chatStyle}>
             {messages
@@ -50,6 +58,7 @@ const Chat = ({ socket, user_name }) => {
                         {message.username}: {message.message}
                     </p>
                 ))}
+            <div ref={messagesEndRef} />
             </div>
             <form onSubmit={sendMessage}>
             <label><input {...text} onKeyPress={e => {
