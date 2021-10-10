@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react'
-import useField from '../hooks/useField'
 import { useParams } from 'react-router'
 
 const chatStyle = {
@@ -12,7 +11,6 @@ const chatStyle = {
 
 const Chat = ({ socket, user_name }) => {
     const { room_name } = useParams()
-    //const text = useField('text')
     const [ messages, setMessages ] = useState([])
 
     useEffect(() => {
@@ -21,11 +19,8 @@ const Chat = ({ socket, user_name }) => {
 
     const listener = (...args) => {
         console.log(args[0], 'in listener!')
-        //socket.off('message', listener)
-        //socket.removeAllListeners('message', listener)
     }
 
-    //socket.removeAllListeners('message', listener)
     socket.on('message', listener)
 
     // socket.once('message', (data) => {
