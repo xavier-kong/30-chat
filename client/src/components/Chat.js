@@ -17,20 +17,15 @@ const Chat = ({ socket, user_name }) => {
         socket.emit('joinRoom', { user_name, room_name })
     }, [])
 
-    const listener = (...args) => {
-        console.log(args[0], 'in listener!')
+    const messageListener = (...args) => {
+        const newMessages = messages.concat(args[0])
+        scrollToBottom()
+        setMessages(newMessages)
+        socket.off('message', messageListener)
     }
 
-    socket.on('message', listener)
-
-    // socket.once('message', (data) => {
-    //     socket.off('message')
-    //     console.log(data)
-    //     const newMessages = messages.concat(data)
-    //     scrollToBottom()
-    //     setMessages(newMessages)
-    // })    
-
+    socket.on('message', messageListener)
+ 
     const sendMessage = (e) => {
         e.preventDefault()
         socket.emit('chat', {
@@ -38,7 +33,7 @@ const Chat = ({ socket, user_name }) => {
             user_name,
             room_name
         })
-        //text.onSubmit()
+        document.getElementById("form").reset();
     }
 
     const backToGroups = (e) => {
@@ -70,11 +65,17 @@ const Chat = ({ socket, user_name }) => {
                 ))}
             <div ref={messagesEndRef} />
             </div>
-            <form onSubmit={sendMessage}>
-            <label><input type='text' onKeyPress={e => {
-                if (e.key === 'Enter') {
-                    sendMessage(e)
-                }
+            <form onSubmit={sendMessage} id='form'>
+            <label>
+                <input 
+                    autoFocus
+                    defaultValue=''
+                    type='text' 
+                    onKeyPress={e => {
+                        if (e.key === 'Enter') {
+                            sendMessage(e)
+                        }
+                    
             }}/></label><button type="submit">Send</button><br />
             </form>
         </div>
