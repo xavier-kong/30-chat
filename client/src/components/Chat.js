@@ -12,27 +12,38 @@ const chatStyle = {
 
 const Chat = ({ socket, user_name }) => {
     const { room_name } = useParams()
-    const text = useField('text')
+    //const text = useField('text')
     const [ messages, setMessages ] = useState([])
 
     useEffect(() => {
         socket.emit('joinRoom', { user_name, room_name })
     }, [])
 
-    socket.on('message', (data) => {
-        const newMessages = messages.concat(data)
-        scrollToBottom()
-        setMessages(newMessages)
-    })    
+    const listener = (...args) => {
+        console.log(args[0], 'in listener!')
+        //socket.off('message', listener)
+        //socket.removeAllListeners('message', listener)
+    }
+
+    //socket.removeAllListeners('message', listener)
+    socket.on('message', listener)
+
+    // socket.once('message', (data) => {
+    //     socket.off('message')
+    //     console.log(data)
+    //     const newMessages = messages.concat(data)
+    //     scrollToBottom()
+    //     setMessages(newMessages)
+    // })    
 
     const sendMessage = (e) => {
         e.preventDefault()
         socket.emit('chat', {
-            message: text.value,
+            message: e.target.value,
             user_name,
             room_name
         })
-        text.onSubmit()
+        //text.onSubmit()
     }
 
     const backToGroups = (e) => {
@@ -65,7 +76,7 @@ const Chat = ({ socket, user_name }) => {
             <div ref={messagesEndRef} />
             </div>
             <form onSubmit={sendMessage}>
-            <label><input {...text} onKeyPress={e => {
+            <label><input type='text' onKeyPress={e => {
                 if (e.key === 'Enter') {
                     sendMessage(e)
                 }

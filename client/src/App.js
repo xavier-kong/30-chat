@@ -9,12 +9,6 @@ const io = require("socket.io-client")
 const App = () => {
   const [ user, setUser ] = useState(null)
 
-  const socket = io('localhost:3001');
-
-  socket.on('connect', () => {
-    console.log(socket.id)
-  })
-
   useEffect(() => {
     try {
       const userJSON = JSON.parse(localStorage.getItem('loggedInUser'))
@@ -44,6 +38,12 @@ const App = () => {
     window.localStorage.removeItem('loggedInUser')
     setUser(null)
   }
+
+  const socket = io('localhost:3001');
+
+  socket.once('connect', () => {
+    console.log(socket.id)
+  }) //find way to make sure this only happens once!
 
   return (
     <Router>
