@@ -129,4 +129,16 @@ groupsRouter.post('/list', async(req, res) => {
     })
 })
 
+groupsRouter.post('/exp', async(req, res) => {
+  if (!req.token) {
+    res.status(401).json('Please login to continue')
+  }
+  
+  const body = req.body
+
+  const exp = await pool('groups').select('expiry_date').where('group_name', body.group_name)
+
+  res.status(200).json(exp)
+})
+
 module.exports = groupsRouter

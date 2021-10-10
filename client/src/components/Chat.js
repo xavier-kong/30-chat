@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useParams } from 'react-router'
+import configGen from '../services/configGen'
+import axios from 'axios'
 
 const chatStyle = {
     'overflowY': 'scroll',
@@ -12,9 +14,20 @@ const chatStyle = {
 const Chat = ({ socket, user_name }) => {
     const { room_name } = useParams()
     const [ messages, setMessages ] = useState([])
+    const config = configGen()
+    const [ exp, setExp ] = useState('')
 
     useEffect(() => {
-        socket.emit('joinRoom', { user_name, room_name })
+        axios
+            .post('http://localhost:3001/api/groups/exp', {
+            group_name: room_name
+      }, config)
+            .then((res) => {
+        setExp(res.data[0].expiry_date)
+      })
+            .then(
+                socket.emit('joinRoom', { user_name, room_name })
+            )
     }, [])
 
     const messageListener = (...args) => {
@@ -54,7 +67,7 @@ const Chat = ({ socket, user_name }) => {
     return (
         <div>
             <h3>Chat room for {room_name}</h3>
-            <p>"show remaining time countdown here"</p>
+            <p>This room will expire at {exp}</p>
             <button onClick={backToGroups}>Click to go back to groups</button> 
             <div style={chatStyle}>
             {messages
