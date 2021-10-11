@@ -3,6 +3,7 @@ import useField from '../hooks/useField'
 import axios from 'axios'
 import configGen from '../services/configGen'
 import joinGroup from '../services/joinGroup'
+import getGroupList from '../services/getGroupList'
 
 const Groups = ({ username, socket }) => {
     const groupname = useField('text')
@@ -12,11 +13,8 @@ const Groups = ({ username, socket }) => {
 
     useEffect(() => {
       const config = configGen()
-      axios.post('http://localhost:3001/api/groups/list', {
-        username: username
-      }, config).then((res) => {
-        setGroupList(res.data)
-      })
+      const res = getGroupList(username, config)
+      setGroupList(res.data)
     }, [username])
   
     const groupEnter = async (e) => {
