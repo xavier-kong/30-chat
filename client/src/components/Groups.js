@@ -20,8 +20,8 @@ const Groups = ({ username, socket }) => {
       e.preventDefault()
       try {
         if (groupname.value.length > 1 && passphrase.value.length > 1) {
-          const res = await joinGroup(groupname.value, passphrase.value,  username, config)
-          redirectRoom(res.data)
+          await joinGroup(groupname.value, passphrase.value,  username, config)
+          redirectRoom(groupname.value)
         } else {
           console.log('input not allowed') //change later 
         }
