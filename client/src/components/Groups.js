@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import useField from '../hooks/useField'
 import axios from 'axios'
 import configGen from '../services/configGen'
+import joinGroup from '../services/joinGroup'
 
 const Groups = ({ username, socket }) => {
     const groupname = useField('text')
@@ -22,11 +23,7 @@ const Groups = ({ username, socket }) => {
       e.preventDefault()
       try {
         if (groupname.value.length > 1 && passphrase.value.length > 1) {
-          const res = await axios.post('http://localhost:3001/api/groups/join', {
-          group_name: groupname.value,
-          passphrase: passphrase.value,
-          username  
-        }, config)
+          const res = joinGroup(groupname.value, passphrase.value,  username, config)
           redirectRoom(res.data)
         } else {
           console.log('input not allowed') //change later 
