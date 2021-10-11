@@ -43,7 +43,7 @@ const App = () => {
 
   socket.once('connect', () => {
     console.log(socket.id)
-  }) //find way to make sure this only happens once!
+  })
 
   return (
     <Router>

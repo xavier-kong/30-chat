@@ -1,19 +1,17 @@
 import React from 'react'
 import useField from '../hooks/useField'
-import axios from 'axios'
+import loginPost from '../services/loginPost'
 
 const Login = ({ onLogin }) => {
   const username = useField('text')
   const password = useField('password')
   
-  const userLogin = async (e) => { //refactor services then add to tests
+  const userLogin = async (e) => {
     e.preventDefault()
     try {
       if (username.value.length > 1 && password.value.length > 1) {
-        const res = await axios.post('http://localhost:3001/api/users/login', {
-        username: username.value,
-        password: password.value
-      })
+
+      const res = loginPost(username.value, password.value)
       onLogin(JSON.stringify(res.data))
       } else {
         console.log('input not allowed') //change later 
