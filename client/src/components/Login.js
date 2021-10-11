@@ -13,10 +13,10 @@ const Login = ({ onLogin }) => {
         const res = await loginPost(username.value, password.value)
         onLogin(JSON.stringify(res.data))
       } else {
-        console.log('input not allowed') //change later 
+        alert('input not allowed, username and password must both be at least of length 1')
       }
     } catch (err) {
-      console.log(err)
+      alert(err)
     }
     username.onSubmit()
     password.onSubmit()

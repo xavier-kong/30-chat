@@ -19,14 +19,14 @@ const Groups = ({ username, socket }) => {
     const groupEnter = async (e) => {
       e.preventDefault()
       try {
-        if (groupname.value.length > 1 && passphrase.value.length > 1) {
+        if (groupname.value.length > 1 || passphrase.value.length > 1) {
           await joinGroup(groupname.value, passphrase.value,  username, config)
           redirectRoom(groupname.value)
         } else {
-          console.log('input not allowed') //change later 
+          alert('input not allowed, groupname and passphrase must both be at least of length 1')
         }
       } catch (err) {
-        console.log(err)
+        alert(err)
       }
       groupname.onSubmit()
       passphrase.onSubmit()
