@@ -10,9 +10,8 @@ const Login = ({ onLogin }) => {
     e.preventDefault()
     try {
       if (username.value.length > 1 && password.value.length > 1) {
-
-      const res = loginPost(username.value, password.value)
-      onLogin(JSON.stringify(res.data))
+        const res = await loginPost(username.value, password.value)
+        onLogin(JSON.stringify(res.data))
       } else {
         console.log('input not allowed') //change later 
       }

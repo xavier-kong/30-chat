@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import useField from '../hooks/useField'
-import axios from 'axios'
 import configGen from '../services/configGen'
 import joinGroup from '../services/joinGroup'
 import getGroupList from '../services/getGroupList'
@@ -14,14 +13,14 @@ const Groups = ({ username, socket }) => {
     useEffect(() => {
       const config = configGen()
       const res = getGroupList(username, config)
-      setGroupList(res.data)
+      setGroupList(res)
     }, [username])
   
     const groupEnter = async (e) => {
       e.preventDefault()
       try {
         if (groupname.value.length > 1 && passphrase.value.length > 1) {
-          const res = joinGroup(groupname.value, passphrase.value,  username, config)
+          const res = await joinGroup(groupname.value, passphrase.value,  username, config)
           redirectRoom(res.data)
         } else {
           console.log('input not allowed') //change later 
@@ -41,7 +40,8 @@ const Groups = ({ username, socket }) => {
       <>
       <h1>Join Group</h1>
       <h2>List of groups for {username}</h2>
-      {groupList
+      {groupList.length > 0 ?
+      groupList
         .map(group => (
           <div>
             <button onClick={e => {
@@ -51,7 +51,8 @@ const Groups = ({ username, socket }) => {
               Enter chat room for "{group}"
             </button>
           </div>
-        ))}
+        )):
+        <p>You aren't in any groups...YET :)</p>}
       <p>If the group exists you will be allowed in</p>
       <p>If the group does not exist, one will be created and you will be allowed in</p>
       <form onSubmit={groupEnter}>

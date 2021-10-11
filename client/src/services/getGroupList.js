@@ -1,9 +1,9 @@
 import axios from 'axios'
 
-const getGroupList = async(username, config) => {
+const getGroupList = (username, config) => {
     const res = axios.post('http://localhost:3001/api/groups/list', {
         username: username
-      }, config)
+      }, config).then(res => res)
       
     return res
 }
