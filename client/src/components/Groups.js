@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react'
 import useField from '../hooks/useField'
 import configGen from '../services/configGen'
 import joinGroup from '../services/joinGroup'
-import getGroupList from '../services/getGroupList'
+import axios from 'axios'
 
-const Groups = ({ username, socket }) => {
+const Groups = ({ username }) => {
     const groupname = useField('text')
     const passphrase = useField('password')
     const [ groupList, setGroupList ] = useState([])
@@ -12,8 +12,9 @@ const Groups = ({ username, socket }) => {
 
     useEffect(() => {
       const config = configGen()
-      const res = getGroupList(username, config)
-      setGroupList(res)
+      axios.post('http://localhost:3001/api/groups/list', {
+        username: username
+        }, config).then(res => setGroupList(res.data))     
     }, [username])
   
     const groupEnter = async (e) => {
