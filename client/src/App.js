@@ -42,7 +42,7 @@ const App = () => {
   const socket = io('localhost:3001');
 
   socket.once('connect', () => {
-    console.log(socket.id)
+    console.log('connected')
   })
 
   return (

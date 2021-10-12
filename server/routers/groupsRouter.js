@@ -3,11 +3,10 @@ const pool = require('../db')
 
 const groupsRouter = require('express').Router()
 
-const deleteGroup = async(group, user) => {
+const deleteGroup = async(group) => {
   await pool('user_groups')
       .where({
-        'group_uid': group,
-        'user_uid': user
+        'group_uid': group
       })
       .del()
 
@@ -28,18 +27,10 @@ groupsRouter.post('/join', async(req, res) => {
   const user = await pool.select().from('users').where('username', body.username)
 
   if (group.length === 1 && group[0].expiry_date < new Date()) {
-    await pool('user_groups')
-      .where({
-        'group_uid': group[0].group_uid,
-        'user_uid': user[0].user_uid
-      })
-      .del()
-
-    await pool('groups')
-      .where('group_name', body.group_name)
-      .del()
-
-    res.status(404).json('group expired')
+    await deleteGroup(group[0].group_uid)
+    res.status(404).json({
+      error: 'group expired, please enter again'
+    })
   } else if (group.length === 1 && group[0].expiry_date > new Date()) {
     const u_uid = await pool.select('user_uid').from('users').where('username', body.username) 
     const usercheck = await pool.select().from('user_groups').where('user_uid', u_uid[0].user_uid)
@@ -125,7 +116,7 @@ groupsRouter.post('/list', async(req, res) => {
 
   deleteList
     .forEach(group => {
-      deleteGroup(group, u_uid[0].user_uid)
+      deleteGroup(group)
     })
 })
 
