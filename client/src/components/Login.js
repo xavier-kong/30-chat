@@ -16,7 +16,7 @@ const Login = ({ onLogin }) => {
         alert('input not allowed, username and password must both be at least of length 1')
       }
     } catch (err) {
-      alert(err)
+      alert('incorrect username or password')
     }
     username.onSubmit()
     password.onSubmit()
@@ -27,6 +27,7 @@ const Login = ({ onLogin }) => {
     <h1>Enter</h1>
     <p>If you have an existing account you will be logged in</p>
     <p>If you don't have an existing account one will be created for you and you will be logged in automatically</p>
+    <p>Note: you cannot change your username or password once your account has been created</p>
     <form onSubmit={userLogin}>
       <label>Username: <input {...username} /></label><br />
       <label>Password: <input {...password} /></label><br />
