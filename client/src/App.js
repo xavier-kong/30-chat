@@ -37,13 +37,14 @@ const App = () => {
   const Logout = () => {
     window.localStorage.removeItem('loggedInUser')
     setUser(null)
+    window.location.href = `http://localhost:3000/`
   }
 
-  const socket = io('localhost:3001');
+  const socket = io('localhost:3001')
 
-  socket.once('connect', () => {
-    console.log('connected')
-  })
+  // socket.once('connect', () => {
+  //   console.log('connected')
+  // })
 
   return (
     <Router>
@@ -52,7 +53,7 @@ const App = () => {
          {user ? <p>Currently logged in as {user.username}<button onClick={Logout}>Logout</button></p> : null}
         <Switch>
           <Route path="/chat/:room_name">
-            {user ? <Chat socket={socket} user_name={user.username} /> : <p>'loading'</p>}
+            {user ? <Chat socket={socket} user_name={user.username} /> : <Redirect to="/login" />}
           </Route>
           <Route path="/groups">
           {user === null ? <Redirect to="/login" /> : <Groups username={user.username} socket={socket}/>}
