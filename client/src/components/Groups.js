@@ -21,7 +21,9 @@ const Groups = ({ username }) => {
       e.preventDefault()
       try {
         if (groupname.value.length > 1 || passphrase.value.length > 1) {
-          await joinGroup(groupname.value, passphrase.value,  username, config)
+          if (!groupList.includes(groupname.value)) {
+            await joinGroup(groupname.value, passphrase.value,  username, config)
+          }
           redirectRoom(groupname.value)
         } else {
           alert('input not allowed, groupname and passphrase must both be at least of length 1')
@@ -57,7 +59,7 @@ const Groups = ({ username }) => {
       <p>If the group exists you will be allowed in</p>
       <p>If the group does not exist, one will be created and you will be allowed in</p>
       <form onSubmit={groupEnter}>
-        <label>Group name: <input {...groupname} /></label><br />
+        <label>Group name: <input {...groupname} autoFocus/></label><br />
         <label>Passphrase: <input {...passphrase} /></label><br />
         <button type="submit">Enter</button>
       </form>
