@@ -14,14 +14,11 @@ const pool = process.env.NODE_ENV === 'test'
   })
   : require('knex')({
     client: 'pg',
-    connection: {
-      host : 'localhost',
-      user : 'postgres',
-      password : PASSWORD,
-      database : 'postgres',
-      port: 5432
-    },
-  })
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+    rejectUnauthorized: false
+  }
+})
 
 pool.select('NOW').as('now')
 
