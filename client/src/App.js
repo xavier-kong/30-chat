@@ -14,7 +14,7 @@ const App = () => {
       const userJSON = JSON.parse(localStorage.getItem('loggedInUser'))
       const body = { token: userJSON.token }
       axios
-        .post('http://localhost:3001/api/users/auth', body)
+        .post('https://thirtychat30.herokuapp.com/api/users/auth', body)
         .then((res) => {
           if (res.data === 'valid') {
             setUser(userJSON)
@@ -37,14 +37,10 @@ const App = () => {
   const Logout = () => {
     window.localStorage.removeItem('loggedInUser')
     setUser(null)
-    window.location.href = `http://localhost:3000/`
+    window.location.href = `https://thirtychat30.herokuapp.com/`
   }
 
-  const socket = io('localhost:3001')
-
-  // socket.once('connect', () => {
-  //   console.log('connected')
-  // })
+  const socket = io('https://thirtychat30.herokuapp.com/')
 
   return (
     <Router>

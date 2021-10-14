@@ -19,7 +19,7 @@ const Chat = ({ socket, user_name }) => {
 
     useEffect(() => {
         axios
-            .post('http://localhost:3001/api/groups/exp', {
+            .post('https://thirtychat30.herokuapp.com/api/groups/exp', {
             group_name: room_name
       }, config)
             .then((res) => {
@@ -55,7 +55,7 @@ const Chat = ({ socket, user_name }) => {
             user_name,
             room_name
         })
-        window.location.href = `http://localhost:3000/groups`
+        window.location.href = `https://thirtychat30.herokuapp.com/groups`
     }
 
     const messagesEndRef = useRef(null)

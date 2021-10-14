@@ -12,7 +12,7 @@ const Groups = ({ username }) => {
 
     useEffect(() => {
       const config = configGen()
-      axios.post('http://localhost:3001/api/groups/list', {
+      axios.post('https://thirtychat30.herokuapp.com/api/groups/list', {
         username: username
         }, config).then(res => setGroupList(res.data))     
     }, [username])
@@ -36,7 +36,7 @@ const Groups = ({ username }) => {
     }
     
     const redirectRoom = (room_name) => {
-      window.location.href = `http://localhost:3000/chat/${room_name}`
+      window.location.href = `https://thirtychat30.herokuapp.com/chat/${room_name}`
     }
 
     return (
