@@ -4,6 +4,7 @@ server/.env
 server/tests.rest
 server/.eslintrc.js
 server/.eslintignore
-
+server/build
 ###client
 node_modules
+client/build
