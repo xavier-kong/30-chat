@@ -61,7 +61,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Install server and frontend dependencies
-        run: cd ./server && npm ci && cd ../client && npm ci
+        run: cd ./server && npm install && cd ../client && npm install
       - name: build
         run: cd ./server && npm run buildprod
       - name: Deploy
