@@ -39,23 +39,23 @@ jobs:
       #- name: Connect to PostgreSQL
         # Runs a script that creates a PostgreSQL table, populates
         # the table with data, and then retrieves the data.
-        run: cd ./server && node client.js
+        #run: cd ./server && node client.js
         # Environment variables used by the `client.js` script to create a new PostgreSQL table.
-        env:
+        #env:
           # The hostname used to communicate with the PostgreSQL service container
-          POSTGRES_HOST: postgres
+          #POSTGRES_HOST: postgres
           # The default PostgreSQL port
-          POSTGRES_PORT: 5432
+          #POSTGRES_PORT: 5432
       #- name: run server tests
-        run: sleep 5 && cd ./server && npm run test
-        env:
+        #run: sleep 5 && cd ./server && npm run test
+        #env:
           # The hostname used to communicate with the PostgreSQL service container
-          POSTGRES_HOST: postgres
+          #POSTGRES_HOST: postgres
           # The default PostgreSQL port
-          POSTGRES_PORT: 5432
-          SECRET: test
+          #POSTGRES_PORT: 5432
+          #SECRET: test
       #- name: run frontend tests
-        run: cd ./client && npm run test
+        #run: cd ./client && npm run test
       - name: build
         run: cd ./server npm run buildprod
       - name: Deploy
