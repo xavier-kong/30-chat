@@ -57,14 +57,11 @@ jobs:
       - name: run frontend tests
         run: cd ./client && npm run test
   deploy:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '12.x'
-      - name: npm install
-        run: npm install
+      - name: Install server and frontend dependencies
+        run: cd ./server && npm ci && cd ../client && npm ci
       - name: build
         run: cd ./server && npm run buildprod
       - name: Deploy
