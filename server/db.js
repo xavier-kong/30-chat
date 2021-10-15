@@ -1,6 +1,7 @@
 require('dotenv').config()
+const { Client } = require('pg')
 
-const { POSTGRES_HOST, POSTGRES_PORT, PASSWORD } = process.env;
+const { POSTGRES_HOST, POSTGRES_PORT, DATABASE_URL } = process.env;
 const pool = process.env.NODE_ENV === 'test' 
   ? require('knex')({
   client: 'pg',
@@ -12,13 +13,14 @@ const pool = process.env.NODE_ENV === 'test'
     port: POSTGRES_PORT
   }
   })
-  : require('knex')({
+  : 
+  require('knex')({
     client: 'pg',
-    connectionString: process.env.DATABASE_URL,
-    ssl: {
+    connection: DATABASE_URL,
+      ssl: {
     rejectUnauthorized: false
   }
-})
+  })
 
 pool.select('NOW').as('now')
 
