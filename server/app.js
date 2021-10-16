@@ -19,6 +19,8 @@ app.use(middleware.tokenExtractor)
 app.use('/api/users', usersRouter)
 app.use('/api/groups', groupsRouter)
 
+app.use('/static', express.static('build/static'))
+
 app.use(middleware.unknownEndpoint)
 
 module.exports = app
