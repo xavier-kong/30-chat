@@ -1,6 +1,7 @@
 const express = require('express')
 const cors = require('cors')
 const morgan = require('morgan')
+const path = require('path')
 const middleware = require('./utils/middleware')
 const usersRouter = require('./routers/usersRouter')
 const groupsRouter = require('./routers/groupsRouter')
@@ -12,14 +13,12 @@ app.use(cors())
 
 app.use(morgan('tiny'))
 
-app.use(express.static('build'));
+app.use('/static', express.static(path.join(__dirname, 'build')))
 
 app.use(middleware.tokenExtractor)
 
 app.use('/api/users', usersRouter)
 app.use('/api/groups', groupsRouter)
-
-app.use('/static', express.static('build/static'))
 
 app.use(middleware.unknownEndpoint)
 
