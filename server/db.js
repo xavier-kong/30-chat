@@ -16,7 +16,7 @@ const pool = process.env.NODE_ENV === 'test'
   : 
   require('knex')({
     client: 'pg',
-    connectionString: process.env.CONNECTION_STRING,
+    connection: process.env.DATABASE_URL,
       ssl: {
     rejectUnauthorized: false
   }
