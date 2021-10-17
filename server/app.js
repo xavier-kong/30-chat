@@ -22,6 +22,10 @@ app.use(middleware.tokenExtractor)
 app.use('/api/users', usersRouter)
 app.use('/api/groups', groupsRouter)
 
+app.get('*', (req,res) =>{
+    res.sendFile(path.join(__dirname, 'build/index.html'));
+});
+
 app.use(middleware.unknownEndpoint)
 
 module.exports = app
