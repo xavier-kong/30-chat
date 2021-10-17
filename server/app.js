@@ -13,8 +13,9 @@ app.use(cors())
 
 app.use(morgan('tiny'))
 
-app.use(express.static('build/static'))
-app.use(express.static('build'))
+
+app.use(express.static(path.join(__dirname, 'build/static')))
+app.use(express.static(path.join(__dirname, 'build')))
 
 app.use(middleware.tokenExtractor)
 
