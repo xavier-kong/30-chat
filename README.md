@@ -42,3 +42,5 @@ I plan to use:
 - Heroku for deployment
 - Github actions for deployment pipeline
 - Jest/Cypress for testing
+
+While I orignally planned to include a table to track all messages, I realized that this feature would be going against the reasoning behind this app. While it would be useful to recall previous messages, the aim of this app was allow people to collaborate on ideas spontaneously rather than having to slog through rows and rows of messages.
