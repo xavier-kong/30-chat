@@ -17,7 +17,7 @@ app.use(morgan('tiny'))
 app.use(express.static(path.join(__dirname, 'build/static')))
 
 app.get('/static/js/:name', (req,res) => {
-    res.sendFile(path.join(__dirname, `build/static/js/${req.params.name}`))
+    res.sendFile(`build/static/js/${req.params.name}`)
 })
 
 app.use(express.static(path.join(__dirname, 'build')))
