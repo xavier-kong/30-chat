@@ -15,21 +15,14 @@ app.use(morgan('tiny'))
 
 
 app.use(express.static(path.join(__dirname, 'build/static')))
-
-app.get('/static/js/:name', (req,res) => {
-    res.sendFile(`build/static/js/${req.params.name}`)
-})
-
 app.use(express.static(path.join(__dirname, 'build')))
+
 
 app.use(middleware.tokenExtractor)
 
 app.use('/api/users', usersRouter)
 app.use('/api/groups', groupsRouter)
 
-// app.get('*', (req,res) =>{
-//     res.sendFile(path.join(__dirname, 'build/index.html'));
-// });
 
 app.use(middleware.unknownEndpoint)
 
