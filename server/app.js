@@ -5,6 +5,7 @@ const path = require('path')
 const middleware = require('./utils/middleware')
 const usersRouter = require('./routers/usersRouter')
 const groupsRouter = require('./routers/groupsRouter')
+const staticRouter = require('./routers/staticRouter')
 
 const app = express()
 
