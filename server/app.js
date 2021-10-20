@@ -19,7 +19,7 @@ app.use(express.static(path.join(__dirname, 'build')))
 
 
 app.use(middleware.tokenExtractor)
-
+app.use('/static', staticRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/groups', groupsRouter)
 
