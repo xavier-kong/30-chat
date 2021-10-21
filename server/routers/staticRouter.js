@@ -1,5 +1,7 @@
 const staticRouter = require('express').Router()
 
-staticRouter.get()
+staticRouter.get('/*', (req, res) => {
+    
+})
 
 module.exports = staticRouter
