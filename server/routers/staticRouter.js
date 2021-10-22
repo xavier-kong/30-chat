@@ -1,7 +1,7 @@
 const staticRouter = require('express').Router()
 
-staticRouter.get('/*', (req, res) => {
-    
+staticRouter.get('/js/:name', (req, res) => {
+    res.sendFile()
 })
 
 module.exports = staticRouter
