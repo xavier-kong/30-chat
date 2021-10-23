@@ -12,6 +12,10 @@ const io = new Server(server, {
 
 const PORT = process.env.PORT || 3001
 
+app.get('/js/:name', (req, res) => {
+  res.sendFile(path.join(__dirname, `static/js/${req.params.name}`))
+})
+
 //code for socket.io implementation inspired by github.com/ephnjor2021 
 
 io.on('connection', (socket) => {
