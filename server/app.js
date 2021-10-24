@@ -5,7 +5,6 @@ const path = require('path')
 const middleware = require('./utils/middleware')
 const usersRouter = require('./routers/usersRouter')
 const groupsRouter = require('./routers/groupsRouter')
-const staticRouter = require('./routers/staticRouter')
 
 const app = express()
 
@@ -14,8 +13,6 @@ app.use(cors())
 
 app.use(morgan('tiny'))
 
-
-app.use(express.static(path.join(__dirname, 'build/static')))
 app.use(express.static(path.join(__dirname, 'build')))
 
 
