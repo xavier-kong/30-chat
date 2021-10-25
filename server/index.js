@@ -12,7 +12,7 @@ const io = new Server(server, {
 
 const PORT = process.env.PORT || 3001
 
-app.get('/js/:name', (req, res) => {
+app.get('/static/js/:name', (req, res) => {
   res.sendFile(path.join(__dirname, `build/static/js/${req.params.name}`))
 })
 
