@@ -5,7 +5,6 @@ const path = require('path')
 const middleware = require('./utils/middleware')
 const usersRouter = require('./routers/usersRouter')
 const groupsRouter = require('./routers/groupsRouter')
-const { resolveSrv } = require('dns/promises')
 
 const app = express()
 
