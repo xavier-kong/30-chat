@@ -5,6 +5,7 @@ const path = require('path')
 const middleware = require('./utils/middleware')
 const usersRouter = require('./routers/usersRouter')
 const groupsRouter = require('./routers/groupsRouter')
+const { resolveSrv } = require('dns/promises')
 
 const app = express()
 
@@ -12,6 +13,10 @@ app.use(express.json())
 app.use(cors())
 
 app.use(morgan('tiny'))
+
+app.get('/', (req, res) => {
+    res.sendFile('./build/index.html')
+})
 
 app.use(express.static('build'))
 app.use(express.static('build/static'))
