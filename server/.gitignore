@@ -5,3 +5,4 @@ DB-schema.sql
 .eslintignore
 .env
 mock_data
+build
