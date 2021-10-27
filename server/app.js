@@ -15,11 +15,8 @@ app.use(morgan('tiny'))
 
 app.use(express.static('build'))
 
-app.use(express.static(path.join(__dirname+'/build')));
-
-app.get('/', function(req, res) {
-    res.sendFile('index.html',{root:__dirname+'/build'});
-});
+process.env.PWD = process.cwd();
+app.use(express.static(path.join(process.env.PWD, 'build')));
 
 app.use(express.static('build/static'))
 
