@@ -13,8 +13,8 @@ app.use(cors())
 
 app.use(morgan('tiny'))
 
-app.use(express.static('build/static'))
 app.use(express.static('build'))
+app.use(express.static('build/static'))
 
 app.use(middleware.tokenExtractor)
 app.use('/api/users', usersRouter)
