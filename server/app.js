@@ -1,7 +1,6 @@
 const express = require('express')
 const cors = require('cors')
 const morgan = require('morgan')
-const path = require('path')
 const middleware = require('./utils/middleware')
 const usersRouter = require('./routers/usersRouter')
 const groupsRouter = require('./routers/groupsRouter')
@@ -13,9 +12,9 @@ app.use(cors())
 
 app.use(morgan('tiny'))
 
-// app.get('/', (req, res) => {
-//     res.sendFile('./build/index.html')
-// })
+app.get('/', (req, res) => {
+    res.sendFile('./build/index.html')
+})
 
 app.use(express.static('build'))
 app.use(express.static('build/static'))
