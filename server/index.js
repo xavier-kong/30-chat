@@ -12,11 +12,6 @@ const io = new Server(server, {
 
 const PORT = process.env.PORT || 3001
 
-app.get('/static/js/:name', (req, res) => {
-  console.log('this was called')
-  res.sendFile(path.join(__dirname, `build/static/js/${req.params.name}`))
-})
-
 //code for socket.io implementation inspired by github.com/ephnjor2021 
 
 io.on('connection', (socket) => {
