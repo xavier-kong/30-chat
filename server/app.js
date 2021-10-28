@@ -13,7 +13,13 @@ app.use(cors())
 
 app.use(morgan('tiny'))
 
+app.get('/', (req, res) => {
+    res.send('HELLO!')
+})
+
 app.use(express.static(path.join(__dirname, 'build')));
+app.use('/', express.static(path.join(__dirname, 'build')))
+app.use('/static', express.static(path.join(__dirname, 'build/static')))
 
 app.use(middleware.tokenExtractor)
 app.use('/api/users', usersRouter)
