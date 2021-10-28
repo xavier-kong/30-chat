@@ -15,11 +15,6 @@ app.use(morgan('tiny'))
 
 app.use(express.static('build'))
 
-process.env.PWD = process.cwd();
-app.use(express.static(path.join(process.env.PWD, 'build')));
-
-app.use(express.static('build/static'))
-
 app.use(middleware.tokenExtractor)
 app.use('/api/users', usersRouter)
 app.use('/api/groups', groupsRouter)
