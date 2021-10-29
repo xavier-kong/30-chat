@@ -1,8 +1,7 @@
 node_modules
 tests.rest
-DB-schema.sql
+./DB-schema.sql
 .eslintrc.js
 .eslintignore
 .env
-mock_data
-build
+./mock_data
