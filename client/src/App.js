@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as HashRouter, Switch, Route, Redirect } from "react-router-dom"
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom"
 import Login from './components/Login'
 import Groups from './components/Groups'
 import Chat from './components/Chat'
@@ -43,7 +43,7 @@ const App = () => {
   const socket = io('https://thirtychat30.herokuapp.com/')
 
   return (
-    <HashRouter>
+    <Router>
       <div className='container'>
         <h1>30 Chat</h1>
          {user ? <p>Currently logged in as {user.username}<button onClick={Logout}>Logout</button></p> : null}
@@ -62,7 +62,7 @@ const App = () => {
           </Route>
         </Switch>
       </div>
-    </HashRouter>
+    </Router>
   )
 }
 
