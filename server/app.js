@@ -12,7 +12,7 @@ app.use(cors())
 
 app.use(morgan('tiny'))
 
-app.use('/app', express.static('build'))
+app.use(express.static('build'))
 
 app.use(middleware.tokenExtractor)
 app.use('/api/users', usersRouter)
