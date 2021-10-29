@@ -4,7 +4,6 @@ const morgan = require('morgan')
 const middleware = require('./utils/middleware')
 const usersRouter = require('./routers/usersRouter')
 const groupsRouter = require('./routers/groupsRouter')
-const path = require('path')
 
 const app = express()
 
@@ -13,7 +12,7 @@ app.use(cors())
 
 app.use(morgan('tiny'))
 
-app.use(express.static('build'))
+app.use('/app', express.static('build'))
 
 app.use(middleware.tokenExtractor)
 app.use('/api/users', usersRouter)
