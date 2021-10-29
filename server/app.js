@@ -14,7 +14,7 @@ app.use(cors())
 app.use(morgan('tiny'))
 
 app.get('/', (req, res) => {
-    res.send('HELLO!')
+    res.sendFile('build/index.html')
 })
 
 app.use(express.static(path.join(__dirname, 'build')));
