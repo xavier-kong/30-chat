@@ -15,10 +15,6 @@ app.use(morgan('tiny'))
 
 app.use(express.static('build'))
 
-// app.use(express.static(path.join(__dirname, 'build')));
-// app.use('/', express.static(path.join(__dirname, 'build')))
-// app.use('/static', express.static(path.join(__dirname, 'build/static')))
-
 app.use(middleware.tokenExtractor)
 app.use('/api/users', usersRouter)
 app.use('/api/groups', groupsRouter)
