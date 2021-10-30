@@ -40,6 +40,7 @@ const Chat = ({ socket, user_name }) => {
     socket.on('message', messageListener)
  
     const sendMessage = (e) => {
+        console.log(e.target.value)
         e.preventDefault()
         socket.emit('chat', {
             message: e.target.value,
