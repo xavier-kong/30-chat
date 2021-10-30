@@ -87,6 +87,7 @@ const Chat = ({ socket, user_name }) => {
                     type='text' 
                     onKeyPress={e => {
                         if (e.key === 'Enter') {
+                            console.log('enter', e.target.value)
                             sendMessage(e)
                         }
                     
