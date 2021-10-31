@@ -41,6 +41,8 @@ const Chat = ({ socket, user_name }) => {
  
     const sendMessage = (e) => {
         e.preventDefault()
+        console.log('e', e)
+        console.log('target value', e.target.value)
         socket.emit('chat', {
             message: e.target.value,
             user_name,
@@ -88,7 +90,6 @@ const Chat = ({ socket, user_name }) => {
                         if (e.key === 'Enter') {
                             sendMessage(e)
                         }
-                    
             }}/></label><button type="submit">Send</button><br />
             </form>
         </div>
