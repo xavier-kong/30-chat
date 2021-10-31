@@ -78,7 +78,10 @@ const Chat = ({ socket, user_name }) => {
                 ))}
             <div ref={messagesEndRef} />
             </div>
-            <form onSubmit={(e) => sendMessage(e.target[0].value)} id='form'>
+            <form onSubmit={(e) => {
+                e.preventDefault() 
+                sendMessage(e.target[0].value)
+            }} id='form'>
             <label>
                 <input 
                     autoFocus
