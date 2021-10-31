@@ -39,12 +39,10 @@ const Chat = ({ socket, user_name }) => {
 
     socket.on('message', messageListener)
  
-    const sendMessage = (e) => {
-        e.preventDefault()
-        console.log('e', e)
-        console.log('target value', e.target.value)
+    const sendMessage = (message) => {
+        console.log('message', message)
         socket.emit('chat', {
-            message: e.target.value,
+            message,
             user_name,
             room_name
         })
@@ -80,7 +78,7 @@ const Chat = ({ socket, user_name }) => {
                 ))}
             <div ref={messagesEndRef} />
             </div>
-            <form onSubmit={(e) => sendMessage(e)} id='form'>
+            <form onSubmit={(e) => sendMessage(e.target[0].value)} id='form'>
             <label>
                 <input 
                     autoFocus
@@ -88,7 +86,8 @@ const Chat = ({ socket, user_name }) => {
                     type='text' 
                     onKeyPress={e => {
                         if (e.key === 'Enter') {
-                            sendMessage(e)
+                            e.preventDefault()
+                            sendMessage(e.target.value)
                         }
             }}/></label><button type="submit">Send</button><br />
             </form>
