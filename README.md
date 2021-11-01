@@ -41,7 +41,7 @@ I plan to use:
 - React to build the frontend user interface
 - Express for the server with socket.io for real time support
 - PostgreSQL for data persistence
-- Heroku for deployment
+- Heroku for deployment and database
 - Github actions for deployment pipeline
 - Jest/Cypress for testing
 
