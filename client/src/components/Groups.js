@@ -42,7 +42,7 @@ const Groups = ({ username }) => {
     return (
       <>
       <h1>Join Group</h1>
-      <h2>List of groups for {username}</h2>
+      {groupList.length > 0 ? <h2>List of groups for {username}</h2>: null}
       {groupList.length > 0 ?
       groupList
         .map(group => (
