@@ -67,6 +67,7 @@ const Chat = ({ socket, user_name }) => {
         <div>
             <h3>Chat room for {room_name}</h3>
             <p>This room will expire at {exp}</p>
+            <p>Note to mobile users: send messages by tapping return to keep the onscreen keyboard visible!</p>
             <button onClick={backToGroups}>Click to go back to groups</button> 
             <div style={chatStyle}>
             {messages
