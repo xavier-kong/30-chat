@@ -36,6 +36,7 @@ const Groups = ({ username }) => {
     }
     
     const redirectRoom = (room_name) => {
+      console.log(JSON.parse(localStorage.getItem('loggedInUser')))
       window.location.href = `https://thirtychat30.herokuapp.com/chat/${room_name}`
     }
 
