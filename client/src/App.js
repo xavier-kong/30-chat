@@ -49,7 +49,8 @@ const App = () => {
          {user ? <p>Currently logged in as {user.username}<button onClick={Logout}>Logout</button></p> : null}
         <Switch>
           <Route path="/chat/:room_name">
-            {user ? <Chat socket={socket} user_name={user.username}/> : <p>Loading</p>}
+            {console.log(JSON.parse(localStorage.getItem('loggedInUser')))}
+            {user ? <Chat socket={socket} user_name={user.username}/> : <p>Loading...</p>}
           </Route>
           <Route path="/groups">
           {user === null ? <Redirect to="/login" /> : <Groups username={user.username} socket={socket}/>}
