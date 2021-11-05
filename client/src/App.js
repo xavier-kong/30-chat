@@ -42,6 +42,15 @@ const App = () => {
 
   const socket = io('https://thirtychat30.herokuapp.com/')
 
+  const ChatRouter = () => {
+    if (!user) {
+      setUser(JSON.parse(localStorage.getItem('loggedInUser')))
+    }
+    return (
+    <Chat socket={socket} user_name={user.username}/> 
+    )
+  }
+
   return (
     <Router>
       <div className='container'>
@@ -49,7 +58,7 @@ const App = () => {
          {user ? <p>Currently logged in as {user.username}<button onClick={Logout}>Logout</button></p> : null}
         <Switch>
           <Route path="/chat/:room_name">
-            {user ? <Chat socket={socket} user_name={user.username}/> : <p>Loading...</p>}
+            <ChatRouter />
           </Route>
           <Route path="/groups">
           {user === null ? <Redirect to="/login" /> : <Groups username={user.username} socket={socket}/>}
