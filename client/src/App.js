@@ -43,8 +43,9 @@ const App = () => {
   const socket = io('https://thirtychat30.herokuapp.com/')
 
   const ChatRouter = () => {
-    setUser(JSON.parse(localStorage.getItem('loggedInUser')))
-    console.log(user)
+    if (user === null) {
+      setUser(JSON.parse(localStorage.getItem('loggedInUser')))
+    }
     return (
       <Chat socket={socket} user_name={user.username}/> 
       )
