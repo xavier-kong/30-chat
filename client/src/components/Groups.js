@@ -3,6 +3,7 @@ import useField from '../hooks/useField'
 import configGen from '../services/configGen'
 import joinGroup from '../services/joinGroup'
 import axios from 'axios'
+const url = process.env.BMODE ? process.env.BUILD : process.env.PROD
 
 const Groups = ({ username }) => {
     const groupname = useField('text')
@@ -12,7 +13,7 @@ const Groups = ({ username }) => {
 
     useEffect(() => {
       const config = configGen()
-      axios.post('https://thirtychat30.herokuapp.com/api/groups/list', {
+      axios.post(`${url}api/groups/list`, {
         username: username
         }, config).then(res => setGroupList(res.data))     
     }, [username])
@@ -36,7 +37,7 @@ const Groups = ({ username }) => {
     }
     
     const redirectRoom = (room_name) => {
-      window.location.href = `https://thirtychat30.herokuapp.com/chat/${room_name}`
+      window.location.href = `${url}chat/${room_name}`
     }
 
     return (

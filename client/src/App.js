@@ -5,6 +5,7 @@ import Groups from './components/Groups'
 import Chat from './components/Chat'
 import axios from 'axios'
 const io = require("socket.io-client")
+const url = process.env.BMODE ? process.env.BUILD : process.env.PROD
 
 const App = () => {
   const [ user, setUser ] = useState(null)
@@ -14,7 +15,7 @@ const App = () => {
       const userJSON = JSON.parse(localStorage.getItem('loggedInUser'))
       const body = { token: userJSON.token }
       axios
-        .post('https://thirtychat30.herokuapp.com/api/users/auth', body)
+        .post(`${url}api/users/auth`, body)
         .then((res) => {
           if (res.data === 'valid') {
             setUser(userJSON)
@@ -37,10 +38,10 @@ const App = () => {
   const Logout = () => {
     window.localStorage.removeItem('loggedInUser')
     setUser(null)
-    window.location.href = `https://thirtychat30.herokuapp.com/`
+    window.location.href = url
   }
 
-  const socket = io('https://thirtychat30.herokuapp.com/')
+  const socket = io(url)
 
   return (
     <Router>

@@ -1,7 +1,8 @@
 import axios from 'axios'
+const url = process.env.BMODE ? process.env.BUILD : process.env.PROD
 
 const loginPost = async (username, password) => {
-    const res = await axios.post('https://thirtychat30.herokuapp.com/api/users/login', {
+    const res = await axios.post(url, {
         username: username,
         password: password
       })

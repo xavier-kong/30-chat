@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { useParams } from 'react-router'
 import configGen from '../services/configGen'
 import axios from 'axios'
+const url = process.env.BMODE ? process.env.BUILD : process.env.PROD
 
 const chatStyle = {
     'overflowY': 'scroll',
@@ -19,7 +20,7 @@ const Chat = ({ socket, user_name }) => {
 
     useEffect(() => {
         axios
-            .post('https://thirtychat30.herokuapp.com/api/groups/exp', {
+            .post(`${url}api/groups/exp`, {
             group_name: room_name
       }, config)
             .then((res) => {
@@ -54,7 +55,7 @@ const Chat = ({ socket, user_name }) => {
             user_name,
             room_name
         })
-        window.location.href = `https://thirtychat30.herokuapp.com/groups`
+        window.location.href = `${url}groups`
     }
 
     const messagesEndRef = useRef(null)
