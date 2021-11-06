@@ -5,12 +5,13 @@ import Groups from './components/Groups'
 import Chat from './components/Chat'
 import axios from 'axios'
 const io = require("socket.io-client")
-const url = process.env.BMODE ? process.env.BUILD : process.env.PROD
+const url = process.env.NODE_ENV === 'development' ? process.env.REACT_APP_PROD : process.env.REACT_APP_BUILD
 
 const App = () => {
   const [ user, setUser ] = useState(null)
 
   useEffect(() => {
+    console.log(process.env)
     try {
       const userJSON = JSON.parse(localStorage.getItem('loggedInUser'))
       const body = { token: userJSON.token }
