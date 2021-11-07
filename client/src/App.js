@@ -11,7 +11,6 @@ const App = () => {
   const [ user, setUser ] = useState(null)
 
   useEffect(() => {
-    console.log(process.env)
     try {
       const userJSON = JSON.parse(localStorage.getItem('loggedInUser'))
       const body = { token: userJSON.token }
