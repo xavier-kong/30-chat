@@ -18,14 +18,6 @@ CREATE TABLE groups (
   UNIQUE(passphrase)
 );
 
-CREATE TABLE chat (
-	message_uid UUID DEFAULT uuid_generate_v4 () NOT NULL PRIMARY KEY,
-  creation_date TIMESTAMP NOT NULL,
-  content VARCHAR(999999) NOT NULL,
-  group_uid UUID REFERENCES groups(group_uid),
-  user_uid UUID REFERENCES users(user_uid)
-);
-
 CREATE TABLE user_groups (
   group_uid UUID REFERENCES groups(group_uid),
   user_uid UUID REFERENCES users(user_uid),
