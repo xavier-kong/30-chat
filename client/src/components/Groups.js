@@ -3,9 +3,8 @@ import useField from '../hooks/useField'
 import configGen from '../services/configGen'
 import joinGroup from '../services/joinGroup'
 import axios from 'axios'
-const url = process.env.NODE_ENV === 'test' ? process.env.REACT_APP_PROD : process.env.REACT_APP_BUILD
 
-const Groups = ({ username }) => {
+const Groups = ({ username, url }) => {
     const groupname = useField('text')
     const passphrase = useField('password')
     const [ groupList, setGroupList ] = useState([])
@@ -23,7 +22,7 @@ const Groups = ({ username }) => {
       try {
         if (groupname.value.length > 1 || passphrase.value.length > 1) {
           if (!groupList.includes(groupname.value)) {
-            await joinGroup(groupname.value, passphrase.value,  username, config)
+            await joinGroup(url, groupname.value, passphrase.value,  username, config)
           }
           redirectRoom(groupname.value)
         } else {

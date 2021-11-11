@@ -2,7 +2,7 @@ import React from 'react'
 import useField from '../hooks/useField'
 import loginPost from '../services/loginPost'
 
-const Login = ({ onLogin }) => {
+const Login = ({ url, onLogin }) => {
   const username = useField('text')
   const password = useField('password')
   
@@ -10,7 +10,7 @@ const Login = ({ onLogin }) => {
     e.preventDefault()
     try {
       if (username.value.length > 1 && password.value.length > 1) {
-        const res = await loginPost(username.value, password.value)
+        const res = await loginPost(url, username.value, password.value)
         onLogin(JSON.stringify(res.data))
       } else {
         alert('input not allowed, username and password must both be at least of length 1')

@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react'
 import { useParams } from 'react-router'
 import configGen from '../services/configGen'
 import axios from 'axios'
-const url = process.env.NODE_ENV === 'test' ? process.env.REACT_APP_PROD : process.env.REACT_APP_BUILD
 
 const chatStyle = {
     'overflowY': 'scroll',
@@ -12,7 +11,7 @@ const chatStyle = {
     'position':'relative'
 }
 
-const Chat = ({ socket, user_name }) => {
+const Chat = ({ socket, user_name, url }) => {
     const { room_name } = useParams()
     const [ messages, setMessages ] = useState([])
     const config = configGen()
