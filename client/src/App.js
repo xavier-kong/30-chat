@@ -5,7 +5,7 @@ import Groups from './components/Groups'
 import Chat from './components/Chat'
 import axios from 'axios'
 const io = require("socket.io-client")
-const url = process.env.REACT_APP_BUILD ?? process.env.BUILD
+const url = 'https://thirtychat30.herokuapp.com/'
 
 const App = () => {
   const [ user, setUser ] = useState(null)
