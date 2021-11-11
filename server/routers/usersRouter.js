@@ -21,7 +21,6 @@ usersRouter.post('/auth', async(req, res) => {
 })
 
 usersRouter.post('/login', async(req, res) => {
-  console.log('here!!!')
   const body = req.body
 
   const q = await pool.select('username').from('users').where('username', body.username).as('exists')
