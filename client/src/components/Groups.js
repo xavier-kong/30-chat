@@ -3,7 +3,7 @@ import useField from '../hooks/useField'
 import configGen from '../services/configGen'
 import joinGroup from '../services/joinGroup'
 import axios from 'axios'
-const url = process.env.BMODE ? process.env.BUILD : process.env.PROD
+const url = process.env.NODE_ENV === 'test' ? process.env.REACT_APP_PROD : process.env.REACT_APP_BUILD
 
 const Groups = ({ username }) => {
     const groupname = useField('text')

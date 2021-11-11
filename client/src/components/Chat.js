@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { useParams } from 'react-router'
 import configGen from '../services/configGen'
 import axios from 'axios'
-const url = process.env.BMODE ? process.env.BUILD : process.env.PROD
+const url = process.env.NODE_ENV === 'test' ? process.env.REACT_APP_PROD : process.env.REACT_APP_BUILD
 
 const chatStyle = {
     'overflowY': 'scroll',
