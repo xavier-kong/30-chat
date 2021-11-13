@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "cross-env NODE_ENV=test jest --verbose --runInBand",
-    "startdev": "nodemon index.js",
+    "startdev": "cross-env NODE_ENV=dev nodemon index.js ",
     "start": "node index.js",
     "lint": "eslint .",
     "lintfix": "eslint . --fix",
