@@ -1,7 +1,7 @@
 require('dotenv').config()
 
 const { POSTGRES_HOST, DATABASE_URL, NODE_ENV } = process.env;
-const pool = NODE_ENV === 'dev' 
+const pool = NODE_ENV === 'test' 
   ? require('knex')({
   client: 'pg',
   connection: {
