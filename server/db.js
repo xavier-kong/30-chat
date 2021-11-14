@@ -5,14 +5,24 @@ const pool = NODE_ENV === 'test'
   ? require('knex')({
   client: 'pg',
   connection: {
-    host : 'localhost',
+    host : 'postgres',
     user : 'postgres',
     password : 'postgres',
     database : 'postgres_test',
     port: 5432
   }
-  })
-  : 
+  }) :
+  NODE_ENV === 'dev'
+  ? require('knex')({
+    client: 'pg',
+    connection: {
+      host : 'localhost',
+      user : 'postgres',
+      password : 'postgres',
+      database : 'postgres_test',
+      port: 5432
+    }
+    }) :
   require('knex')({
     client: 'pg',
     connection: DATABASE_URL,
