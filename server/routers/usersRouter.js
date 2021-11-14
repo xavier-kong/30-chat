@@ -25,6 +25,7 @@ usersRouter.post('/login', async(req, res) => {
 
   const q = await pool.select('username').from('users').where('username', body.username).as('exists')
   if (q.length === 0) {
+    console.log('0')
     const saltRounds = 10
     const passwordHash = await bcrypt.hash(body.password, saltRounds)
     const date = new Date().toISOString().slice(0, 19).replace('T', ' ')

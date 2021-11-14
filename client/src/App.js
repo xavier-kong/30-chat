@@ -4,8 +4,9 @@ import Login from './components/Login'
 import Groups from './components/Groups'
 import Chat from './components/Chat'
 import axios from 'axios'
+require('dotenv').config()
 const io = require("socket.io-client")
-const url = 'https://thirtychat30.herokuapp.com/'
+const url = process.env.NODE_ENV === 'development' ? 'http://localhost:3001/' : 'https://thirtychat30.herokuapp.com/'
 
 const App = () => {
   const [ user, setUser ] = useState(null)
