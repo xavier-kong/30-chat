@@ -14,7 +14,7 @@ const Groups = ({ username, url }) => {
 
     useEffect(() => {
       const config = configGen()
-      axios.post(`${url}api/groups/list`, {
+      axios.post(`${url}/api/groups/list`, {
         username: username
         }, config).then(res => setGroupList(res.data))     
     }, [username])

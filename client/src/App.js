@@ -6,7 +6,7 @@ import Chat from './components/Chat'
 import axios from 'axios'
 require('dotenv').config()
 const io = require("socket.io-client")
-const url = process.env.NODE_ENV === 'development' ? 'http://localhost:3001/' : 'https://thirtychat30.herokuapp.com/'
+const url = process.env.NODE_ENV === 'development' ? 'http://localhost:3001' : 'https://thirtychat30.herokuapp.com'
 
 const App = () => {
   const [ user, setUser ] = useState(null)
@@ -16,7 +16,7 @@ const App = () => {
       const userJSON = JSON.parse(localStorage.getItem('loggedInUser'))
       const body = { token: userJSON.token }
       axios
-        .post(`${url}api/users/auth`, body)
+        .post(`${url}/api/users/auth`, body)
         .then((res) => {
           if (res.data === 'valid') {
             setUser(userJSON)

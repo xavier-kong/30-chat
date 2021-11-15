@@ -21,7 +21,7 @@ const Chat = ({ socket, user_name, url }) => {
 
     useEffect(() => {
         axios
-            .post(`${url}api/groups/exp`, {
+            .post(`${url}/api/groups/exp`, {
             group_name: room_name
       }, config)
             .then((res) => {
