@@ -3,7 +3,7 @@ import useField from '../hooks/useField'
 import configGen from '../services/configGen'
 import joinGroup from '../services/joinGroup'
 import axios from 'axios'
-import { useHistory } from 'react-router-dom'
+import { useHistory, withRouter } from 'react-router-dom'
 
 const Groups = ({ username, url }) => {
     const groupname = useField('text')
@@ -38,8 +38,7 @@ const Groups = ({ username, url }) => {
     }
     
     const redirectRoom = (room_name) => {
-      history.push(`${url}chat/${room_name}`)
-      //window.location.href = `${url}chat/${room_name}`
+      history.push(`/chat/${room_name}`)
     }
 
     return (
@@ -70,4 +69,4 @@ const Groups = ({ username, url }) => {
     )
   }
 
-export default Groups
+export default withRouter(Groups)

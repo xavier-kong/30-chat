@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { useParams } from 'react-router'
 import configGen from '../services/configGen'
 import axios from 'axios'
+import { useHistory, withRouter } from 'react-router-dom'
 
 const chatStyle = {
     'overflowY': 'scroll',
@@ -16,6 +17,7 @@ const Chat = ({ socket, user_name, url }) => {
     const [ messages, setMessages ] = useState([])
     const config = configGen()
     const [ exp, setExp ] = useState('')
+    let history = useHistory()
 
     useEffect(() => {
         axios
@@ -54,14 +56,17 @@ const Chat = ({ socket, user_name, url }) => {
             user_name,
             room_name
         })
-        window.location.href = `${url}groups`
+        history.push('/groups')
     }
 
     const messagesEndRef = useRef(null)
 
     const scrollToBottom = () => {
-    messagesEndRef.current.scrollIntoView({ behavior: "auto" })
-  }
+        if (messagesEndRef.current) {
+            messagesEndRef.current.scrollIntoView({ behavior: "auto" })
+        }
+        //messagesEndRef.current.scrollIntoView({ behavior: "auto" })
+    }
     
     return (
         <div>
@@ -98,4 +103,4 @@ const Chat = ({ socket, user_name, url }) => {
     )
 }
 
-export default Chat
+export default withRouter(Chat)
