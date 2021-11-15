@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Switch, Route, Redirect, useHistory, withRouter} from "react-router-dom"
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom"
 import Login from './components/Login'
 import Groups from './components/Groups'
 import Chat from './components/Chat'
@@ -10,7 +10,6 @@ const url = process.env.NODE_ENV === 'development' ? 'http://localhost:3001/' : 
 
 const App = () => {
   const [ user, setUser ] = useState(null)
-  let history = useHistory()
 
   useEffect(() => {
     try {
