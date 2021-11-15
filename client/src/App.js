@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory, BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom"
+import { BrowserRouter as Router, Switch, Route, Redirect, useHistory, withRouter} from "react-router-dom"
 import Login from './components/Login'
 import Groups from './components/Groups'
 import Chat from './components/Chat'
@@ -40,7 +40,6 @@ const App = () => {
   const Logout = () => {
     window.localStorage.removeItem('loggedInUser')
     setUser(null)
-    history.push('/')
   }
 
   const socket = io(url)
