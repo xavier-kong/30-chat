@@ -6,7 +6,7 @@ const server = http.createServer(app)
 const { Server } = require("socket.io")
 const io = new Server(server, {
   cors: {
-    origin: process.env.NODE_ENV === 'dev' ? 'http://localhost:3000' : process.env.NODE_ENV === 'test' ? 'http://localhost:3000' : 'https://thirtychat30.herokuapp.com',
+    origin: process.env.NODE_ENV === 'dev' ? 'http://localhost:3000' : process.env.NODE_ENV === 'test' ? 'http://localhost:3000' : 'https://thirtychat30.herokuapp.com/',
     methods: ["GET", "POST"]
   }
 })
