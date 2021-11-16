@@ -47,7 +47,6 @@ const App = () => {
     <Router>
       <div className='container'>
         <h1>30 Chat</h1>
-        <p>{url}</p>
          {user ? <p>Currently logged in as {user.username}<button onClick={Logout}>Logout</button></p> : null}
         <Switch>
           <Route path="/chat/:room_name">
@@ -62,7 +61,7 @@ const App = () => {
           <Route path="/">
             {user === null ? <Redirect to="/login" /> : <Redirect to="/groups" />}
           </Route>
-        </Switch>)
+        </Switch>
       </div>
     </Router>
   )
