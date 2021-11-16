@@ -41,7 +41,7 @@ const App = () => {
     setUser(null)
   }
 
-  const socket = io(url)
+  const socket = io(`${url}/`)
 
   return (
     <Router>
