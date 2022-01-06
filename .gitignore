@@ -7,3 +7,6 @@ server/.eslintignore
 ###client
 node_modules
 client/build
+
+###misc
+todo.txt
