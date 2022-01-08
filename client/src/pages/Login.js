@@ -12,6 +12,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import loginPost from '../services/loginPost';
 
 /* 
 to do:
@@ -35,14 +36,21 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function SignIn() {
+export default function SignIn({ url, onLogin }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
       const data = new FormData(event.currentTarget);
-      if (data.get('username').length > 1 && data.get('password'))
+      const username = data.get('username')
+      const password = data.get('password')
+      if (username.length > 1 && password.length > 1) {
+        const res = await loginPost(url, username, password)
+        onLogin(JSON.stringify(res.data))
+      } else {
+        // error message or alert for 'input not allowed, username and password must both be at least of length 1'
+      }
     } catch (error) {
-      
+      // error message or alert for 'incorrect username or password'
     }
 
   };
