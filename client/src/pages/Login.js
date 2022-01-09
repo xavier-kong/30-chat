@@ -36,7 +36,7 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function SignIn({ url, onLogin }) {
+const SignIn = ({ url, onLogin }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -109,3 +109,5 @@ export default function SignIn({ url, onLogin }) {
     </ThemeProvider>
   );
 }
+
+export default SignIn
