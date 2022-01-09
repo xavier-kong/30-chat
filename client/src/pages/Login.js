@@ -102,6 +102,10 @@ const SignIn = ({ url, onLogin }) => {
             >
               Sign In
             </Button>
+            {/* add text here explaining how sign in works     
+            <p>If you have an existing account you will be logged in</p>
+            <p>If you don't have an existing account one will be created for you and you will be logged in automatically</p>
+            <p>Note: you cannot change your username or password once your account has been created</p>*/}
           </Box>
         </Box>
         <Copyright sx={{ mt: 8, mb: 4 }} />
