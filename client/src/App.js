@@ -4,6 +4,7 @@ import Login from './components/Login'
 import Groups from './components/Groups'
 import Chat from './components/Chat'
 import axios from 'axios'
+import SignIn from './pages/Login';
 require('dotenv').config()
 const io = require("socket.io-client")
 const url = process.env.NODE_ENV === 'development' ? 'http://localhost:3001' : 'https://thirtychat30.herokuapp.com'
@@ -45,27 +46,28 @@ const App = () => {
   const socket = io(`${url}/`)
 
   return (
-    <Router>
-      <div className='container'>
-        <h1>30 Chat</h1>
-         {user ? <p>Currently logged in as {user.username}<button onClick={Logout}>Logout</button></p> : null}
-        <Switch>
-          <Route path="/chat/:room_name">
-            {user === null ? <Redirect to="/login" />  : <Chat socket={socket} user_name={user.username} url={url}/>}
-          </Route>
-          <Route path="/groups">
-            {user === null ? <Redirect to="/login" /> : <Groups username={user.username} socket={socket} url={url}/>}
-          </Route>
-          <Route path="/login">
-            {user === null ? <Login onLogin={onLogin} url={url}/> : <Redirect to="/groups" />}
-          </Route>
-          <Route path="/">
-            {user === null ? <Redirect to="/login" /> : <Redirect to="/groups" />}
-          </Route>
-        </Switch>
-      </div>
-    </Router>
-  )
+    // <Router>
+    //   <div className='container'>
+    //     <h1>30 Chat</h1>
+    //      {user ? <p>Currently logged in as {user.username}<button onClick={Logout}>Logout</button></p> : null}
+    //     <Switch>
+    //       <Route path="/chat/:room_name">
+    //         {user === null ? <Redirect to="/login" />  : <Chat socket={socket} user_name={user.username} url={url}/>}
+    //       </Route>
+    //       <Route path="/groups">
+    //         {user === null ? <Redirect to="/login" /> : <Groups username={user.username} socket={socket} url={url}/>}
+    //       </Route>
+    //       <Route path="/login">
+    //         {user === null ? <Login onLogin={onLogin} url={url}/> : <Redirect to="/groups" />}
+    //       </Route>
+    //       <Route path="/">
+    //         {user === null ? <Redirect to="/login" /> : <Redirect to="/groups" />}
+    //       </Route>
+    //     </Switch>
+    //   </div>
+    // </Router>
+    <SignIn />
+    )
 }
 
 export default App;
