@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Alert from '@mui/material/Alert';
 import IconButton from '@mui/material/IconButton';
@@ -6,8 +6,8 @@ import Collapse from '@mui/material/Collapse';
 import Button from '@mui/material/Button';
 import CloseIcon from '@mui/icons-material/Close';
 
-export default function TransitionAlerts() {
-  const [open, setOpen] = React.useState(true);
+const TransitionAlert = () => {
+  const [open, setOpen] = useState(true);
 
   return (
     <Box sx={{ width: '100%' }}>
@@ -27,7 +27,8 @@ export default function TransitionAlerts() {
           }
           sx={{ mb: 2 }}
         >
-          Close me!
+          Close me! 
+          {/* place holder text? pass down text as prop */}
         </Alert>
       </Collapse>
       <Button
@@ -38,7 +39,10 @@ export default function TransitionAlerts() {
         }}
       >
         Re-open
+        {/* delete this one???  */}
       </Button>
     </Box>
   );
 }
+
+export default TransitionAlert;
