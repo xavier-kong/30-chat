@@ -6,7 +6,7 @@ import Collapse from '@mui/material/Collapse';
 import Button from '@mui/material/Button';
 import CloseIcon from '@mui/icons-material/Close';
 
-const TransitionAlert = () => {
+const TransitionAlert = ({ text }) => {
   const [open, setOpen] = useState(true);
 
   return (
@@ -27,8 +27,7 @@ const TransitionAlert = () => {
           }
           sx={{ mb: 2 }}
         >
-          Close me! 
-          {/* place holder text? pass down text as prop */}
+          {text}
         </Alert>
       </Collapse>
       <Button
