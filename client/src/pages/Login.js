@@ -56,6 +56,12 @@ const SignIn = ({ url, onLogin }) => {
 
   };
 
+  /*
+  useState to control hide show error message
+  handleAlert function
+  find way to prevent rerender of login form on alert state change
+  */
+
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
