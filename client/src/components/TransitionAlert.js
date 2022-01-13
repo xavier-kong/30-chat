@@ -6,7 +6,7 @@ import Collapse from '@mui/material/Collapse';
 import Button from '@mui/material/Button';
 import CloseIcon from '@mui/icons-material/Close';
 
-const TransitionAlert = ({ text }) => {
+const TransitionAlert = ({ text, severity }) => {
   const [open, setOpen] = useState(true);
 
   return (
@@ -26,6 +26,7 @@ const TransitionAlert = ({ text }) => {
             </IconButton>
           }
           sx={{ mb: 2 }}
+          color={severity}
         >
           {text}
         </Alert>

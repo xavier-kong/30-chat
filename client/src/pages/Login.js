@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -38,6 +38,15 @@ function Copyright(props) {
 const theme = createTheme();
 
 const SignIn = ({ url, onLogin }) => {
+  const [ alert, setAlert ] = useState(null)
+
+  const handleAlert = (text) => {
+    setAlert(text)
+    setTimeout(() => {
+      setAlert(null)
+    }, 5000)
+  }
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -48,10 +57,10 @@ const SignIn = ({ url, onLogin }) => {
         const res = await loginPost(url, username, password)
         onLogin(JSON.stringify(res.data))
       } else {
-        // error message or alert for 'input not allowed, username and password must both be at least of length 1'
+        handleAlert('input not allowed, username and password must both be at least of length 1')
       }
     } catch (error) {
-      // error message or alert for 'incorrect username or password'
+      handleAlert('incorrect username or password')
     }
 
   };
@@ -109,6 +118,7 @@ const SignIn = ({ url, onLogin }) => {
             >
               Sign In
             </Button>
+            {alert ? <TransitionAlert text={alert} severity='error'/>: null}
             {/* add text here explaining how sign in works     
             <p>If you have an existing account you will be logged in</p>
             <p>If you don't have an existing account one will be created for you and you will be logged in automatically</p>
