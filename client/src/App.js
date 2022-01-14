@@ -4,6 +4,7 @@ import Groups from './components/Groups'
 import Chat from './components/Chat'
 import axios from 'axios'
 import SignIn from './pages/Login';
+import Header from './components/Header';
 require('dotenv').config()
 const io = require("socket.io-client")
 const url = process.env.NODE_ENV === 'development' ? 'http://localhost:3001' : 'https://thirtychat30.herokuapp.com'
@@ -47,7 +48,7 @@ const App = () => {
   return (
     <Router>
       <div className='container'>
-        <h1>30 Chat</h1>
+        <Header text="30 Chat" />
          {user ? <p>Currently logged in as {user.username}<button onClick={Logout}>Logout</button></p> : null}
         <Switch>
           <Route path="/chat/:room_name">
