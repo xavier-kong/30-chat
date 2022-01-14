@@ -10,12 +10,15 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import loginPost from '../services/loginPost';
 import TransitionAlert from '../components/TransitionAlert';
+import useField from '../hooks/useField';
 
 const theme = createTheme();
 
 const SignIn = ({ url, onLogin }) => {
   const [ alert, setAlert ] = useState(null)
-
+  const username = useField('text')
+  const password = useField('password')
+  
   const handleAlert = (text) => {
     setAlert(text)
     setTimeout(() => {
@@ -25,9 +28,7 @@ const SignIn = ({ url, onLogin }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    // to do reset forms on submit! 
-
+    
     try {
       const data = new FormData(event.currentTarget);
       const username = data.get('username')
@@ -41,6 +42,9 @@ const SignIn = ({ url, onLogin }) => {
     } catch (error) {
       handleAlert('incorrect username or password')
     }
+
+    username.onSubmit()
+    password.onSubmit()
   };
 
   return (
@@ -71,6 +75,8 @@ const SignIn = ({ url, onLogin }) => {
               name="username"
               autoComplete="username"
               autoFocus
+              value={username.value}
+              onChange={event => username.onChange(event)}
             />
             <TextField
               margin="normal"
@@ -81,6 +87,8 @@ const SignIn = ({ url, onLogin }) => {
               type="password"
               id="password"
               autoComplete="current-password"
+              value={password.value}
+              onChange={event => password.onChange(event)}
             />
             <Button
               type="submit"
