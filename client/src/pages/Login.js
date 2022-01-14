@@ -3,10 +3,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
@@ -14,26 +10,6 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import loginPost from '../services/loginPost';
 import TransitionAlert from '../components/TransitionAlert';
-
-/* 
-to do:
-alert invalid inputs or incorrect username or password to user
-login logic
-inform user about account management etc
-*/
-
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
 
 const theme = createTheme();
 
@@ -49,6 +25,9 @@ const SignIn = ({ url, onLogin }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    // to do reset forms on submit! 
+
     try {
       const data = new FormData(event.currentTarget);
       const username = data.get('username')
@@ -62,14 +41,7 @@ const SignIn = ({ url, onLogin }) => {
     } catch (error) {
       handleAlert('incorrect username or password')
     }
-
   };
-
-  /*
-  useState to control hide show error message
-  handleAlert function
-  find way to prevent rerender of login form on alert state change
-  */
 
   return (
     <ThemeProvider theme={theme}>
@@ -119,13 +91,12 @@ const SignIn = ({ url, onLogin }) => {
               Sign In
             </Button>
             {alert ? <TransitionAlert text={alert} severity='error'/>: null}
-            {/* add text here explaining how sign in works     
-            <p>If you have an existing account you will be logged in</p>
-            <p>If you don't have an existing account one will be created for you and you will be logged in automatically</p>
-            <p>Note: you cannot change your username or password once your account has been created</p>*/}
+            <Typography variant="body2" color="text.secondary" align="center" sx={{ mt: 6 }}>
+              <p>If you don't have an existing account one will be created for you on sign in and you will be logged in automatically</p>
+              <p>Note: you cannot change your username or password once your account has been created</p>
+            </Typography>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
     </ThemeProvider>
   );
