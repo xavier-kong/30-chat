@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom"
-import Groups from './components/Groups'
+// import Groups from './components/Groups'
 import Chat from './components/Chat'
 import axios from 'axios'
 import SignIn from './pages/Login';
 import Header from './components/Header';
+import Groups from './pages/Groups'
 require('dotenv').config()
 const io = require("socket.io-client")
 const url = process.env.NODE_ENV === 'development' ? 'http://localhost:3001' : 'https://thirtychat30.herokuapp.com'
@@ -49,7 +50,7 @@ const App = () => {
     <Router>
       <div className='container'>
         <Header text="30 Chat" />
-         {user ? <p>Currently logged in as {user.username}<button onClick={Logout}>Logout</button></p> : null}
+         {/* {user ? <p>Currently logged in as {user.username}<button onClick={Logout}>Logout</button></p> : null}
         <Switch>
           <Route path="/chat/:room_name">
             {user === null ? <Redirect to="/login" />  : <Chat socket={socket} user_name={user.username} url={url}/>}
@@ -63,7 +64,8 @@ const App = () => {
           <Route path="/">
             {user === null ? <Redirect to="/login" /> : <Redirect to="/groups" />}
           </Route>
-        </Switch>
+        </Switch> */}
+        <Groups />
       </div>
     </Router>
     )
