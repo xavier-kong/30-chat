@@ -1,7 +1,5 @@
 // if user? display logout button and maybe "welcome {username}" in navbar
 
-// toggle between choose old and add new
-
 import React, { useState } from 'react'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import Container from '@mui/material/Container'
@@ -32,6 +30,9 @@ const Groups = () => {
                     }}
                 >
                     <BinarySelector first="Existing" second="New" select={select} handleSelect={handleSelect} />
+                    <p>
+                        {select ? 'existing' : 'new'}
+                    </p>
                 </Box>
             </Container>
         </ThemeProvider>

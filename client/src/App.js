@@ -50,7 +50,7 @@ const App = () => {
     <Router>
       <div className='container'>
         <Header text="30 Chat" />
-         {/* {user ? <p>Currently logged in as {user.username}<button onClick={Logout}>Logout</button></p> : null}
+         {user ? <p>Currently logged in as {user.username}<button onClick={Logout}>Logout</button></p> : null}
         <Switch>
           <Route path="/chat/:room_name">
             {user === null ? <Redirect to="/login" />  : <Chat socket={socket} user_name={user.username} url={url}/>}
@@ -64,8 +64,8 @@ const App = () => {
           <Route path="/">
             {user === null ? <Redirect to="/login" /> : <Redirect to="/groups" />}
           </Route>
-        </Switch> */}
-        <Groups />
+        </Switch>
+        {/* <Groups /> */}
       </div>
     </Router>
     )
