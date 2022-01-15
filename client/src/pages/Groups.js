@@ -12,6 +12,13 @@ import BinarySelector from '../components/BinarySelector';
 const theme = createTheme()
 
 const Groups = () => {
+    const [ select, setSelect ] = useState(true)
+
+    const handleSelect = () => {
+        const newSelect = !select
+        setSelect(newSelect)
+    }
+
     return (
         <ThemeProvider theme={theme}>
             <Container component="main">
@@ -24,7 +31,7 @@ const Groups = () => {
                         alignItems: 'center',
                     }}
                 >
-                    <BinarySelector first="Existing" second="New"/>
+                    <BinarySelector first="Existing" second="New" select={select} handleSelect={handleSelect} />
                 </Box>
             </Container>
         </ThemeProvider>

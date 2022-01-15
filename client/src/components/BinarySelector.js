@@ -1,21 +1,26 @@
-import React, { useState } from "react";
+import React from "react";
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack'
 
-const BinarySelector = ({ first, second }) => {
-    const [ select, setSelect ] = useState(true)
+const BinarySelector = ({ first, second, select, handleSelect }) => {
 
     return (
         <Stack direction="row" spacing={2}>
             <Button
                 variant={select ? "contained" : "outlined"}
-                onClick={() => setSelect(true)}
+                onClick={(e) => {
+                    e.preventDefault()
+                    handleSelect()
+                }}
             >
                 {first}
             </Button>
             <Button
                 variant={select ? "outlined" : "contained"}
-                onClick={() => setSelect(false)}
+                onClick={(e) => {
+                    e.preventDefault()
+                    handleSelect()
+                }}
             >
                 {second}
             </Button>
