@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom"
-// import Groups from './components/Groups'
 import Chat from './components/Chat'
 import axios from 'axios'
 import SignIn from './pages/Login';
@@ -49,14 +48,13 @@ const App = () => {
   return (
     <Router>
       <div className='container'>
-        <Header text="30 Chat" />
-         {user ? <p>Currently logged in as {user.username}<button onClick={Logout}>Logout</button></p> : null}
-        {/* <Switch>
+        <Header text="30 Chat" username={user ? user.username : null} logout={Logout} />
+        <Switch> 
           <Route path="/chat/:room_name">
             {user === null ? <Redirect to="/login" />  : <Chat socket={socket} user_name={user.username} url={url}/>}
           </Route>
           <Route path="/groups">
-            {user === null ? <Redirect to="/login" /> : <Groups username={user.username} socket={socket} url={url}/>}
+            {user === null ? <Redirect to="/login" /> : <Groups username={user.username} url={url}/>}
           </Route>
           <Route path="/login">
             {user === null ? <SignIn onLogin={onLogin} url={url}/> : <Redirect to="/groups" />}
@@ -64,8 +62,7 @@ const App = () => {
           <Route path="/">
             {user === null ? <Redirect to="/login" /> : <Redirect to="/groups" />}
           </Route>
-        </Switch> */}
-        <Groups />
+        </Switch>
       </div>
     </Router>
     )

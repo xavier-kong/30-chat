@@ -17,7 +17,7 @@ const Groups = ({ username, url }) => {
       axios.post(`${url}/api/groups/list`, {
         username: username
         }, config).then(res => setGroupList(res.data))     
-    }, [username])
+    }, [username, url])
   
     const groupEnter = async (e) => {
       e.preventDefault()

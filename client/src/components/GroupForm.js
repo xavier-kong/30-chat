@@ -3,14 +3,22 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import TransitionAlert from './TransitionAlert';
 import useField from '../hooks/useField';
 import Container from '@mui/material/Container'
 
-const GroupFrom = () => {
+const GroupFrom = ({ groupEnter }) => {
     const groupname = useField('text')
     const passphrase = useField('password')
-    const [ alert, setAlert ] = useState(null)
+  
+
+    const handleSubmit = async(e) => {
+        e.preventDefault()
+
+        groupEnter(groupname.value, passphrase.value)
+        
+        groupname.onSubmit()
+        passphrase.onSubmit()
+    }
 
     return (
         <Container maxWidth="xs">
@@ -22,6 +30,7 @@ const GroupFrom = () => {
                     flexDirection: 'column',
                     alignItems: 'center',
                 }}
+                onSubmit={handleSubmit}
             >
             <Typography component="h1" variant="h5" sx={{ mb: 1 }}>
                 Enter Group
@@ -58,7 +67,6 @@ const GroupFrom = () => {
                 >
                 Sign In
                 </Button>
-                {alert ? <TransitionAlert text={alert} severity='error'/>: null}
             </Box>
         </Container>
     )
