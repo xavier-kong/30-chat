@@ -1,13 +1,13 @@
 // if user? display logout button and maybe "welcome {username}" in navbar
 
-// for pc, main screen divide into 2, left side show exisitng groups, right side join group (copy sign in style)
-// for mobile, make it toggle between both
+// toggle between choose old and add new
 
 import React, { useState } from 'react'
-import Divider from '@mui/material/Divider'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import Container from '@mui/material/Container'
 import CssBaseline from '@mui/material/CssBaseline'
+import Box from '@mui/material/Box';
+import BinarySelector from '../components/BinarySelector';
 
 const theme = createTheme()
 
@@ -16,7 +16,16 @@ const Groups = () => {
         <ThemeProvider theme={theme}>
             <Container component="main">
                 <CssBaseline />
-                
+                <Box
+                    sx={{
+                        marginTop: 8,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                    }}
+                >
+                    <BinarySelector first="Existing" second="New"/>
+                </Box>
             </Container>
         </ThemeProvider>
     )
