@@ -53,7 +53,7 @@ const GroupFrom = ({ groupEnter }) => {
                 fullWidth
                 name="passphrase"
                 label="Passphrase"
-                type="passphrase"
+                type="password"
                 id="passphrase"
                 autoComplete="current-passphrase"
                 value={passphrase.value}
