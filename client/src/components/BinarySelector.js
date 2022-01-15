@@ -2,24 +2,24 @@ import React from "react";
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack'
 
-const BinarySelector = ({ first, second, select, handleSelect }) => {
+const BinarySelector = ({ first, second, handleSelect }) => {
 
     return (
         <Stack direction="row" spacing={2}>
             <Button
-                variant={select ? "contained" : "outlined"}
+                variant="contained"
                 onClick={(e) => {
                     e.preventDefault()
-                    handleSelect()
+                    handleSelect(first)
                 }}
             >
                 {first}
             </Button>
             <Button
-                variant={select ? "outlined" : "contained"}
+                variant="contained"
                 onClick={(e) => {
                     e.preventDefault()
-                    handleSelect()
+                    handleSelect(second)
                 }}
             >
                 {second}

@@ -6,16 +6,19 @@ import Container from '@mui/material/Container'
 import CssBaseline from '@mui/material/CssBaseline'
 import Box from '@mui/material/Box';
 import BinarySelector from '../components/BinarySelector';
+import Typography from '@mui/material/Typography';
+import GroupFrom from '../components/GroupForm';
 
 const theme = createTheme()
 
 const Groups = () => {
-    const [ select, setSelect ] = useState(true)
+    const [ stage, setStage ] = useState('Pre')
 
-    const handleSelect = () => {
-        const newSelect = !select
-        setSelect(newSelect)
+    const handleSelect = (text) => {
+        setStage(text)
     }
+
+    // need a back button
 
     return (
         <ThemeProvider theme={theme}>
@@ -29,10 +32,26 @@ const Groups = () => {
                         alignItems: 'center',
                     }}
                 >
-                    <BinarySelector first="Existing" second="New" select={select} handleSelect={handleSelect} />
-                    <p>
-                        {select ? 'existing' : 'new'}
-                    </p>
+                {stage === 'Pre' ?
+                <>
+                    <BinarySelector first="Existing" second="New" handleSelect={handleSelect} />
+                    <Typography variant="body2" color="text.secondary" align="center" sx={{ mt: 6 }}>
+                    <p>Click "EXISTING" to enter a group you have joined before.</p>
+                    <p>Click "NEW" to enter/create a new group.</p>
+                    </Typography>
+                </>
+                : 
+                stage === 'Existing' ?
+                <p>Existing</p>
+                : 
+                stage === 'New' ?
+                <>
+                    <GroupFrom />
+                </>
+                :
+                null
+                }
+                    
                 </Box>
             </Container>
         </ThemeProvider>
