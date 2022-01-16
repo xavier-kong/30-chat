@@ -106,13 +106,13 @@ groupsRouter.post('/list', async(req, res) => {
 
   const list = groups
     .filter(group => group.expiry_date >= new Date())
-    .map(group => group.group_name)
+    .map(group => ({ name: group.group_name, exp: group.expiry_date }))
  
   res.status(200).json(list)
 
   const deleteList = groups
     .filter(group => group.expiry_date < new Date())
-    .map(group => { group.group_name, group.expiry_date})
+    .map(group => group.group_name)
 
   deleteList
     .forEach(group => {

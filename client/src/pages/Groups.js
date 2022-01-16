@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import Container from '@mui/material/Container'
 import CssBaseline from '@mui/material/CssBaseline'
@@ -9,8 +9,9 @@ import GroupFrom from '../components/GroupForm';
 import TransitionAlert from '../components/TransitionAlert';
 import joinGroup from '../services/joinGroup'
 import configGen from '../services/configGen';
+import getGroupsList from '../services/getGroupsList';
 import { useHistory, withRouter } from 'react-router-dom'
-import { Button } from '@mui/material';
+import GroupsList from '../components/GroupsList';
 
 const theme = createTheme()
 
@@ -21,7 +22,10 @@ const Groups = ({ username, url}) => {
     const config = configGen()
     let history = useHistory();
 
-    // refactor the groups use effect thing to services
+    useEffect(() => {
+      const config = configGen()
+      getGroupsList(url, username, config).then(res => setGroupList(res.data))  
+    }, [username, url])
 
     const handleSelect = (text) => {
         setStage(text)
@@ -77,7 +81,10 @@ const Groups = ({ username, url}) => {
                 </>
                 : 
                 stage === 'Existing' ?
+                <>
                 <p>Existing</p>
+                <GroupsList groupList={groupList}/>
+                </>
                 : 
                 stage === 'New' ?
                 <Container maxWidth="xs">
