@@ -13,7 +13,6 @@ const GroupFrom = ({ groupEnter }) => {
 
     const handleSubmit = async(e) => {
         e.preventDefault()
-
         groupEnter(groupname.value, passphrase.value)
         
         groupname.onSubmit()
@@ -36,36 +35,36 @@ const GroupFrom = ({ groupEnter }) => {
                 Enter Group
             </Typography>
                 <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="groupname"
-                label="Groupname"
-                name="groupname"
-                autoComplete="groupname"
-                autoFocus
-                value={groupname.value}
-                onChange={event => groupname.onChange(event)}
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="groupname"
+                    label="Groupname"
+                    name="groupname"
+                    autoComplete="groupname"
+                    autoFocus
+                    value={groupname.value}
+                    onChange={event => groupname.onChange(event)}
                 />
                 <TextField
-                margin="normal"
-                required
-                fullWidth
-                name="passphrase"
-                label="Passphrase"
-                type="password"
-                id="passphrase"
-                autoComplete="current-passphrase"
-                value={passphrase.value}
-                onChange={event => passphrase.onChange(event)}
+                    margin="normal"
+                    required
+                    fullWidth
+                    name="passphrase"
+                    label="Passphrase"
+                    type="password"
+                    id="passphrase"
+                    autoComplete="current-passphrase"
+                    value={passphrase.value}
+                    onChange={event => passphrase.onChange(event)}
                 />
                 <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    sx={{ mt: 3, mb: 2 }}
                 >
-                Sign In
+                    Sign In
                 </Button>
             </Box>
         </Container>

@@ -36,10 +36,10 @@ const Groups = ({ username, url}) => {
     const groupEnter = async (groupname, passphrase) => {
       try {
         if (groupname.length > 1 || passphrase.length > 1) {
-          if (!groupList.includes(groupname.value)) {
-            await joinGroup(url, groupname.value, passphrase.value,  username, config)
+          if (!groupList.includes(groupname)) {
+            await joinGroup(url, groupname, passphrase,  username, config)
           }
-          redirectRoom(groupname.value)
+          redirectRoom(groupname)
         } else {
           handleAlert('input not allowed, groupname and passphrase must both be at least of length 1')
         }
