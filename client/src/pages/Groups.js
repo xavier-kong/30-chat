@@ -24,7 +24,7 @@ const Groups = ({ username, url}) => {
 
     useEffect(() => {
       const config = configGen()
-      getGroupsList(url, username, config).then(res => setGroupList(res.data))  
+      getGroupsList(url, username, config).then(res => setGroupList(res))  
     }, [username, url])
 
     const handleSelect = (text) => {

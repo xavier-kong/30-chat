@@ -1,10 +1,16 @@
-import React, {useEffect } from "react";
+import React from "react";
+
+/* 
+group: {
+    name: string,
+    exp; Time stamp
+}
+*/
 
 const GroupsList = ({ groupList }) => {
-    console.log(groupList);
     return (
         <>
-        {groupList.map(group => <p>{group.group_name}</p>)
+        {groupList.map(group => <p>{group.name}</p>)
         }
         </>
     )
