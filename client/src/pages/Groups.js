@@ -10,6 +10,7 @@ import TransitionAlert from '../components/TransitionAlert';
 import joinGroup from '../services/joinGroup'
 import configGen from '../services/configGen';
 import { useHistory, withRouter } from 'react-router-dom'
+import { Button } from '@mui/material';
 
 const theme = createTheme()
 
@@ -80,7 +81,7 @@ const Groups = ({ username, url}) => {
                 : 
                 stage === 'New' ?
                 <Container maxWidth="xs">
-                    <GroupFrom groupEnter={groupEnter}/>
+                    <GroupFrom groupEnter={groupEnter} handleSelect={handleSelect}/>
                     {alert ? <TransitionAlert text={alert} severity='error'/>: null}
                 </Container>
                 :
