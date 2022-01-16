@@ -75,16 +75,16 @@ const Groups = ({ username, url}) => {
                 <>
                     <BinarySelector first="Existing" second="New" handleSelect={handleSelect} />
                     <Typography variant="body2" color="text.secondary" align="center" sx={{ mt: 6 }}>
-                    <p>Click "EXISTING" to enter a group you have joined before.</p>
-                    <p>Click "NEW" to enter/create a new group.</p>
+                    Click "EXISTING" to enter a group you have joined before. 
                     </Typography>
+                    <Typography variant="body2" color="text.secondary" align="center" sx={{ mt: 2 }}>
+                    Click "NEW" to enter/create a new group.
+                    </Typography>
+
                 </>
                 : 
                 stage === 'Existing' ?
-                <>
-                <p>Existing</p>
                 <GroupsList groupList={groupList}/>
-                </>
                 : 
                 stage === 'New' ?
                 <Container maxWidth="xs">

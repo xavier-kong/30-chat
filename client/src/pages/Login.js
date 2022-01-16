@@ -100,8 +100,10 @@ const SignIn = ({ url, onLogin }) => {
             </Button>
             {alert ? <TransitionAlert text={alert} severity='error'/>: null}
             <Typography variant="body2" color="text.secondary" align="center" sx={{ mt: 6 }}>
-              <p>If you don't have an existing account one will be created for you on sign in and you will be logged in automatically</p>
-              <p>Note: you cannot change your username or password once your account has been created</p>
+              If you don't have an existing account one will be created for you on sign in and you will be logged in automatically
+            </Typography>
+            <Typography variant="body2" color="text.secondary" align="center" sx={{ mt: 2 }}>
+              Note: you cannot change your username or password once your account has been created
             </Typography>
           </Box>
         </Box>
