@@ -4,19 +4,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container'
 import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
-import { ListItemButton } from "@mui/material";
-import { width } from "@mui/system";
-
-/* 
-group: {
-    name: string,
-    exp; Time stamp
-}
-*/
-
-// https://mui.com/components/lists/
+import RenderListItem from "./RenderListItem";
 
 const GroupsList = ({ groupList, handleSelect }) => {
 
@@ -42,11 +30,7 @@ const GroupsList = ({ groupList, handleSelect }) => {
                 }}
             >
                 {groupList.map(group => (
-                    <ListItem component="div" disablePadding>
-                        <ListItemButton>
-                            <ListItemText primary={group.name} secondary={group.exp}/>
-                        </ListItemButton>
-                    </ListItem>
+                    <RenderListItem name={group.name} exp={group.exp} />
                 ))}
             </List>
 
