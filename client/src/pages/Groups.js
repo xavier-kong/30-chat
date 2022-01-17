@@ -49,7 +49,6 @@ const Groups = ({ username, url}) => {
           handleAlert('input not allowed, groupname and passphrase must both be at least of length 1')
         }
       } catch (err) {
-        console.log(err);
         handleAlert(err)
       }
     }
