@@ -58,8 +58,6 @@ const Groups = ({ username, url}) => {
       history.push(`/chat/${room_name}`)
     }
 
-    // need a back button
-
     return (
         <ThemeProvider theme={theme}>
             <Container component="main">
@@ -85,7 +83,7 @@ const Groups = ({ username, url}) => {
                 </>
                 : 
                 stage === 'Existing' ?
-                <GroupsList groupList={groupList} handleSelect={handleSelect}/>
+                <GroupsList groupList={groupList} handleSelect={handleSelect} redirectRoom={redirectRoom}/>
                 : 
                 stage === 'New' ?
                 <Container maxWidth="xs">

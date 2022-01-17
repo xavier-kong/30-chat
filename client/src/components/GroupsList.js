@@ -6,7 +6,7 @@ import Container from '@mui/material/Container'
 import List from '@mui/material/List';
 import RenderListItem from "./RenderListItem";
 
-const GroupsList = ({ groupList, handleSelect }) => {
+const GroupsList = ({ groupList, handleSelect, redirectRoom }) => {
 
     return (
         <Container maxWidth="xs">
@@ -30,7 +30,7 @@ const GroupsList = ({ groupList, handleSelect }) => {
                 }}
             >
                 {groupList.map(group => (
-                    <RenderListItem name={group.name} exp={group.exp} />
+                    <RenderListItem name={group.name} exp={group.exp} redirectRoom ={redirectRoom} />
                 ))}
             </List>
 
