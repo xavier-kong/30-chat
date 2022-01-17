@@ -18,6 +18,17 @@ const GroupsList = ({ groupList, handleSelect, redirectRoom }) => {
                     alignItems: 'center',
                 }}
             >
+            {groupList.length === 0 ?
+            <>
+                <Typography sx={{ mb: 2 }} align="center">
+                    You aren't in any groups...YET :)
+                </Typography>
+                <Typography sx={{ mb: 2 }} align="center">
+                    Click "Go Back" then "New" to join or create a new group!
+                </Typography>
+            </>
+            :
+            <>
             <Typography component="h1" variant="h5" sx={{ mb: 2 }}>
                 Enter Group
             </Typography>
@@ -33,8 +44,7 @@ const GroupsList = ({ groupList, handleSelect, redirectRoom }) => {
                     <RenderListItem name={group.name} exp={group.exp} redirectRoom ={redirectRoom} />
                 ))}
             </List>
-
-                
+            </>} 
                 <Button
                     onClick={(e) => {
                         e.preventDefault()
