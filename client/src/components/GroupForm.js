@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
@@ -63,7 +63,7 @@ const GroupFrom = ({ groupEnter, handleSelect }) => {
                     variant="contained"
                     sx={{ mt: 3, mb: 1 }}
                 >
-                    Sign In
+                    Enter Group
                 </Button>
                 <Button
                     onClick={(e) => {

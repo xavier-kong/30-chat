@@ -1,11 +1,13 @@
 import React from "react";
-import { FixedSizeList } from 'react-window';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container'
+import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
+import { ListItemButton } from "@mui/material";
+import { width } from "@mui/system";
 
 /* 
 group: {
@@ -17,35 +19,37 @@ group: {
 // https://mui.com/components/lists/
 
 const GroupsList = ({ groupList, handleSelect }) => {
-    
+
     return (
         <Container maxWidth="xs">
             <Box 
                 component="form" 
                 noValidate sx={{ 
-                    mt: 1,
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
                 }}
             >
-            <Typography component="h1" variant="h5" sx={{ mb: 1 }}>
+            <Typography component="h1" variant="h5" sx={{ mb: 2 }}>
                 Enter Group
             </Typography>
-
-            <FixedSizeList
-                height={400}
-                width={360}
-                itemSize={46}
-                itemCount={200}
-                overscanCount={5}
+            <List
+                sx={{
+                    overflow: 'auto',
+                    maxHeight: 350,
+                    width: '100%',
+                    mb: 4
+                }}
             >
                 {groupList.map(group => (
-                    <ListItem>
-                        <ListItemText primary={group.name} secondary={group.exp} />
+                    <ListItem component="div" disablePadding>
+                        <ListItemButton>
+                            <ListItemText primary={group.name} secondary={group.exp}/>
+                        </ListItemButton>
                     </ListItem>
                 ))}
-            </FixedSizeList>
+            </List>
+
                 
                 <Button
                     onClick={(e) => {

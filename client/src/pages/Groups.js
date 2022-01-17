@@ -49,6 +49,7 @@ const Groups = ({ username, url}) => {
           handleAlert('input not allowed, groupname and passphrase must both be at least of length 1')
         }
       } catch (err) {
+        console.log(err);
         handleAlert(err)
       }
     }
@@ -65,7 +66,7 @@ const Groups = ({ username, url}) => {
                 <CssBaseline />
                 <Box
                     sx={{
-                        marginTop: 8,
+                        marginTop: 4,
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
@@ -84,7 +85,7 @@ const Groups = ({ username, url}) => {
                 </>
                 : 
                 stage === 'Existing' ?
-                <GroupsList groupList={groupList}/>
+                <GroupsList groupList={groupList} handleSelect={handleSelect}/>
                 : 
                 stage === 'New' ?
                 <Container maxWidth="xs">
