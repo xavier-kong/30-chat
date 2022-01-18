@@ -6,7 +6,7 @@ import Box from '@mui/material/Box';
 import { useParams } from 'react-router'
 import configGen from '../services/configGen'
 import { useHistory, withRouter } from 'react-router-dom'
-import axios from 'axios'
+import getRoomExp from '../services/getRoomExp';
 
 const theme = createTheme()
 
@@ -26,19 +26,15 @@ const Chat = ({ socket, user_name, url }) => {
     let history = useHistory()
 
     useEffect(() => {
-        axios
-            .post(`${url}/api/groups/exp`, {
-            group_name: room_name
-        }, config)
-            .then((res) => {
-        setExp(res.data[0].expiry_date)
-        })
+        getRoomExp(url, room_name, config)
+            .then(res => {
+                setExp(res)})
             .then(
                 socket.emit('joinRoom', { user_name, room_name })
             )
-    }, []) // refactor to services
+    }, [])
 
-        const messageListener = (...args) => {
+    const messageListener = (...args) => {
         const newMessages = messages.concat(args[0])
         scrollToBottom()
         setMessages(newMessages)
