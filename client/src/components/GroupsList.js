@@ -29,7 +29,7 @@ const GroupsList = ({ groupList, handleSelect, redirectRoom }) => {
             </>
             :
             <>
-            <Typography component="h1" variant="h5" sx={{ mb: 2 }}>
+            <Typography component="h1" variant="h5" align="center" sx={{ mb: 2 }}>
                 Enter Group
             </Typography>
             <List
