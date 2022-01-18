@@ -7,6 +7,8 @@ import { useParams } from 'react-router'
 import configGen from '../services/configGen'
 import { useHistory, withRouter } from 'react-router-dom'
 import getRoomExp from '../services/getRoomExp';
+import List from '@mui/material/List';
+import SingleChat from '../components/SingleChat';
 
 const theme = createTheme()
 
@@ -76,7 +78,7 @@ const Chat = ({ socket, user_name, url }) => {
                 <CssBaseline />
                 <Box
                     sx={{
-                        marginTop: 4,
+                        marginTop: 2,
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
@@ -115,13 +117,22 @@ const Chat = ({ socket, user_name, url }) => {
                         </form>
                     </div>
 
+                    <List>
+                        {messages.map(message => (
+                            <SingleChat name={message.username} message={message.message}/>
+                        ))
+                        }
+
+                    </List>
+
                     {/* create text input with button componenent */}
 
-                    {/* chat bubble componenet called by chat box component */}
+                    {/* text input then arrow button on the side instead of send */}
+                
+
+                    {/* chat box header with name + exp countdown */}
 
                     {/* chat box componenet can occupy full width */}
-                
-                    {/* text input then arrow button on the side instead of send */}
                     
                 </Box>
             </Container>
