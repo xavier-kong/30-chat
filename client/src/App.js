@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom"
-import Chat from './components/Chat'
-import axios from 'axios'
+import Chat from './pages/Chat'
 import SignIn from './pages/Login';
 import Header from './components/Header';
 import Groups from './pages/Groups'
+import userAuth from './services/userAuth'
 require('dotenv').config()
 const io = require("socket.io-client")
 const url = process.env.NODE_ENV === 'development' ? 'http://localhost:3001' : 'https://thirtychat30.herokuapp.com'
@@ -16,16 +16,8 @@ const App = () => {
   useEffect(() => {
     try {
       const userJSON = JSON.parse(localStorage.getItem('loggedInUser'))
-      const body = { token: userJSON.token }
-      axios
-        .post(`${url}/api/users/auth`, body)
-        .then((res) => {
-          if (res.data === 'valid') {
-            setUser(userJSON)
-          } else {
-            setUser(null)
-          }
-        })
+      userAuth(url, userJSON)
+        .then(res => setUser(res))
     } catch {
       setUser(null)
     }
