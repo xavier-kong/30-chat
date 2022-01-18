@@ -118,6 +118,8 @@ const Chat = ({ socket, user_name, url }) => {
                     {/* create text input with button componenent */}
 
                     {/* chat bubble componenet called by chat box component */}
+
+                    {/* chat box componenet can occupy full width */}
                 
                     {/* text input then arrow button on the side instead of send */}
                     
