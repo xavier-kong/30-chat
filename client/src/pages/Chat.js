@@ -9,16 +9,11 @@ import { useHistory, withRouter } from 'react-router-dom'
 import getRoomExp from '../services/getRoomExp';
 import List from '@mui/material/List';
 import SingleChat from '../components/SingleChat';
+import Countdown from 'react-countdown';
+import Typography from '@mui/material/Typography';
+import TextField from '@mui/material/TextField';
 
 const theme = createTheme()
-
-const chatStyle = {
-    'overflowY': 'scroll',
-    'border':'1px solid black',
-    'width':'300px',
-    'height':'300px',
-    'position':'relative'
-}
 
 const Chat = ({ socket, user_name, url }) => {
     const { room_name } = useParams()
@@ -72,6 +67,14 @@ const Chat = ({ socket, user_name, url }) => {
         //messagesEndRef.current.scrollIntoView({ behavior: "auto" })
     }
 
+    const renderer = ({ hours, minutes, seconds, completed }) => {
+        if (completed) {
+            return <span>This group has expired</span>;
+        } else {
+            return <span>{room_name} ({hours}:{minutes}:{seconds})</span>;
+        }
+    };
+
     return (
         <ThemeProvider theme={theme}>
             <Container component="main">
@@ -85,20 +88,52 @@ const Chat = ({ socket, user_name, url }) => {
                     }}
                 >
                     
-                    <div>
-                        <h3>Chat room for {room_name}</h3>
-                        <p>This room will expire at {exp}</p>
+                    <Container maxWidth="xs">
+                        <Box 
+                            component="form" 
+                            noValidate sx={{ 
+                                mt: 1,
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                            }}
+                        >
+                            {/* header */}
+                            <Typography component="h1" variant="h5" align="center" sx={{ mb: 2 }}>
+                                {<Countdown date={new Date(exp)} renderer={renderer}/>} 
+                            </Typography>
+
+
+                            <List 
+                                sx={{
+                                    width: '100%',
+                                    maxWidth: 360,
+                                    bgcolor: 'background.paper',
+                                    position: 'relative',
+                                    overflowY: 'scroll',
+                                    minheight: '100%',
+                                    maxHeight: 400,
+                                    '& ul': { padding: 0 },
+                                    mb: 2
+                                }}
+                                autoFocus={true}
+                                placeholder='Type Here!'
+                            >
+                                {messages
+                                .map(message => (
+                                    <SingleChat name={message.username} message={message.message}/>
+                                ))}
+                                <div ref={messagesEndRef} />
+                            </List>
+                            <TextField id="outlined-basic" variant="outlined" />
+                        </Box>
+                    </Container>
+
                         <p>Note to mobile users: send messages by tapping return to keep the onscreen keyboard visible!</p>
-                        <button onClick={backToGroups}>Click to go back to groups</button> 
-                        <div style={chatStyle}>
-                        {messages
-                            .map(message => (
-                                <p>
-                                    {message.username}: {message.message}
-                                </p>
-                            ))}
-                        <div ref={messagesEndRef} />
-                        </div>
+                        <button onClick={backToGroups}>Click to go back to groups</button>
+
+
+                        {/* input box wit button */}
                         <form onSubmit={(e) => {
                             e.preventDefault() 
                             sendMessage(e.target[0].value)
@@ -114,25 +149,14 @@ const Chat = ({ socket, user_name, url }) => {
                                         sendMessage(e.target.value)
                                     }
                         }}/></label><button type="submit">Send</button><br />
-                        </form>
-                    </div>
-
-                    <List>
-                        {messages.map(message => (
-                            <SingleChat name={message.username} message={message.message}/>
-                        ))
-                        }
-
-                    </List>
+                        </form>        
 
                     {/* create text input with button componenent */}
 
                     {/* text input then arrow button on the side instead of send */}
-                
 
-                    {/* chat box header with name + exp countdown */}
 
-                    {/* chat box componenet can occupy full width */}
+                    {/* back button */}
                     
                 </Box>
             </Container>
@@ -142,16 +166,3 @@ const Chat = ({ socket, user_name, url }) => {
 }
 
 export default withRouter(Chat)
-
-/*
-
-can use list with avatar (avatar just use black)
-copy discord style
-
--------   name | date
-avatar |    message
--------
-
-
-
-*/
