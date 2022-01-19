@@ -11,7 +11,7 @@ import List from '@mui/material/List';
 import SingleChat from '../components/SingleChat';
 import Countdown from 'react-countdown';
 import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
+import ChatInput from '../components/ChatInput';
 
 const theme = createTheme()
 
@@ -46,7 +46,6 @@ const Chat = ({ socket, user_name, url }) => {
             user_name,
             room_name
         })
-        document.getElementById("form").reset();
     }
 
     const backToGroups = (e) => {
@@ -64,7 +63,6 @@ const Chat = ({ socket, user_name, url }) => {
         if (messagesEndRef.current) {
             messagesEndRef.current.scrollIntoView({ behavior: "auto" })
         }
-        //messagesEndRef.current.scrollIntoView({ behavior: "auto" })
     }
 
     const renderer = ({ hours, minutes, seconds, completed }) => {
@@ -90,7 +88,6 @@ const Chat = ({ socket, user_name, url }) => {
                     
                     <Container maxWidth="xs">
                         <Box 
-                            component="form" 
                             noValidate sx={{ 
                                 mt: 1,
                                 display: 'flex',
@@ -116,8 +113,6 @@ const Chat = ({ socket, user_name, url }) => {
                                     '& ul': { padding: 0 },
                                     mb: 2
                                 }}
-                                autoFocus={true}
-                                placeholder='Type Here!'
                             >
                                 {messages
                                 .map(message => (
@@ -125,36 +120,11 @@ const Chat = ({ socket, user_name, url }) => {
                                 ))}
                                 <div ref={messagesEndRef} />
                             </List>
-                            <TextField id="outlined-basic" variant="outlined" />
+                            <ChatInput sendMessage={sendMessage} />
                         </Box>
                     </Container>
 
-                        <p>Note to mobile users: send messages by tapping return to keep the onscreen keyboard visible!</p>
                         <button onClick={backToGroups}>Click to go back to groups</button>
-
-
-                        {/* input box wit button */}
-                        <form onSubmit={(e) => {
-                            e.preventDefault() 
-                            sendMessage(e.target[0].value)
-                        }} id='form'>
-                        <label>
-                            <input 
-                                autoFocus
-                                defaultValue=''
-                                type='text' 
-                                onKeyPress={e => {
-                                    if (e.key === 'Enter') {
-                                        e.preventDefault()
-                                        sendMessage(e.target.value)
-                                    }
-                        }}/></label><button type="submit">Send</button><br />
-                        </form>        
-
-                    {/* create text input with button componenent */}
-
-                    {/* text input then arrow button on the side instead of send */}
-
 
                     {/* back button */}
                     
