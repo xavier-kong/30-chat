@@ -12,6 +12,7 @@ import SingleChat from '../components/SingleChat';
 import Countdown from 'react-countdown';
 import Typography from '@mui/material/Typography';
 import ChatInput from '../components/ChatInput';
+import Button from '@mui/material/Button';
 
 const theme = createTheme()
 
@@ -79,13 +80,12 @@ const Chat = ({ socket, user_name, url }) => {
                 <CssBaseline />
                 <Box
                     sx={{
-                        marginTop: 2,
+                        marginTop: 1,
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
                     }}
                 >
-                    
                     <Container maxWidth="xs">
                         <Box 
                             noValidate sx={{ 
@@ -99,8 +99,6 @@ const Chat = ({ socket, user_name, url }) => {
                             <Typography component="h1" variant="h5" align="center" sx={{ mb: 2 }}>
                                 {<Countdown date={new Date(exp)} renderer={renderer}/>} 
                             </Typography>
-
-
                             <List 
                                 sx={{
                                     width: '100%',
@@ -111,7 +109,7 @@ const Chat = ({ socket, user_name, url }) => {
                                     minheight: '100%',
                                     maxHeight: 400,
                                     '& ul': { padding: 0 },
-                                    mb: 2
+                                    mb: 1
                                 }}
                             >
                                 {messages
@@ -120,14 +118,9 @@ const Chat = ({ socket, user_name, url }) => {
                                 ))}
                                 <div ref={messagesEndRef} />
                             </List>
-                            <ChatInput sendMessage={sendMessage} />
+                            <ChatInput sendMessage={sendMessage} backToGroups={backToGroups}/>
                         </Box>
                     </Container>
-
-                        <button onClick={backToGroups}>Click to go back to groups</button>
-
-                    {/* back button */}
-                    
                 </Box>
             </Container>
         </ThemeProvider>
