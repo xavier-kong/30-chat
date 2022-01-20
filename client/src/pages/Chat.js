@@ -12,7 +12,6 @@ import SingleChat from '../components/SingleChat';
 import Countdown from 'react-countdown';
 import Typography from '@mui/material/Typography';
 import ChatInput from '../components/ChatInput';
-import Button from '@mui/material/Button';
 
 const theme = createTheme()
 
@@ -76,7 +75,7 @@ const Chat = ({ socket, user_name, url }) => {
 
     return (
         <ThemeProvider theme={theme}>
-            <Container component="main">
+            <Container component="main" maxWidth="xs">
                 <CssBaseline />
                 <Box
                     sx={{
@@ -86,41 +85,33 @@ const Chat = ({ socket, user_name, url }) => {
                         alignItems: 'center',
                     }}
                 >
-                    <Container maxWidth="xs">
-                        <Box 
-                            noValidate sx={{ 
-                                mt: 1,
-                                display: 'flex',
-                                flexDirection: 'column',
-                                alignItems: 'center',
-                            }}
+                    <Typography component="h1" variant="h5" align="center" sx={{ mb: 2 }}>
+                        {<Countdown date={new Date(exp)} renderer={renderer}/>} 
+                    </Typography>
+                    <List 
+                        sx={{
+                            width: '100%',
+                            maxWidth: 360,
+                            bgcolor: 'background.paper',
+                            position: 'relative',
+                            overflowY: 'scroll',
+                            minHeight: '100%',
+                            height: '100%',
+                            maxHeight: 400,
+                            '& ul': { padding: 0 },
+                            mb: 1
+                        }}
                         >
-                            {/* header */}
-                            <Typography component="h1" variant="h5" align="center" sx={{ mb: 2 }}>
-                                {<Countdown date={new Date(exp)} renderer={renderer}/>} 
-                            </Typography>
-                            <List 
-                                sx={{
-                                    width: '100%',
-                                    maxWidth: 360,
-                                    bgcolor: 'background.paper',
-                                    position: 'relative',
-                                    overflowY: 'scroll',
-                                    minheight: '100%',
-                                    maxHeight: 400,
-                                    '& ul': { padding: 0 },
-                                    mb: 1
-                                }}
-                            >
-                                {messages
-                                .map(message => (
-                                    <SingleChat name={message.username} message={message.message}/>
-                                ))}
-                                <div ref={messagesEndRef} />
-                            </List>
-                            <ChatInput sendMessage={sendMessage} backToGroups={backToGroups}/>
-                        </Box>
-                    </Container>
+                        {messages
+                        .map(message => (
+                            <SingleChat 
+                                name={message.username} 
+                                message={message.message}
+                            />
+                            ))}
+                        <div ref={messagesEndRef} />
+                    </List>
+                    <ChatInput sendMessage={sendMessage} backToGroups={backToGroups} position="bottom"/>
                 </Box>
             </Container>
         </ThemeProvider>
