@@ -1,7 +1,7 @@
 import React from 'react'
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
-import Countdown from 'react-countdown';
+import Countdown, { zeroPad } from 'react-countdown';
 import IconButton from '@mui/material/IconButton';
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 
@@ -11,7 +11,7 @@ const RenderListItem = ({ name, exp, redirectRoom }) => {
         if (completed) {
             return <span>This group has expired</span>;
         } else {
-            return <span>Expires in {hours}:{minutes}:{seconds}</span>;
+            return <span>Expires in {zeroPad(hours)}:{zeroPad(minutes)}:{zeroPad(seconds)}</span>;
         }
     };
 

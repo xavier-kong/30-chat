@@ -18,7 +18,9 @@ const deleteGroup = async(group) => {
 groupsRouter.post('/join', async(req, res) => {
 
   if (!req.token) {
-    res.status(401).json('Please login to continue')
+    res.status(401).json({
+      error: 'Please login to continue'
+    })
   }
 
   const body = req.body
@@ -54,7 +56,9 @@ groupsRouter.post('/join', async(req, res) => {
           }
       } catch(err) {
         console.log(err)
-        res.status(404).json('user not found')
+        res.status(404).json({
+          error: 'user not found'
+        })
       }
     } else if (usercheck.length === 1) {
       res.status(200).send(group[0].group_name)
@@ -84,7 +88,9 @@ groupsRouter.post('/join', async(req, res) => {
       res.status(200).send(body.group_name)
     } catch (err) {
       console.log(err)
-      res.status(500).json(err)
+      res.status(500).json({
+        error: err
+      })
     }
   }   
 })
