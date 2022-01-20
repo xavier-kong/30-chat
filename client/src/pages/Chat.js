@@ -91,31 +91,26 @@ const Chat = ({ socket, user_name, url }) => {
                     <List 
                         sx={{
                             width: '100%',
-                            maxWidth: 360,
-                            bgcolor: 'background.paper',
+                            maxWidth: 350,
                             position: 'relative',
                             overflowY: 'scroll',
-                            minHeight: '100%',
-                            height: '100%',
-                            maxHeight: 400,
-                            '& ul': { padding: 0 },
+                            height: 400,
                             mb: 1
                         }}
                         >
                         {messages
                         .map(message => (
                             <SingleChat 
-                                name={message.username} 
-                                message={message.message}
+                            name={message.username} 
+                            message={message.message}
                             />
                             ))}
                         <div ref={messagesEndRef} />
                     </List>
-                    <ChatInput sendMessage={sendMessage} backToGroups={backToGroups} position="bottom"/>
+                    <ChatInput sendMessage={sendMessage} backToGroups={backToGroups} />
                 </Box>
             </Container>
         </ThemeProvider>
-
     )
 }
 
