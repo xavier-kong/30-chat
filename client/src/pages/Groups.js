@@ -43,7 +43,6 @@ const Groups = ({ username, url}) => {
         if (groupname.length > 1 || passphrase.length > 1) {
           if (!groupList.includes(groupname)) {
             const res = await joinGroup(url, groupname, passphrase,  username, config)
-            console.log('mian', res);
             if (res === groupname) {
               redirectRoom(groupname)
             } else {

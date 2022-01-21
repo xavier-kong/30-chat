@@ -7,8 +7,8 @@ const joinGroup = async (url, group_name, passphrase, username, config) => {
             passphrase,
             username
         }, config)
-        console.log(res);
-        return res
+
+        return res.data
         
     } catch (error) {
         return error.response.data.error;

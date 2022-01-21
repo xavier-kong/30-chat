@@ -14,11 +14,15 @@ const App = () => {
   const [ user, setUser ] = useState(null)
 
   useEffect(() => {
-    try {
-      const userJSON = JSON.parse(localStorage.getItem('loggedInUser'))
-      userAuth(url, userJSON)
+    if (localStorage.getItem('loggedInUser') !== null) {
+      try {
+        const userJSON = JSON.parse(localStorage.getItem('loggedInUser'))
+        userAuth(url, userJSON)
         .then(res => setUser(res))
-    } catch {
+      } catch {
+      setUser(null)
+      }
+    } else {
       setUser(null)
     }
   }, [])
