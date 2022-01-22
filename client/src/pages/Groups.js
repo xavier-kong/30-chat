@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react'
+import { useHistory, withRouter } from 'react-router-dom'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import Container from '@mui/material/Container'
 import CssBaseline from '@mui/material/CssBaseline'
 import Box from '@mui/material/Box';
-import BinarySelector from '../components/BinarySelector';
 import Typography from '@mui/material/Typography';
-import GroupFrom from '../components/GroupForm';
-import TransitionAlert from '../components/TransitionAlert';
 import joinGroup from '../services/joinGroup'
 import configGen from '../services/configGen';
 import getGroupsList from '../services/getGroupsList';
-import { useHistory, withRouter } from 'react-router-dom'
+import GroupFrom from '../components/GroupForm';
+import TransitionAlert from '../components/TransitionAlert';
+import BinarySelector from '../components/BinarySelector';
 import GroupsList from '../components/GroupsList';
 
 const theme = createTheme()
