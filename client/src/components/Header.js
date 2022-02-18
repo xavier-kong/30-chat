@@ -12,7 +12,7 @@ const Header = ({ username, text, logout }) => {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar position="sticky">
         <Toolbar>
           <Grid container spacing={2}>
             <Grid item xs={4}>    
